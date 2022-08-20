@@ -1,5 +1,8 @@
 const Colors = require("../structures/Colors.js");
 const fetch = require('node-fetch');
+const {
+    verifyKey
+  } = require('discord-interactions');
 
 /**
  * 
@@ -63,7 +66,7 @@ class Utils {
         try {
             const url = 'https://discord.com/api/v10/' + endpoint;
             if (options.body) options.body = JSON.stringify(options.body);
-    
+
             const res = await fetch(url, {
                 headers: {
                     Authorization: `Bot ${client.botToken}`,
@@ -71,22 +74,53 @@ class Utils {
                     'User-Agent': 'Discord Interactions.js Package (https://github.com/fb-sean/interactions.js)',
                 },
                 ...options
-            });    
-    
+            });
+
             if (!res.ok) {
                 const data = await res.json();
-    
+
                 return {
                     error: true,
                     errorData: JSON.stringify(data)
                 };
             }
             return res;
-        } catch(err) {
-            return { error: true };
+        } catch (err) {
+            return {
+                error: true
+            };
         }
     }
 
+    /**
+     * Creates a middleware.
+     *
+     * @param client - The current client
+     * @returns The middleware function
+     */
+     InteractionsMiddleware(client) {
+        if (!client.publicKey) {
+            throw new Error('You must specify a Discord client public key');
+        }
+
+        return function (req, res, buf, encoding) {
+            const signature = req.headers["x-signature-ed25519"];
+            const timestamp = req.headers["x-signature-timestamp"];
+
+            const isValidRequest = verifyKey(buf, signature, timestamp, client.publicKey);
+            
+            if (!isValidRequest) {
+                client.emit('debug', "[DEBUG] Bad request signature");
+
+                if (client.type === "express") {
+                    res.status(401).send('Bad request signature');
+                } else if(client.type === "fastify") {
+                    res.type('application/json').code(401)
+                    return { error: 'Bad request signature' };
+                }
+            }
+        };
+    }
 }
 
 module.exports = Utils;
