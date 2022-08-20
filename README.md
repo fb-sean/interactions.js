@@ -1,2 +1,2 @@
 # interactions.js
-A powerful Javascript to work with discords interactions
+A powerful Javascript library to work with discords interactions

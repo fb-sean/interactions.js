@@ -11,8 +11,6 @@ const User = require("./User.js")
 */
 class Member {
     constructor(raw) {
-        super(raw);
-
         // Member Data
         this.id = raw?.user?.id ?? null,
         this.avatar = raw?.avatar ?? raw?.user?.avatar ?? null,

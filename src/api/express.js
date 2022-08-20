@@ -5,9 +5,9 @@ const {
     InteractionType,
     InteractionResponseType,
   } = require('discord-interactions');
-const Interaction = require("../structures/Interaction.js.js");
+const Interaction = require("../structures/Interaction.js");
 
-async function init(c) {
+module.exports = async (c) => {
     c.emit('starting', c);
 
     app.use(bodyParser.json())
@@ -35,6 +35,4 @@ async function init(c) {
         c.emit('debug', "[DEBUG] API Online on port " + c.port);
         c.emit('ready', c);
 	})
-}
-
-module.exports = init;
+};

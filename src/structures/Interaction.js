@@ -17,8 +17,6 @@ const {
 */
 class Interaction {
     constructor(req, c, res) {
-        super(req, c, res);
-
         // client
         this.client = c,
 
@@ -48,7 +46,7 @@ class Interaction {
     reply ({ embeds = [], components = [], content = null, files = null, ephemeral = false }) {
         if(embeds?.length <= 0 && components?.length <= 0 && !attachments && !content) throw new Error("[Interactions.js => <Interaction>.reply] You need to provide a MessagePayload (Content or Embeds or Components or Attachments)");
 
-        c.emit('debug', "[DEBUG] Sending a reply to " + this.id);
+        this.client.emit('debug', "[DEBUG] Sending a reply to " + this.id);
 
         return res.send({
             type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
@@ -70,7 +68,7 @@ class Interaction {
     update ({ embeds = [], components = [], content = null, files = null }) {
         if(embeds?.length <= 0 && components?.length <= 0 && !attachments && !content) throw new Error("[Interactions.js => <Interaction>.update] You need to provide a MessagePayload (Content or Embeds or Components or Attachments)");
 
-        c.emit('debug', "[DEBUG] Sending a interaction update to " + this.id);
+        this.client.emit('debug', "[DEBUG] Sending a interaction update to " + this.id);
 
         return res.send({
             type: InteractionResponseType.UPDATE_MESSAGE,

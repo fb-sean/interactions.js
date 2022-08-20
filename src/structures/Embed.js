@@ -15,7 +15,6 @@ const Util = new Utils();
 */
 class Embed {
     constructor() {
-        super();
         this.color = null,
             this.title = null,
             this.url = null,

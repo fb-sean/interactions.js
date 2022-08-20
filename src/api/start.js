@@ -1,14 +1,12 @@
 const fastify = require("./fastify.js");
 const express = require("./express.js");
 
-async function init(c) {
+module.exports = async (c) => {
     if(c.type === "fastify") {
         c.emit('debug', "[DEBUG] Starting Fastify Server");
-        await fastify.init(c);
+        await fastify(c);
     } else {
         c.emit('debug', "[DEBUG] Starting Express Server");
-        await express.init(c);
+        await express(c);
     }
-}
-
-module.exports = init;
+};

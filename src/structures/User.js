@@ -8,8 +8,6 @@
 */
 class User {
     constructor(raw) {
-        super(raw);
-
         // Member Data
         this.id = raw?.id ?? null,
         this.avatar = raw?.avatar ?? null

@@ -7,9 +7,9 @@ const Interaction = require("../structures/Interaction.js");
 const app = require('fastify')({
     logger: false,
     trustProxy: true
-})
+});
 
-async function init(c) {
+module.exports = async (c) => {
     c.emit('starting', c);
 
     app.get('/', (req, res) => {
@@ -33,6 +33,4 @@ async function init(c) {
         c.emit('debug', "[DEBUG] API Online on port " + c.port);
         c.emit('ready', c);
 	})
-}
-
-module.exports = init;
+};
