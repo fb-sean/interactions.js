@@ -1,14 +1,5 @@
 'use strict';
 
-// Main Exports
-exports.Application = require("./application/base.js")
-
-
-
-
-
-
-
-
-// Utils
-exports.Embed = require("./utils/Embed.js")
+exports.Application = require("./application/base.js");
+exports.Embed = require("./structures/Embed.js");
+exports.ChannelManager = require("./structures/ChannelManager.js.js");

@@ -7,6 +7,14 @@ const {
     InteractionResponseFlags,
   } = require('discord-interactions');
 
+/**
+* Create a formated Interaction Object
+* 
+* @example
+* ```js
+* const Interaction = new Interaction(request, client, response);
+* ```
+*/
 class Interaction {
     constructor(req, c, res) {
         super(req, c, res);
@@ -32,11 +40,15 @@ class Interaction {
         this.locale = req?.body?.locale ?? null
     }
 
-    // Functions Placeholder
+    /**
+	* Reply to a Interaction
+	*
+	* @param options The message payload (embeds, components, content, files)
+	*/
     reply ({ embeds = [], components = [], content = null, files = null, ephemeral = false }) {
         if(embeds?.length <= 0 && components?.length <= 0 && !attachments && !content) throw new Error("[Interactions.js => <Interaction>.reply] You need to provide a MessagePayload (Content or Embeds or Components or Attachments)");
 
-        if(c.debug) console.log("[DEBUG] Sending a reply to " + this.id);
+        c.emit('debug', "[DEBUG] Sending a reply to " + this.id);
 
         return res.send({
             type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
@@ -50,10 +62,15 @@ class Interaction {
         });
     }
 
+    /**
+	* Update a Interaction
+	*
+	* @param options The message payload (embeds, components, content, files)
+	*/
     update ({ embeds = [], components = [], content = null, files = null }) {
         if(embeds?.length <= 0 && components?.length <= 0 && !attachments && !content) throw new Error("[Interactions.js => <Interaction>.update] You need to provide a MessagePayload (Content or Embeds or Components or Attachments)");
 
-        if(c.debug) console.log("[DEBUG] Sending a interaction update to " + this.id);
+        c.emit('debug', "[DEBUG] Sending a interaction update to " + this.id);
 
         return res.send({
             type: InteractionResponseType.UPDATE_MESSAGE,
@@ -66,19 +83,30 @@ class Interaction {
         });
     }
 
-    // Interaction Types
+    /**
+	* Check if the interaction is a modal submit
+	*/
     isModal () {
         return this.type === InteractionType.MODAL_SUBMIT;
     }
 
+    /**
+	* Check if the interaction is a message component
+	*/
     isComponent () {
         return this.type === InteractionType.MESSAGE_COMPONENT ;
     }
 
+    /**
+	* Check if the interaction is a auto complete
+	*/
     isAutoComplete () {
         return this.type === InteractionType.APPLICATION_COMMAND_AUTOCOMPLETE ;
     }
 
+    /**
+	* Check if the interaction is a application command
+	*/
     isCommand () {
         return this.type === InteractionType.APPLICATION_COMMAND ;
     }

@@ -1,5 +1,14 @@
 const User = require("./User.js")
 
+
+/**
+* Create a formated Member Object
+* 
+* @example
+* ```js
+* const Member = new Member(MemberData);
+* ```
+*/
 class Member {
     constructor(raw) {
         super(raw);
@@ -23,11 +32,16 @@ class Member {
         this.user = new User(raw?.user ?? null)
     }
 
-    // Functions Placeholder
+    /**
+	* Get the member join date
+    */
     joinedAt () {
         return new Date(this.joinedAt);
     }
 
+    /**
+	* Get the member avatar
+	*/
     avatarURL() {
         return this.avatar ? `https://cdn.discordapp.com/avatars/${this.id}/${this.avatar}.${this.startsWith("a_") ? "gif" : "png"}` : null;
     }
