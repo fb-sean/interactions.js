@@ -1,4 +1,3 @@
-const express = require('express');
 const {
     InteractionType,
     InteractionResponseType
@@ -13,9 +12,12 @@ const Util = new Utils();
 
 
 module.exports = async (c) => {
+    /**
+     * Emitted the starting event.
+     * @event c#starting
+     * @param {c} c The Client
+     */
     c.emit('starting', c);
-
-    await app.register(require('@fastify/express'))
 
     app.get('/', (req, res) => {
 		return res.redirect(`https://github.com/fb-sean/interactions.js`)
@@ -34,11 +36,24 @@ module.exports = async (c) => {
 
         const interaction = new Interaction(req, c, res);
 
+        c.emit('debug', "[DEBUG] Forward Interaction " + req.body.id);
+
+        /**
+         * Emitted the interaction event.
+         * @event c#interaction
+         * @param {Interaction} interaction The Interaction to handle
+         */
         c.emit('interaction', interaction);
     });
     
 	app.listen({ port: c.port }, (err) => {
         c.emit('debug', "[DEBUG] API Online on port " + c.port);
+
+        /**
+         * Emitted the ready event.
+         * @event c#ready
+         * @param {c} c The Client
+         */
         c.emit('ready', c);
 	})
 };

@@ -101,6 +101,11 @@ class Interaction {
          * @type {number}
          */
         this.locale = req?.body?.locale ?? null
+
+        /**
+         * private res property
+         */
+        this._res = res
     }
 
     /**
@@ -113,7 +118,7 @@ class Interaction {
 
         this.client.emit('debug', "[DEBUG] Sending a reply to " + this.id);
 
-        return res.send({
+        return this._res.send({
             type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
             data: {
                 embeds,
@@ -135,7 +140,7 @@ class Interaction {
 
         this.client.emit('debug', "[DEBUG] Sending a interaction update to " + this.id);
 
-        return res.send({
+        return this._res.send({
             type: InteractionResponseType.UPDATE_MESSAGE,
             data: {
                 embeds,

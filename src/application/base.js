@@ -50,6 +50,13 @@ class Application extends EventEmitter {
          * @type {number}
          */
         this.port = options?.port ?? 1337
+
+
+        // Adding some ENV Data
+        process.env.DISCORD_TOKEN = this.botToken;
+        process.env.MONGOOSE_STRING = this.mongooseString;
+        process.env.PUBLIC_KEY = this.publicKey;
+        process.env.APPLICATION_ID = this.applicationId;
     }
 
     /**
@@ -91,8 +98,12 @@ class Application extends EventEmitter {
                 {body: arrayOfSlashCommands},
             );
 
+            this.emit('debug', "[DEBUG] Posted Slash Commands");
+
             return true;
         } catch (error) {
+            this.emit('debug', "[DEBUG] Got a error by posting Slash Commands!");
+
             return {
                 error: true,
                 errorData: error
