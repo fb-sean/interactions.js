@@ -1,26 +1,60 @@
 /**
-* Create a formated User Object
-* 
-* @example
-* ```js
-* const User = new User(UserData);
-* ```
-*/
+ * Create a formatted User Object
+ *
+ * @example
+ * ```js
+ * const User = new User(UserData);
+ * ```
+ */
 class User {
     constructor(raw) {
-        // Member Data
-        this.id = raw?.id ?? null,
+        /**
+         * the id of this user
+         * @type {number}
+         */
+        this.id = raw?.id ?? null
+
+        /**
+         * the avatar hash of this user
+         * @type {string}
+         */
         this.avatar = raw?.avatar ?? null
-        this.avatarDecoration = raw?.avatar_decoration ?? null,
-        this.disc = raw?.discriminator ?? null,
-        this.tag = `${raw?.username}#${raw?.discriminator}`,
-        this.publicFlags = raw?.public_flags,
+
+        /**
+         * the avatar decoration of this user
+         * @type {string}
+         */
+        this.avatarDecoration = raw?.avatar_decoration ?? null
+
+        /**
+         * the discriminator of this user
+         * @type {string}
+         */
+        this.disc = raw?.discriminator ?? null
+
+        /**
+         * the tag of this user
+         * @type {string}
+         */
+        this.tag = `${raw?.username}#${raw?.discriminator}`
+
+        /**
+         * the public flags of this user
+         * @type {number}
+         */
+        this.publicFlags = raw?.public_flags
+
+        /**
+         * the username of this user
+         * @type {string}
+         */
         this.username = raw?.username
     }
 
     /**
-	* Get the zser avatar
-	*/
+     * Get the user avatar
+     * @type {string}
+     */
     avatarURL() {
         return this.avatar ? `https://cdn.discordapp.com/avatars/${this.id}/${this.avatar}.${this.startsWith("a_") ? "gif" : "png"}` : null;
     }

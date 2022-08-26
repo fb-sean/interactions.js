@@ -27,7 +27,6 @@
  * @property {number} LightGrey 0xBCC0C0 | rgb(188,192,192)
  * @property {number} DarkNavy 0x2C3E50 | rgb(44,62,80)
  * @property {number} Blurple 0x5865F2 | rgb(88,101,242)
- * @property {number} Greyple 0x99AAb5 | rgb(153,170,181)
  * @property {number} DarkButNotBlack 0x2C2F33 | rgb(44,47,51)
  * @property {number} NotQuiteBlack 0x23272A | rgb(35,39,42)
  */
@@ -36,7 +35,7 @@
  * @type {Colors}
  * @ignore
  */
- module.exports = {
+module.exports = {
     Default: 0x000000,
     White: 0xffffff,
     Aqua: 0x1abc9c,
@@ -60,5 +59,4 @@
     LightGrey: 0xbcc0c0,
     DarkNavy: 0x2c3e50,
     Blurple: 0x5865f2,
-    Greyple: 0x99aab5,
-  };
+};

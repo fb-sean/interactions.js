@@ -2,16 +2,15 @@ const Colors = require("../structures/Colors.js");
 const fetch = require('node-fetch');
 const {
     verifyKey
-  } = require('discord-interactions');
+} = require('discord-interactions');
 
 /**
- * 
+ *
  * Utils for the package itself
- * 
+ *
  */
 class Utils {
     constructor() {
-
     }
 
     /**
@@ -98,7 +97,7 @@ class Utils {
      * @param client - The current client
      * @returns The middleware function
      */
-     InteractionsMiddleware(client) {
+    InteractionsMiddleware(client) {
         if (!client.publicKey) {
             throw new Error('You must specify a Discord client public key');
         }
@@ -108,15 +107,15 @@ class Utils {
             const timestamp = req.headers["x-signature-timestamp"];
 
             const isValidRequest = verifyKey(buf, signature, timestamp, client.publicKey);
-            
+
             if (!isValidRequest) {
                 client.emit('debug', "[DEBUG] Bad request signature");
 
                 if (client.type === "express") {
                     res.status(401).send('Bad request signature');
-                } else if(client.type === "fastify") {
+                } else if (client.type === "fastify") {
                     res.type('application/json').code(401)
-                    return { error: 'Bad request signature' };
+                    return {error: 'Bad request signature'};
                 }
             }
         };

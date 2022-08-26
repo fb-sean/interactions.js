@@ -2,47 +2,96 @@ const Utils = require("../utils/Utils.js");
 const Util = new Utils();
 
 /**
-* Create a custom embed
-* 
-* @example
-* ```js
-* const embed = new Embed()
-* .setTitle('This is a Title')
-* .setURL('https://github.com/fb-sean/interactions.js')
-* .setColor('#31B505')
-* .setAuthor("This is a Author", null, "https://github.com/fb-sean/interactions.js");
-* ```
-*/
+ * Create a custom embed
+ *
+ * @example
+ * ```js
+ * const embed = new Embed()
+ * .setTitle('This is a Title')
+ * .setURL('https://github.com/fb-sean/interactions.js')
+ * .setColor('#31B505')
+ * .setAuthor("This is a Author", null, "https://github.com/fb-sean/interactions.js");
+ * ```
+ */
 class Embed {
     constructor() {
-        this.color = null,
-            this.title = null,
-            this.url = null,
-            this.author = {
-                name: null,
-                icon_url: null,
-                url: null,
-            },
-            this.description = null,
-            this.thumbnail = {
-                url: null,
-            },
-            this.fields = [],
-            this.image = {
-                url: true,
-            },
-            this.timestamp = null,
-            this.footer = {
-                text: null,
-                icon_url: null,
-            }
+        /**
+         * the id of this user
+         * @type {string|number}
+         */
+        this.color = 0x585858
+
+        /**
+         * the title of the embed
+         * @type {?string}
+         */
+        this.title = null
+
+        /**
+         * the url of the title in the embed
+         * @type {?string}
+         */
+        this.url = null
+
+        /**
+         * the author object in the embed
+         * @type {object}
+         */
+        this.author = {
+            name: null,
+            icon_url: null,
+            url: null
+        }
+
+        /**
+         * the description of the embed
+         * @type {?string}
+         */
+        this.description = null
+
+        /**
+         * the thumbnail of the embed
+         * @type {object}
+         */
+        this.thumbnail = {
+            url: null
+        }
+
+        /**
+         * An array of fields for the embed
+         * @type {array}
+         */
+        this.fields = []
+
+        /**
+         * the image of the embed
+         * @type {object}
+         */
+        this.image = {
+            url: true
+        }
+
+        /**
+         * the timestamp for the embed
+         * @type {number}
+         */
+        this.timestamp = null
+
+        /**
+         * the footer of the embed
+         * @type {object}
+         */
+        this.footer = {
+            text: null,
+            icon_url: null
+        }
     }
 
     /**
-	 * Sets the title of this embed
-	 *
-	 * @param {String} title The title
-	 */
+     * Sets the title of this embed
+     *
+     * @param {String} title The title
+     */
     setTitle(title) {
         if (!title || typeof title != String) {
             throw new Error("[Interactions.js => <Embed>.setTitle] The Title need to be a string.");
@@ -53,10 +102,10 @@ class Embed {
     }
 
     /**
-	 * Sets the URL of this embed
-	 *
-	 * @param {String} url The URL
-	 */
+     * Sets the URL of this embed
+     *
+     * @param {String} url The URL
+     */
     setURL(url) {
         if (!Util.checkURL(url)) {
             throw new Error("[Interactions.js => <Embed>.setURL] The URL isn't a valid URL. (Need to start with 'http' or 'https')");
@@ -67,10 +116,10 @@ class Embed {
     }
 
     /**
-	 * Sets the color of this embed
-	 *
-	 * @param {String} color The color of the embed
-	 */
+     * Sets the color of this embed
+     *
+     * @param {String} color The color of the embed
+     */
     setColor(color) {
         if (!color) {
             throw new Error("[Interactions.js => <Embed>.setColor] You need to provide a color.");
@@ -81,12 +130,12 @@ class Embed {
     }
 
     /**
-	 * Sets the author of this embed
-	 *
-	 * @param {String} name The name for the author
+     * Sets the author of this embed
+     *
+     * @param {String} name The name for the author
      * @param {String} iconUrl The icon url for the author
      * @param {String} url The url for the author
-	 */
+     */
     setAuthor(name, iconUrl, url) {
         if (!name || typeof name != String) {
             throw new Error("[Interactions.js => <Embed>.setAuthor] The Author Name need to be a String.");
@@ -109,10 +158,10 @@ class Embed {
     }
 
     /**
-	 * Sets the description of this embed
-	 *
-	 * @param {String} description The description
-	 */
+     * Sets the description of this embed
+     *
+     * @param {String} description The description
+     */
     setDescription(desc) {
         if (!desc || typeof desc != String) {
             throw new Error("[Interactions.js => <Embed>.setDescription] The Description need to be a String.");
@@ -127,10 +176,10 @@ class Embed {
     }
 
     /**
-	 * Sets the thumbnail of this embed
-	 *
-	 * @param {String} url The URL of the thumbnail
-	 */
+     * Sets the thumbnail of this embed
+     *
+     * @param {String} url The URL of the thumbnail
+     */
     setThumbnail(url) {
         if (!url || !Util.checkURL(url, true)) {
             throw new Error("[Interactions.js => <Embed>.setThumbnail] The Thumbnail isn't a valid Image URL. (Need to start with 'attachment', 'http' or 'https')");
@@ -144,12 +193,12 @@ class Embed {
     }
 
     /**
-	 * Sets the embed's fields
-	 *
-	 * You can set a maximum of 25 fields.
-	 *
-	 * @param {Array} fields The fields to set
-	 */
+     * Sets the embed's fields
+     *
+     * You can set a maximum of 25 fields.
+     *
+     * @param {Array} fields The fields to set
+     */
     setFields(ArrayOfFields) {
         if (!ArrayOfFields || typeof ArrayOfFields != Array) {
             throw new Error("[Interactions.js => <Embed>.setFields] The input need to be an array.");
@@ -188,18 +237,18 @@ class Embed {
     }
 
     /**
-	 * Appends fields to the embed
-	 *
+     * Appends fields to the embed
+     *
      * You can have a maximum of 25 fields.
-     * 
-	 * @example
-	 * ```js
-	 * const embed = new Embed()
-	 * 	.addFields(ArrayOfFields);
-	 * ```
-	 *
-	 * @param {Array} fields The fields to add
-	 */
+     *
+     * @example
+     * ```js
+     * const embed = new Embed()
+     *    .addFields(ArrayOfFields);
+     * ```
+     *
+     * @param {Array} fields The fields to add
+     */
     addFields(ArrayOfFields) {
         if (!ArrayOfFields || typeof ArrayOfFields != Array) {
             throw new Error("[Interactions.js => <Embed>.setFields] The input need to be an array.");
@@ -242,14 +291,14 @@ class Embed {
     }
 
     /**
-	 * Add a field to the embed
-	 *
-	 * You can have a maximum of 25 fields.
-	 *
-	 * @param {String} name The field name
+     * Add a field to the embed
+     *
+     * You can have a maximum of 25 fields.
+     *
+     * @param {String} name The field name
      * @param {String} value The field value
      * @param {Boolean} inline boolean if the embed should be inline
-	 */
+     */
     addField(name, value, inline = false) {
         if (this.fields.length >= 25) {
             throw new Error("[Interactions.js => <Embed>.addField] This embed reached the max value for fields. [max 25 fields]");
@@ -267,15 +316,15 @@ class Embed {
             name,
             value,
             inline
-        }, ]);
+        },]);
         return this;
     }
 
     /**
-	 * Sets the image of this embed
-	 *
-	 * @param {String} url The URL of the image
-	 */
+     * Sets the image of this embed
+     *
+     * @param {String} url The URL of the image
+     */
     setImage(url) {
         if (!url || !Util.checkURL(url, true)) {
             throw new Error("[Interactions.js => <Embed>.setImage] The Image isn't a valid Image URL. (Need to start with 'attachment', 'http' or 'https')");
@@ -301,11 +350,11 @@ class Embed {
     }
 
     /**
-	 * Sets the footer of this embed
-	 *
-	 * @param {String} name The name for the footer
+     * Sets the footer of this embed
+     *
+     * @param {String} name The name for the footer
      * @param {String} iconUrl The iconUrl for the footer
-	 */
+     */
     setFooter(name, iconUrl) {
         if (!name || typeof name != String) {
             throw new Error("[Interactions.js => <Embed>.setAuthor] The Author Name need to be a String.");

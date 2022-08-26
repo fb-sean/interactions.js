@@ -1,24 +1,24 @@
 const Utils = require("../utils/Utils.js");
 const Util = new Utils();
 
+const Channel = require("../structures/Channel.js");
 
 /**
- * 
+ *
  * Channel Manager to work with Channels
- * 
+ *
  * @example
  * ```js
  * const channel = new ChannelManager();
- * client.on("debug", debug => {
- *    console.log(debug);
- * })
+ * await channel.fetchChannel(ChannelId);
  * ```
- * 
+ *
  */
 class ChannelManager {
-    constructor(client, id = null) {
-        this.id = id,
-        this.client = client
+    constructor(client, id) {
+
+        this.id = id ?? null
+        this.client = client ?? null
     }
 
     /**
@@ -27,9 +27,9 @@ class ChannelManager {
      * @param {string} channelID The id of the channel
      */
     async fetchChannel(channelID = this.id) {
-        this.client.emit('debug', "[DEBUG] Loading App");
-        const Channel = await Util.DiscordRequest(this.client, `/channels/${channelID}`, { method: 'GET' })
-        return Channel;
+        this.client.emit('debug', "[DEBUG] Fetching Channel with ID " + channelID);
+        const Request = await Util.DiscordRequest(this.client, `/channels/${channelID}`, {method: 'GET'})
+        return new Channel(Request.body);
     }
 }
 
