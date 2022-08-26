@@ -7,18 +7,35 @@ const Channel = require("../structures/Channel.js");
  *
  * Channel Manager to work with Channels
  *
+ * @param {object} client the Application Client
+ * @param {string} id the id of the channel
+ *
  * @example
  * ```js
- * const channel = new ChannelManager();
+ * // You can use this way
+ * const channel = new ChannelManager(<Client>);
  * await channel.fetchChannel(ChannelId);
+ *
+ * // Or this way
+ * const channel = new ChannelManager(<Client>, ChannelId);
+ * await channel.fetchChannel();
  * ```
  *
  */
 class ChannelManager {
     constructor(client, id) {
 
+        /**
+         * the id of the channel
+         * @type {string|null}
+         */
         this.id = id ?? null
-        this.client = client ?? null
+
+        /**
+         * the Application Client
+         * @type {object}
+         */
+        this.client = client
     }
 
     /**
@@ -27,8 +44,12 @@ class ChannelManager {
      * @param {string} channelID The id of the channel
      */
     async fetchChannel(channelID = this.id) {
+        if (!this.client) throw new Error("[Interactions.js => <ChannelManager>.fetchChannel] The client is needed for this action!")
+
         this.client.emit('debug', "[DEBUG] Fetching Channel with ID " + channelID);
+
         const Request = await Util.DiscordRequest(this.client, `/channels/${channelID}`, {method: 'GET'})
+
         return new Channel(Request.body);
     }
 }
