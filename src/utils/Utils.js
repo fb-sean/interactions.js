@@ -3,6 +3,7 @@ const fetch = require('node-fetch');
 const {
     verifyKey
 } = require('discord-interactions');
+const { createPublicKey, verify } = require('node:crypto');
 
 /**
  *
@@ -75,15 +76,17 @@ class Utils {
                 ...options
             });
 
+            let data;
             if (!res.ok) {
-                const data = await res.json();
+                data = await res.json();
 
                 return {
                     error: true,
                     errorData: JSON.stringify(data)
                 };
             }
-            return res;
+            data = await res.json();
+            return data;
         } catch (err) {
             return {
                 error: true
@@ -95,30 +98,31 @@ class Utils {
      * Creates a middleware.
      *
      * @param client - The current client
+     * @param req - The request data
      * @returns The middleware function
      */
-    InteractionsMiddleware(client) {
+    InteractionsMiddleware(client, req) {
         if (!client.publicKey) {
             throw new Error('You must specify a Discord client public key');
         }
 
-        return function (req, res, buf, encoding) {
-            const signature = req.headers["x-signature-ed25519"];
-            const timestamp = req.headers["x-signature-timestamp"];
+        const cryptoKey = Buffer.concat([Buffer.from('302a300506032b6570032100', 'hex'), Buffer.from(client.publicKey,'hex')]);
+        const verifyKey = createPublicKey({format: 'der',type: 'spki', key: cryptoKey});
 
-            const isValidRequest = verifyKey(buf, signature, timestamp, client.publicKey);
+        return new Promise ( (resolve, _) => {
+            try {
+                const timestamp = req.headers['x-signature-timestamp'];
+                const sig = Buffer.from(req.headers['x-signature-ed25519'], 'hex');
 
-            if (!isValidRequest) {
-                client.emit('debug', "[DEBUG] Bad request signature");
+                const stringifyData = JSON.stringify(req.body);
 
-                if (client.type === "express") {
-                    res.status(401).send('Bad request signature');
-                } else if (client.type === "fastify") {
-                    res.type('application/json').code(401)
-                    return {error: 'Bad request signature'};
-                }
+                const data = Buffer.from(timestamp+stringifyData);
+                const isVerified = verify(null, data, verifyKey, sig);
+                resolve(isVerified);
+            } catch {
+                resolve(false);
             }
-        };
+        });
     }
 }
 

@@ -178,7 +178,7 @@ class Channel {
          * thread member object for the current user, if they have joined the thread, only included on certain API endpoints
          * @type {object}
          */
-        this.member = new Member(options?.member ?? null)
+        this.member = options?.member ? new Member(options?.member) : null
 
         /**
          * default duration that the clients (not the API) will use for newly created threads, in minutes, to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080
@@ -203,12 +203,6 @@ class Channel {
          * @type {number}
          */
         this.totalMessageSent = options?.total_message_sent ?? null
-
-        /**
-         * number of messages ever sent in a thread, it's similar to message_count on message creation, but will not decrement the number when a message is deleted
-         * @type {number}
-         */
-        this._options = options;
     }
 }
 

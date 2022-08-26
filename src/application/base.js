@@ -1,7 +1,8 @@
 const startAPI = require("../api/start.js");
 const mongooseConnectionHelper = require("../mongo/mongoose.js")
 const EventEmitter = require('node:events');
-
+const {REST} = require('@discordjs/rest');
+const {Routes} = require('discord-api-types/v9');
 
 /**
  * Create your Application
@@ -49,12 +50,6 @@ class Application extends EventEmitter {
          * @type {number}
          */
         this.port = options?.port ?? 1337
-
-        /**
-         * the type for the api (express or fastify)
-         * @type {string}
-         */
-        this.type = options?.type ?? 'express'
     }
 
     /**
@@ -63,8 +58,8 @@ class Application extends EventEmitter {
      * @param token the bot token if not already set as "botToken" in the application creation
      */
     async start(token = this.botToken) {
-        if (this.type != 'express' && this.type != 'fastify') {
-            throw new Error("[Interactions.js => <Client>.start] You need to provide a valid type. Valid types are: 'fastify' and 'express'");
+        if (!this.publicKey || !this.applicationId) {
+            throw new Error("[Interactions.js => <Client>.start] Make sure to specify a valid publicKey and applicationId!");
         }
 
 
@@ -75,6 +70,34 @@ class Application extends EventEmitter {
         if (!this.mongooseString && typeof this.mongooseString === String) await mongooseConnectionHelper.init(this);
 
         await startAPI(this);
+    }
+
+
+    /**
+     * Set the Slash Commands for the Application
+     *
+     * @param {array} arrayOfSlashCommands an array of slash commands to set
+     */
+    async setAppCommands(arrayOfSlashCommands) {
+        if (!this.botToken) throw new Error("[Interactions.js => <Client>.setAppCommands] You need to provide a valid token.");
+
+        if (!this.applicationId) throw new Error("[Interactions.js => <Client>.setAppCommands] You need to provide a valid applicationId.");
+
+        const rest = new REST({version: '10'}).setToken(this.botToken);
+
+        try {
+            await rest.put(
+                Routes.applicationCommands(this.applicationId),
+                {body: arrayOfSlashCommands},
+            );
+
+            return true;
+        } catch (error) {
+            return {
+                error: true,
+                errorData: error
+            }
+        }
     }
 }
 

@@ -17,14 +17,20 @@ module.exports = async (c) => {
 
     await app.register(require('@fastify/express'))
 
-    app.use(express.json({ verify: Util.InteractionsMiddleware(c) }));
-
     app.get('/', (req, res) => {
 		return res.redirect(`https://github.com/fb-sean/interactions.js`)
 	})
 
     app.post('/interactions', async (req, res) => {
         c.emit('debug', "[DEBUG] New Interaction " + req.body.id);
+
+        const verifyPayload = await Util.InteractionsMiddleware(c, req);
+        if(!verifyPayload) return;
+
+        if (req.body.type === InteractionType.PING) {
+            c.emit('debug', "[DEBUG] Response with Pong " + req.body.id);
+            return res.send({ type: InteractionResponseType.PONG });
+        }
 
         const interaction = new Interaction(req, c, res);
 

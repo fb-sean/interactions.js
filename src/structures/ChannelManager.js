@@ -48,9 +48,9 @@ class ChannelManager {
 
         this.client.emit('debug', "[DEBUG] Fetching Channel with ID " + channelID);
 
-        const Request = await Util.DiscordRequest(this.client, `/channels/${channelID}`, {method: 'GET'})
+        const Request = await Util.DiscordRequest(this.client, `channels/${channelID}`, {method: 'GET'})
 
-        return new Channel(Request.body);
+        return new Channel(Request);
     }
 }
 

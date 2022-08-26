@@ -93,7 +93,7 @@ class Embed {
      * @param {String} title The title
      */
     setTitle(title) {
-        if (!title || typeof title != String) {
+        if (!title || typeof title != 'string') {
             throw new Error("[Interactions.js => <Embed>.setTitle] The Title need to be a string.");
         }
 
@@ -125,7 +125,7 @@ class Embed {
             throw new Error("[Interactions.js => <Embed>.setColor] You need to provide a color.");
         }
 
-        this.color = Util.resolveColor();
+        this.color = Util.resolveColor(color);
         return this;
     }
 
@@ -137,7 +137,7 @@ class Embed {
      * @param {String} url The url for the author
      */
     setAuthor(name, iconUrl, url) {
-        if (!name || typeof name != String) {
+        if (!name || typeof name != 'string') {
             throw new Error("[Interactions.js => <Embed>.setAuthor] The Author Name need to be a String.");
         }
 
@@ -163,7 +163,7 @@ class Embed {
      * @param {String} description The description
      */
     setDescription(desc) {
-        if (!desc || typeof desc != String) {
+        if (!desc || typeof desc != 'string') {
             throw new Error("[Interactions.js => <Embed>.setDescription] The Description need to be a String.");
         }
 
@@ -200,7 +200,7 @@ class Embed {
      * @param {Array} fields The fields to set
      */
     setFields(ArrayOfFields) {
-        if (!ArrayOfFields || typeof ArrayOfFields != Array) {
+        if (!ArrayOfFields || typeof ArrayOfFields != 'array') {
             throw new Error("[Interactions.js => <Embed>.setFields] The input need to be an array.");
         }
 
@@ -213,12 +213,12 @@ class Embed {
             const field = ArrayOfFields[i];
 
             let noName = false;
-            if (!field?.name || typeof field?.name != String) {
+            if (!field?.name || typeof field?.name != 'string') {
                 noName = true;
             }
 
             let noValue = false;
-            if (!field?.value || typeof field?.value != String) {
+            if (!field?.value || typeof field?.value != 'string') {
                 noValue = true;
             }
 
@@ -250,7 +250,7 @@ class Embed {
      * @param {Array} fields The fields to add
      */
     addFields(ArrayOfFields) {
-        if (!ArrayOfFields || typeof ArrayOfFields != Array) {
+        if (!ArrayOfFields || typeof ArrayOfFields != 'array') {
             throw new Error("[Interactions.js => <Embed>.setFields] The input need to be an array.");
         }
 
@@ -267,12 +267,12 @@ class Embed {
             const field = ArrayOfFields[i];
 
             let noName = false;
-            if (!field?.name || typeof field?.name != String) {
+            if (!field?.name || typeof field?.name != 'string') {
                 noName = true;
             }
 
             let noValue = false;
-            if (!field?.value || typeof field?.value != String) {
+            if (!field?.value || typeof field?.value != 'string') {
                 noValue = true;
             }
 
@@ -304,11 +304,11 @@ class Embed {
             throw new Error("[Interactions.js => <Embed>.addField] This embed reached the max value for fields. [max 25 fields]");
         }
 
-        if (!name || typeof name != String) {
+        if (!name || typeof name != 'string') {
             throw new Error("[Interactions.js => <Embed>.addField] The Field Name need to be a string.");
         }
 
-        if (!value || typeof value != String) {
+        if (!value || typeof value != 'string') {
             throw new Error("[Interactions.js => <Embed>.addField] The Field Value need to be a string.");
         }
 
@@ -356,7 +356,7 @@ class Embed {
      * @param {String} iconUrl The iconUrl for the footer
      */
     setFooter(name, iconUrl) {
-        if (!name || typeof name != String) {
+        if (!name || typeof name != 'string') {
             throw new Error("[Interactions.js => <Embed>.setAuthor] The Author Name need to be a String.");
         }
 

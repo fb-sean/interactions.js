@@ -31,6 +31,18 @@ class Interaction {
         this.data = req.body.data
 
         /**
+         * interaction command name
+         * @type {string|null}
+         */
+        this.commandName = req?.body?.data?.name ?? null
+
+        /**
+         * interaction custom id
+         * @type {string|null}
+         */
+        this.customId = req?.body?.data?.custom_id ?? null
+
+        /**
          * continuation token for responding to the interaction
          * @type {string}
          */
