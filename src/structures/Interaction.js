@@ -113,7 +113,7 @@ class Interaction {
      *
      * @param options The message payload (embeds, components, content, files)
      */
-    reply({embeds = [], components = [], content = null, files = null, ephemeral = false}) {
+    reply({embeds = [], components = [], content = null, files = [], ephemeral = false}) {
         if (embeds?.length <= 0 && components?.length <= 0 && !attachments && !content) throw new Error("[Interactions.js => <Interaction>.reply] You need to provide a MessagePayload (Content or Embeds or Components or Attachments)");
 
         this.client.emit('debug', "[DEBUG] Sending a reply to " + this.id);
@@ -135,7 +135,7 @@ class Interaction {
      *
      * @param options The message payload (embeds, components, content, files)
      */
-    update({embeds = [], components = [], content = null, files = null}) {
+    update({embeds = [], components = [], content = null, files = []}) {
         if (embeds?.length <= 0 && components?.length <= 0 && !attachments && !content) throw new Error("[Interactions.js => <Interaction>.update] You need to provide a MessagePayload (Content or Embeds or Components or Attachments)");
 
         this.client.emit('debug', "[DEBUG] Sending a interaction update to " + this.id);
