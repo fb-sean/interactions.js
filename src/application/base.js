@@ -110,6 +110,40 @@ class Application extends EventEmitter {
             }
         }
     }
+
+    /**
+     * Set the Slash Commands for an Guild
+     *
+     * @param {array} arrayOfSlashCommands an array of slash commands to set
+     * @param {string} GuildId the guild id to post the commands to
+     */
+    async setGuildCommands(arrayOfSlashCommands, GuildId) {
+        if (!this.botToken) throw new Error("[Interactions.js => <Client>.setGuildCommands] You need to provide a valid token.");
+
+        if (!this.applicationId) throw new Error("[Interactions.js => <Client>.setGuildCommands] You need to provide a valid applicationId.");
+
+        if (!GuildId) throw new Error("[Interactions.js => <Client>.setGuildCommands] You need to provide a valid GuildId.");
+
+        const rest = new REST({version: '10'}).setToken(this.botToken);
+
+        try {
+            await rest.put(
+                Routes.applicationGuildCommands(this.applicationId, GuildId),
+                {body: arrayOfSlashCommands},
+            );
+
+            this.emit('debug', "[DEBUG] Posted Slash Commands to " + GuildId);
+
+            return true;
+        } catch (error) {
+            this.emit('debug', "[DEBUG] Got a error by posting Slash Commands to " + GuildId + "!");
+
+            return {
+                error: true,
+                errorData: error
+            }
+        }
+    }
 }
 
 module.exports = Application;

@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Create a formatted User Object
  *
@@ -54,8 +56,9 @@ class User {
     /**
      * Get the user avatar
      * @type {string}
+     * @readonly
      */
-    avatarURL() {
+    get avatarURL() {
         return this.avatar ? `https://cdn.discordapp.com/avatars/${this.id}/${this.avatar}.${this.startsWith("a_") ? "gif" : "png"}` : null;
     }
 }

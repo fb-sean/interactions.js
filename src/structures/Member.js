@@ -1,5 +1,6 @@
-const User = require("./User.js")
+'use strict';
 
+const User = require("./User.js")
 
 /**
  * Create a formatted Member Object
@@ -99,16 +100,18 @@ class Member {
     /**
      * Get the member join date
      *  @type {date}
+     *  @readonly
      */
-    joinedAt() {
+    get joinedAt() {
         return new Date(this.joinedAt);
     }
 
     /**
      * Get the member avatar url
      * @type {string}
+     * @readonly
      */
-    avatarURL() {
+    get avatarURL() {
         return this.avatar ? `https://cdn.discordapp.com/avatars/${this.id}/${this.avatar}.${this.startsWith("a_") ? "gif" : "png"}` : null;
     }
 }

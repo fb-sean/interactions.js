@@ -109,7 +109,7 @@ class Interaction {
     }
 
     /**
-     * Reply to a Interaction
+     * Reply to an Interaction
      *
      * @param options The message payload (embeds, components, content, files)
      */
@@ -131,7 +131,7 @@ class Interaction {
     }
 
     /**
-     * Update a Interaction
+     * Update an Interaction
      *
      * @param options The message payload (embeds, components, content, files)
      */
