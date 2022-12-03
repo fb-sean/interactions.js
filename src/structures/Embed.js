@@ -352,10 +352,9 @@ class Embed {
     /**
      * Sets the footer of this embed
      *
-     * @param {String} name The name for the footer
-     * @param {String} iconUrl The iconUrl for the footer
+     * @param {{text: string, iconURL}} name The name for the footer
      */
-    setFooter(name, iconUrl) {
+    setFooter(name) {
         if (!name || typeof name != 'string') {
             throw new Error("[Interactions.js => <Embed>.setAuthor] The Author Name need to be a String.");
         }

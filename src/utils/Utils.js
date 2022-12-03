@@ -1,9 +1,6 @@
 const Colors = require("../structures/Colors.js");
 const fetch = require('node-fetch');
-const {
-    verifyKey
-} = require('discord-interactions');
-const { createPublicKey, verify } = require('node:crypto');
+const {createPublicKey, verify} = require('node:crypto');
 
 /**
  *
@@ -106,17 +103,17 @@ class Utils {
             throw new Error('You must specify a Discord client public key');
         }
 
-        const cryptoKey = Buffer.concat([Buffer.from('302a300506032b6570032100', 'hex'), Buffer.from(client.publicKey,'hex')]);
-        const verifyKey = createPublicKey({format: 'der',type: 'spki', key: cryptoKey});
+        const cryptoKey = Buffer.concat([Buffer.from('302a300506032b6570032100', 'hex'), Buffer.from(client.publicKey, 'hex')]);
+        const verifyKey = createPublicKey({format: 'der', type: 'spki', key: cryptoKey});
 
-        return new Promise ( (resolve, _) => {
+        return new Promise((resolve, _) => {
             try {
                 const timestamp = req.headers['x-signature-timestamp'];
                 const sig = Buffer.from(req.headers['x-signature-ed25519'], 'hex');
 
                 const stringifyData = JSON.stringify(req.body);
 
-                const data = Buffer.from(timestamp+stringifyData);
+                const data = Buffer.from(timestamp + stringifyData);
                 const isVerified = verify(null, data, verifyKey, sig);
                 resolve(isVerified);
             } catch {
