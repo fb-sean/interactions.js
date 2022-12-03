@@ -48,7 +48,23 @@ class ChannelManager {
 
         this.client.emit('debug', "[DEBUG] Fetching Channel with ID " + channelID);
 
-        const Request = await Util.DiscordRequest(this.client, `channels/${channelID}`, {method: 'GET'})
+        const Request = await Util.DiscordRequest(this.client, `channels/${channelID}`, {method: 'DELETE'})
+
+        return new Channel(Request);
+    }
+
+    /**
+     * Delete a channel from Discord
+     *
+     * @param {string} channelID The id of the channel
+     * @param {?string} reason The reason of the deletion
+     */
+    async deleteChannel(channelID = this.id, reason = null) {
+        if (!this.client) throw new Error("[Interactions.js => <ChannelManager>.deleteChannel] The client is needed for this action!")
+
+        this.client.emit('debug', "[DEBUG] Deleting Channel with ID " + channelID);
+
+        const Request = await Util.DiscordRequest(this.client, `channels/${channelID}`, {method: 'GET'}, reason ? { 'X-Audit-Log-Reason': reason } : {})
 
         return new Channel(Request);
     }

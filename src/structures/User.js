@@ -51,15 +51,12 @@ class User {
          * @type {string}
          */
         this.username = raw?.username
-    }
 
-    /**
-     * Get the user avatar
-     * @type {string}
-     * @readonly
-     */
-    get avatarURL() {
-        return this.avatar ? `https://cdn.discordapp.com/avatars/${this.id}/${this.avatar}.${this.startsWith("a_") ? "gif" : "png"}` : null;
+        /**
+         * the avatar url of the user
+         * @type {?string}
+         */
+        this.avatarURL = this?.avatar ? `https://cdn.discordapp.com/avatars/${this.id}/${this.avatar}.${this.startsWith("a_") ? "gif" : "png"}` : null
     }
 }
 

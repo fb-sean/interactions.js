@@ -1,11 +1,12 @@
+// Require the classes for the interaction
 const Member = require("./Member.js");
 const User = require("./User.js");
 const Guild = require("./Guild.js");
-const {
-    InteractionType,
-    InteractionResponseType,
-    InteractionResponseFlags,
-} = require('discord-interactions');
+
+// Require all needed types
+const InteractionResponseFlags = require("./InteractionResponseFlags");
+const InteractionType = require("./InteractionType");
+const InteractionResponseType = require("./InteractionResponseType");
 
 /**
  * Create a formatted Interaction Object
@@ -82,7 +83,7 @@ class Interaction {
          * the member data of the interaction
          * @type {object}
          */
-        this.member = new Member(req?.body?.member ?? null)
+        //this.member = new Member(req?.body?.member ?? null)
 
         /**
          * bitwise set of permissions the app or bot has within the channel the interaction was sent from
@@ -94,7 +95,7 @@ class Interaction {
          * the user data of the interaction
          * @type {object}
          */
-        this.user = new User(req?.body?.user ?? req?.body?.member?.user ?? null)
+        //this.user = new User(req?.body?.user ?? req?.body?.member?.user ?? null)
 
         /**
          * selected language of the invoking user
@@ -111,7 +112,7 @@ class Interaction {
     /**
      * Reply to an Interaction
      *
-     * @param options The message payload (embeds, components, content, files)
+     * @param {Array, Array, String, Array, Boolean} The message payload (embeds, components, content, files)
      */
     reply({embeds = [], components = [], content = null, files = [], ephemeral = false}) {
         if (embeds?.length <= 0 && components?.length <= 0 && !attachments && !content) throw new Error("[Interactions.js => <Interaction>.reply] You need to provide a MessagePayload (Content or Embeds or Components or Attachments)");
@@ -154,6 +155,7 @@ class Interaction {
     /**
      * Check if the interaction is a modal submit
      * @type {boolean}
+     * @readonly
      */
     isModal() {
         return this.type === InteractionType.MODAL_SUBMIT;
@@ -162,6 +164,7 @@ class Interaction {
     /**
      * Check if the interaction is a message component
      * @type {boolean}
+     * @readonly
      */
     isComponent() {
         return this.type === InteractionType.MESSAGE_COMPONENT;
@@ -170,6 +173,7 @@ class Interaction {
     /**
      * Check if the interaction is an auto complete
      * @type {boolean}
+     * @readonly
      */
     isAutoComplete() {
         return this.type === InteractionType.APPLICATION_COMMAND_AUTOCOMPLETE;
@@ -178,6 +182,7 @@ class Interaction {
     /**
      * Check if the interaction is an application command
      * @type {boolean}
+     * @readonly
      */
     isCommand() {
         return this.type === InteractionType.APPLICATION_COMMAND;

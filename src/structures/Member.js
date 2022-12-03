@@ -91,28 +91,16 @@ class Member {
         this.roles = raw?.roles ?? null
 
         /**
-         * the user this guild member represents
-         * @type {object}
+         * the avatar url of the member
+         * @type {?string}
          */
-        this.user = new User(raw?.user ?? null)
-    }
+        this.avatarURL = this?.avatar ? `https://cdn.discordapp.com/avatars/${this.id}/${this.avatar}.${this.startsWith("a_") ? "gif" : "png"}` : null
 
-    /**
-     * Get the member join date
-     *  @type {date}
-     *  @readonly
-     */
-    get joinedAt() {
-        return new Date(this.joinedAt);
-    }
-
-    /**
-     * Get the member avatar url
-     * @type {string}
-     * @readonly
-     */
-    get avatarURL() {
-        return this.avatar ? `https://cdn.discordapp.com/avatars/${this.id}/${this.avatar}.${this.startsWith("a_") ? "gif" : "png"}` : null;
+        /**
+         * The date of the member's creation
+         * @type {Date}
+         */
+        this.joinedAtDate = new Date(raw?.joined_at)
     }
 }
 

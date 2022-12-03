@@ -31,7 +31,7 @@ class Utils {
     }
 
     /**
-     * Check if the input is a url
+     * Check if the input is an url
      *
      * @param {string} url The string to check
      * @param {string} attachment boolean if it can be a attachment
@@ -55,11 +55,12 @@ class Utils {
     /**
      * Do Request to Discord
      *
-     * @param {string} client The Client that makes the request
+     * @param {Object} client The Client that makes the request
      * @param {string} endpoint The endpoint to request from
-     * @param {string} options The fetch options
+     * @param {{method: string}} options The fetch options
+     * @param {object} headers The headers to send
      */
-    async DiscordRequest(client, endpoint, options) {
+    async DiscordRequest(client, endpoint, options, headers = {}) {
         try {
             const url = 'https://discord.com/api/v10/' + endpoint;
             if (options.body) options.body = JSON.stringify(options.body);
@@ -69,6 +70,7 @@ class Utils {
                     Authorization: `Bot ${client.botToken}`,
                     'Content-Type': 'application/json; charset=UTF-8',
                     'User-Agent': 'Discord Interactions.js Package (https://github.com/fb-sean/interactions.js)',
+                    ...headers
                 },
                 ...options
             });
