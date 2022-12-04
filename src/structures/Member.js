@@ -94,7 +94,7 @@ class Member {
          * the avatar url of the member
          * @type {?string}
          */
-        this.avatarURL = this?.avatar ? `https://cdn.discordapp.com/avatars/${this.id}/${this.avatar}.${this.startsWith("a_") ? "gif" : "png"}` : null
+        this.avatarURL = this?.avatar ? `https://cdn.discordapp.com/avatars/${this.id}/${this.avatar}.${this.avatar.startsWith("a_") ? "gif" : "png"}` : null
 
         /**
          * The date of the member's creation

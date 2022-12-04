@@ -22,10 +22,11 @@
     "url": "git+https://github.com/fb-sean/interactions.js.git"
   },
   "dependencies": {
-    "mongoose": "^6.5.2",
-    "node-fetch": "^2.6.1",
+    "@discordjs/rest": "^1.4.0",
+    "@fastify/express": "^2.0.1",
     "fastify": "^4.5.2",
-    "@fastify/express": "^2.0.1"
+    "mongoose": "^6.5.2",
+    "node-fetch": "^2.6.1"
   },
   "engines": {
     "node": ">=16.9.0"

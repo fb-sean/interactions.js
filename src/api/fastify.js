@@ -39,7 +39,7 @@ module.exports = async (Client) => {
             Client.emit('debug', "[DEBUG] Response with Pong " + req.body.id);
             return res.send({type: InteractionResponseType.PONG});
         }
-
+        
         const interaction = new Interaction(req, Client, res);
 
         Client.emit('debug', "[DEBUG] Forward Interaction " + req.body.id);
