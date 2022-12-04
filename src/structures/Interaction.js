@@ -83,7 +83,7 @@ class Interaction {
          * the member data of the interaction
          * @type {object}
          */
-        //this.member = new Member(req?.body?.member ?? null)
+        this.member = new Member(req?.body?.member ?? null)
 
         /**
          * bitwise set of permissions the app or bot has within the channel the interaction was sent from
@@ -95,7 +95,7 @@ class Interaction {
          * the user data of the interaction
          * @type {object}
          */
-        //this.user = new User(req?.body?.user ?? req?.body?.member?.user ?? null)
+        this.user = new User(req?.body?.user ?? req?.body?.member?.user ?? null)
 
         /**
          * selected language of the invoking user
@@ -115,7 +115,7 @@ class Interaction {
      * @param {Array, Array, String, Array, Boolean} The message payload (embeds, components, content, files)
      */
     reply({embeds = [], components = [], content = null, files = [], ephemeral = false}) {
-        if (embeds?.length <= 0 && components?.length <= 0 && !attachments && !content) throw new Error("[Interactions.js => <Interaction>.reply] You need to provide a MessagePayload (Content or Embeds or Components or Attachments)");
+        if (embeds?.length <= 0 && components?.length <= 0 && !files && !content) throw new Error("[Interactions.js => <Interaction>.reply] You need to provide a MessagePayload (Content or Embeds or Components or files)");
 
         this.client.emit('debug', "[DEBUG] Sending a reply to " + this.id);
 
@@ -137,7 +137,7 @@ class Interaction {
      * @param options The message payload (embeds, components, content, files)
      */
     update({embeds = [], components = [], content = null, files = []}) {
-        if (embeds?.length <= 0 && components?.length <= 0 && !attachments && !content) throw new Error("[Interactions.js => <Interaction>.update] You need to provide a MessagePayload (Content or Embeds or Components or Attachments)");
+        if (embeds?.length <= 0 && components?.length <= 0 && !files && !content) throw new Error("[Interactions.js => <Interaction>.update] You need to provide a MessagePayload (Content or Embeds or Components or files)");
 
         this.client.emit('debug', "[DEBUG] Sending a interaction update to " + this.id);
 
