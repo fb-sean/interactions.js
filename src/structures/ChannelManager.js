@@ -39,6 +39,15 @@ class ChannelManager {
     }
 
     /**
+     * Get the channel from cache if enabled
+     *
+     * @param {string} channelID The id of the channel
+     */
+    getChannel(channelID = this.id) {
+        return new Channel(this?.client?._cache?.channels?.get(this.id) || {});
+    }
+
+    /**
      * Fetch a channel from Discord
      *
      * @param {string} channelID The id of the channel
@@ -48,7 +57,11 @@ class ChannelManager {
 
         this.client.emit('debug', "[DEBUG] Fetching Channel with ID " + channelID);
 
-        const Request = await Util.DiscordRequest(this.client, `channels/${channelID}`, {method: 'DELETE'})
+        const Request = await Util.DiscordRequest(this.client, `channels/${channelID}`, {method: 'GET'})
+
+        if(!Request || Request?.error) throw new Error("[Interactions.js => <ChannelManager>.fetchChannel] Got an Error from Discord: " + Request.errorData)
+
+        if(this?.client?.cacheChannels) this.client._cache.setChannel(channelID, Request);
 
         return new Channel(Request);
     }
@@ -64,7 +77,11 @@ class ChannelManager {
 
         this.client.emit('debug', "[DEBUG] Deleting Channel with ID " + channelID);
 
-        const Request = await Util.DiscordRequest(this.client, `channels/${channelID}`, {method: 'GET'}, reason ? { 'X-Audit-Log-Reason': reason } : {})
+        const Request = await Util.DiscordRequest(this.client, `channels/${channelID}`, {method: 'DELETE'}, reason ? { 'X-Audit-Log-Reason': reason } : {})
+
+        if(!Request || Request?.error) throw new Error("[Interactions.js => <ChannelManager>.fetchChannel] Got an Error from Discord: " + Request.errorData)
+
+        if(this?.client?.cacheChannels) this.client._cache.deleteChannel(channelID, Request);
 
         return new Channel(Request);
     }

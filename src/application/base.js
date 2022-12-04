@@ -3,6 +3,7 @@ const mongooseConnectionHelper = require("../mongo/mongoose.js")
 const EventEmitter = require('node:events');
 const {REST} = require('@discordjs/rest');
 const {Routes} = require('discord-api-types/v9');
+const CacheManager = require("../structures/CacheManager");
 
 /**
  * Create your Application
@@ -25,32 +26,68 @@ class Application extends EventEmitter {
          * the token of the bot application (needed)
          * @type {string}
          */
-        this.botToken = options?.botToken ?? null
+        this.botToken = options?.botToken ?? null;
 
         /**
          * the public key of the application (needed)
          * @type {string}
          */
-        this.publicKey = options?.publicKey ?? null
+        this.publicKey = options?.publicKey ?? null;
 
         /**
          * the ID of the application (needed)
          * @type {string}
          */
-        this.applicationId = options?.applicationId ?? null
+        this.applicationId = options?.applicationId ?? null;
 
         /**
          * the mongoose connection string (not needed)
          * @type {string}
          */
-        this.mongooseString = options?.mongooseString ?? null
+        this.mongooseString = options?.mongooseString ?? null;
 
         /**
          * the port for the application (default is "1337")
          * @type {number}
          */
-        this.port = options?.port ?? 1337
+        this.port = options?.port ?? 1337;
 
+        /**
+         * boolean to enable or disable the client channels cache
+         * @type {*|boolean}
+         */
+        this.cacheChannels = options?.cacheChannels ?? false;
+
+        /**
+         * boolean to enable or disable the client users cache
+         * @type {*|boolean}
+         */
+        this.cacheUsers = options?.cacheUsers ?? false;
+
+        /**
+         * boolean to enable or disable the client members cache
+         * @type {*|boolean}
+         */
+        this.cacheMembers = options?.cacheMembers ?? false;
+
+        /**
+         * boolean to enable or disable the client guilds cache
+         * @type {*|boolean}
+         */
+        this.cacheGuilds = options?.cacheGuilds ?? false;
+
+        /**
+         * boolean to enable or disable the client roles cache
+         * @type {*|boolean}
+         */
+        this.cacheRoles = options?.cacheRoles ?? false;
+
+        /**
+         * Private property to store the client cache
+         * @type {CacheManager} the cache manager
+         * @private
+         */
+        this._cache = new CacheManager(this);
 
         // Adding some ENV Data
         process.env.DISCORD_TOKEN = this.botToken;
@@ -74,7 +111,7 @@ class Application extends EventEmitter {
 
         this.botToken = token;
 
-        if (!this.mongooseString && typeof this.mongooseString === String) await mongooseConnectionHelper.init(this);
+        if (!this.mongooseString && typeof this.mongooseString === "string") await mongooseConnectionHelper.init(this);
 
         await startAPI(this);
     }

@@ -29,10 +29,6 @@ const ChannelTypes = {
  *
  */
 class Channel {
-    get options() {
-        return this._options;
-    }
-
     constructor(options = {}) {
 
         /**
