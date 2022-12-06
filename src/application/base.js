@@ -83,6 +83,18 @@ class Application extends EventEmitter {
         this.cacheRoles = options?.cacheRoles ?? false;
 
         /**
+         * boolean to enable or disable that interactions.js use the mongoose connection to save and load cache
+         * @type {*|boolean}
+         */
+        this.useMongooseCache = options?.useMongooseCache ?? false;
+
+        /**
+         * set a custom cool down in milliseconds to save the cache in the mongoose database
+         * @type {*|number}
+         */
+        this.customCacheCooldown = options?.customCacheCooldown ?? 10 * 60 * 1000;
+
+        /**
          * Private property to store the client cache
          * @type {CacheManager} the cache manager
          * @private

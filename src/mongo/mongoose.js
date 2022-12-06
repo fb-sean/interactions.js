@@ -4,9 +4,11 @@ async function init(c) {
     this.client.emit('connectionToDatabase', c);
 
     mongoose.connect(this.client.mongooseString)
-        .then(e => {
+        .then(async e => {
             this.client.emit('debug', "[DEBUG] Connected to Mongoose");
             this.client.emit('databaseConnected', c);
+
+            if(c?.useMongooseCache) await c._cache.loadCache();
         })
         .catch(e => {
             this.client.emit('debug', "[DEBUG] Got a error by trying to connect to mongoose");
