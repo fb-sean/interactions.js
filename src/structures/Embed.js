@@ -68,12 +68,12 @@ class Embed {
          * @type {object}
          */
         this.image = {
-            url: true
+            url: null
         }
 
         /**
          * the timestamp for the embed
-         * @type {number}
+         * @type {number|null}
          */
         this.timestamp = null
 
