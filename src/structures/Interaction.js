@@ -8,6 +8,9 @@ const InteractionResponseFlags = require("./InteractionResponseFlags");
 const InteractionType = require("./InteractionType");
 const InteractionResponseType = require("./InteractionResponseType");
 
+const Utils = require("../utils/Utils.js");
+const Util = new Utils();
+
 /**
  * Create a formatted Interaction Object
  *
@@ -111,8 +114,7 @@ class Interaction {
 
     /**
      * Reply to an Interaction
-     *
-     * @param {Array, Array, String, Array, Boolean} The message payload (embeds, components, content, files)
+     * @param {Array, Array, String, Array, Boolean} The message payload (embeds, components, content, files, ephemeral)
      */
     reply({embeds = [], components = [], content = null, files = [], ephemeral = false}) {
         if (embeds?.length <= 0 && components?.length <= 0 && !files && !content) throw new Error("[Interactions.js => <Interaction>.reply] You need to provide a MessagePayload (Content or Embeds or Components or files)");
@@ -128,6 +130,43 @@ class Interaction {
                 files,
                 flags: ephemeral ? InteractionResponseFlags.EPHEMERAL : null,
             }
+        });
+    }
+
+    /**
+     * Reply with deferred message
+     * @param {Boolean} ephemeral
+     */
+    deferReply({ephemeral = false}) {
+        this.client.emit('debug', "[DEBUG] Sending a defer to " + this.id);
+
+        return this._res.send({
+            type: InteractionResponseType.DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE,
+            data: {
+                flags: ephemeral ? InteractionResponseFlags.EPHEMERAL : null,
+            }
+        });
+    }
+
+    /**
+     * Edit the Reply
+     * @param {Array, Array, String, Array, Boolean} The message payload (embeds, components, content, files, ephemeral)
+     */
+    editReply({embeds = [], components = [], content = null, files = []}) {
+        if (embeds?.length <= 0 && components?.length <= 0 && !files && !content) throw new Error("[Interactions.js => <Interaction>.reply] You need to provide a MessagePayload (Content or Embeds or Components or files)");
+
+        this.client.emit('debug', "[DEBUG] Sending a edit");
+
+        return Util.DiscordRequest(this.client, `/webhooks/${this.client.applicationId}/${this.token}/messages/@original?wait=true`, {
+            method: "PATCH",
+            body: JSON.stringify({
+                embeds,
+                content,
+                components,
+                files,
+            }),
+        }, {
+            "Content-Type": "application/json",
         });
     }
 
