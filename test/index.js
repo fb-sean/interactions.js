@@ -34,8 +34,6 @@ Client.on("interactionCreate", async (i) => {
     } else if (i.commandName === "current-channel") {
         const channel = await new ChannelManager(Client, i.channelId).fetchChannel();
 
-        console.log(channel);
-
         return i.reply({
             content: "The current channel name is: " + channel.name,
             ephemeral: true,
