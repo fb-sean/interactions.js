@@ -197,7 +197,7 @@ class Embed {
      *
      * You can set a maximum of 25 fields.
      *
-     * @param {Array} fields The fields to set
+     * @param {Array} ArrayOfFields fields The fields to set
      */
     setFields(ArrayOfFields) {
         if (!ArrayOfFields || typeof ArrayOfFields != 'array') {
@@ -209,7 +209,7 @@ class Embed {
         }
 
         const wrongFields = [];
-        for (const i = 0; i < ArrayOfFields.length; i++) {
+        for (let i = 0; i < ArrayOfFields.length; i++) {
             const field = ArrayOfFields[i];
 
             let noName = false;
@@ -247,7 +247,7 @@ class Embed {
      *    .addFields(ArrayOfFields);
      * ```
      *
-     * @param {Array} fields The fields to add
+     * @param {Array} ArrayOfFields fields The fields to add
      */
     addFields(ArrayOfFields) {
         if (!ArrayOfFields || typeof ArrayOfFields != 'array') {
@@ -263,7 +263,7 @@ class Embed {
         }
 
         const wrongFields = [];
-        for (const i = 0; i < ArrayOfFields.length; i++) {
+        for (let i = 0; i < ArrayOfFields.length; i++) {
             const field = ArrayOfFields[i];
 
             let noName = false;
@@ -352,9 +352,10 @@ class Embed {
     /**
      * Sets the footer of this embed
      *
-     * @param {{text: string, iconURL}} name The name for the footer
+     * @param {String} name The name for the footer
+     * @param {String} iconUrl The iconUrl for the footer
      */
-    setFooter(name) {
+    setFooter(name, iconUrl) {
         if (!name || typeof name != 'string') {
             throw new Error("[Interactions.js => <Embed>.setAuthor] The Author Name need to be a String.");
         }

@@ -118,7 +118,6 @@ class Application extends EventEmitter {
             throw new Error("[Interactions.js => <Client>.start] Make sure to specify a valid publicKey and applicationId!");
         }
 
-
         this.emit('debug', "[DEBUG] Loading App");
 
         this.botToken = token;

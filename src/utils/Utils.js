@@ -14,7 +14,7 @@ class Utils {
     /**
      * Resolve a color by the input
      *
-     * @param {string} color The input to resolve the color
+     * @param {string|number} color The input to resolve the color
      */
     resolveColor(color) {
         if (typeof color === 'string') {
@@ -34,10 +34,10 @@ class Utils {
      * Check if the input is an url
      *
      * @param {string} url The string to check
-     * @param {string} attachment boolean if it can be a attachment
+     * @param {Boolean} attachment boolean if it can be an attachment
      */
     checkURL(url, attachment = false) {
-        if (typeof url != String) {
+        if (typeof url !== 'string') {
             return false;
         }
 
