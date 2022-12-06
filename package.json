@@ -36,7 +36,10 @@
   },
   "homepage": "https://github.com/fb-sean/interactions.js#readme",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "generate-docs": "jsdoc --configure jsdoc.json --verbose"
   },
-  "author": "fb-sean"
+  "author": "fb-sean",
+  "devDependencies": {
+    "clean-jsdoc-theme": "^4.1.10"
+  }
 }

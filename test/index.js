@@ -19,23 +19,12 @@ Client.setAppCommands([
         name: "ping",
         description: "Pong!",
     },
-    {
-        name: "current-channel",
-        description: "Get the current channel.",
-    },
 ]).catch(console.log);
 
 Client.on("interactionCreate", async (i) => {
     if (i.commandName === "ping") {
         return i.reply({
             content: "Pong!",
-            ephemeral: true,
-        });
-    } else if (i.commandName === "current-channel") {
-        const channel = await new ChannelManager(Client, i.channelId).fetchChannel();
-
-        return i.reply({
-            content: "The current channel name is: " + channel.name,
             ephemeral: true,
         });
     }
