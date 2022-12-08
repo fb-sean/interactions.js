@@ -326,7 +326,6 @@ class Embed {
             throw new Error("[Interactions.js => <Embed>.setImage] The Image isn't a valid Image URL. (Need to start with 'attachment', 'http' or 'https')");
         }
 
-
         this.image = {
             url: url,
         };
@@ -353,11 +352,11 @@ class Embed {
      */
     setFooter(name, iconUrl) {
         if (!name || typeof name != 'string') {
-            throw new Error("[Interactions.js => <Embed>.setAuthor] The Author Name need to be a String.");
+            throw new Error("[Interactions.js => <Embed>.setFooter] The Author Name need to be a String.");
         }
 
         if (iconUrl && !Util.checkURL(iconUrl)) {
-            throw new Error("[Interactions.js => <Embed>.setAuthor] The Author Icon URL isn't a valid URL. (Need to start with 'http' or 'https')");
+            throw new Error("[Interactions.js => <Embed>.setFooter] The Author Icon URL isn't a valid URL. (Need to start with 'http' or 'https')");
         }
 
         this.footer = {
