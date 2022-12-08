@@ -26,7 +26,7 @@ const ChannelTypes = {
  * ```js
  * const channel = new Channel(ResolvedChannel);
  * ```
- *
+ * @private
  */
 class Channel {
     constructor(options = {}) {

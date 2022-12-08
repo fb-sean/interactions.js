@@ -59,22 +59,28 @@ class Utils {
      *
      * @param {Object} client The Client that makes the request
      * @param {string} endpoint The endpoint to request from
-     * @param {{method: string}} options The fetch options
+     * @param {{method: string, body: object}} options The fetch options
      * @param {object} headers The headers to send
+     * @param {boolean} formData if the body requires data or not
      */
-    async DiscordRequest(client, endpoint, options, headers = {}) {
+    async DiscordRequest(client, endpoint, options, headers = {}, formData = false) {
         try {
             const url = 'https://discord.com/api/v10/' + endpoint;
             if (options.body) options.body = JSON.stringify(options.body);
 
-            const res = await fetch(url, {
+            console.log(endpoint, options)
+
+            const res = await fetch(
+                url,
+                {
+                method: options.method ?? 'GET',
+                body: options.body ?? {},
                 headers: {
                     Authorization: `Bot ${client.botToken}`,
-                    'Content-Type': 'application/json; charset=UTF-8',
+                    'Content-Type': formData ? 'application/json; charset=UTF-8' : 'multipart/form-data',
                     'User-Agent': 'Discord Interactions.js Package (https://github.com/fb-sean/interactions.js)',
                     ...headers
                 },
-                ...options
             });
 
             let data;

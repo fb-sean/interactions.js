@@ -7,6 +7,7 @@
  * ```js
  * const User = new User(UserData);
  * ```
+ * @private
  */
 class User {
     constructor(raw) {

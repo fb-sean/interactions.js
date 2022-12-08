@@ -1,10 +1,11 @@
 /**
 * Create a formated Guild Object
-* 
+*
 * @example
 * ```js
 * const Guild = new Guild(GuildData);
 * ```
+ * @private
 */
 class Guild {
     constructor(raw) {

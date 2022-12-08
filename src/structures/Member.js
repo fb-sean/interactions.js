@@ -9,6 +9,7 @@ const User = require("./User.js")
  * ```js
  * const Member = new Member(MemberData);
  * ```
+ * @private
  */
 class Member {
     constructor(raw) {

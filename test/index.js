@@ -1,4 +1,5 @@
 const { Application, ChannelManager } = require("../src/index.js");
+const {Embed} = require("../src");
 require('dotenv').config()
 
 const Client = new Application({
@@ -22,10 +23,16 @@ Client.setAppCommands([
 ]).catch(console.log);
 
 Client.on("interactionCreate", async (i) => {
+    i.deferReply(true);
+
     if (i.commandName === "ping") {
-        return i.reply({
+        const test =  await i.editReply({
             content: "Pong!",
-            ephemeral: true,
+            embeds: [
+                new Embed().setTitle('Ping')
+            ]
         });
+
+        console.log(test)
     }
 });

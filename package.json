@@ -24,6 +24,7 @@
   "dependencies": {
     "@discordjs/rest": "^1.4.0",
     "@fastify/express": "^2.0.1",
+    "discord-api-types": "^0.37.21",
     "fastify": "^4.5.2",
     "mongoose": "^6.5.2",
     "node-fetch": "^2.6.1"
@@ -41,5 +42,8 @@
   "author": "fb-sean",
   "devDependencies": {
     "clean-jsdoc-theme": "^4.1.10"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
   }
 }

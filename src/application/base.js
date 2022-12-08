@@ -101,6 +101,12 @@ class Application extends EventEmitter {
          */
         this._cache = new CacheManager(this);
 
+        /**
+         * The unix timestamp since when the bot is ready
+         * @type {number|null}
+         */
+        this.readySince = null;
+
         // Adding some ENV Data
         process.env.DISCORD_TOKEN = this.botToken;
         process.env.MONGOOSE_STRING = this.mongooseString;

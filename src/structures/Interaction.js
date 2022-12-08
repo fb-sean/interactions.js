@@ -11,6 +11,9 @@ const InteractionResponseType = require("./InteractionResponseType");
 const Utils = require("../utils/Utils.js");
 const Util = new Utils();
 
+const { Routes } = require('discord-api-types/rest/v10');
+
+
 /**
  * Create a formatted Interaction Object
  *
@@ -18,6 +21,7 @@ const Util = new Utils();
  * ```js
  * const Interaction = new Interaction(request, client, response);
  * ```
+ * @private
  */
 class Interaction {
     constructor(req, c, res) {
@@ -39,6 +43,8 @@ class Interaction {
          * @type {string|null}
          */
         this.commandName = req?.body?.data?.name ?? null
+
+        this.options = new InteractionOptions(req?.body?.data?.options ?? null);
 
         /**
          * interaction custom id
@@ -124,8 +130,8 @@ class Interaction {
         return this._res.send({
             type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
             data: {
-                embeds,
                 content,
+                embeds,
                 components,
                 files,
                 flags: ephemeral ? InteractionResponseFlags.EPHEMERAL : null,
@@ -157,17 +163,18 @@ class Interaction {
 
         this.client.emit('debug', "[DEBUG] Sending a edit");
 
-        return Util.DiscordRequest(this.client, `/webhooks/${this.client.applicationId}/${this.token}/messages/@original?wait=true`, {
+        let payload = {};
+        if(embeds?.length > 0) payload.embeds = embeds;
+        if(components?.length > 0) payload.components = components;
+        if(content) payload.content = content;
+        if(files?.length > 0) payload.files = files;
+
+        const endpoint = `/webhooks/${this.client.applicationId}/${this.token}/messages/@original?wait=true`;
+
+        return Util.DiscordRequest(this.client, endpoint, {
             method: "PATCH",
-            body: JSON.stringify({
-                embeds,
-                content,
-                components,
-                files,
-            }),
-        }, {
-            "Content-Type": "application/json",
-        });
+            body: payload,
+        }, {}, !!payload.files);
     }
 
     /**
@@ -183,8 +190,8 @@ class Interaction {
         return this._res.send({
             type: InteractionResponseType.UPDATE_MESSAGE,
             data: {
-                embeds,
                 content,
+                embeds,
                 components,
                 files,
             }

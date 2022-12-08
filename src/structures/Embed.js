@@ -199,7 +199,7 @@ class Embed {
      * @param {Array} ArrayOfFields fields The fields to set
      */
     setFields(ArrayOfFields) {
-        if (!ArrayOfFields || typeof ArrayOfFields != 'object') {
+        if (!ArrayOfFields || !Array.isArray(ArrayOfFields)) {
             throw new Error("[Interactions.js => <Embed>.setFields] The input need to be an array.");
         }
 
@@ -247,7 +247,7 @@ class Embed {
      * @param {Array} ArrayOfFields fields The fields to add
      */
     addFields(ArrayOfFields) {
-        if (!ArrayOfFields || typeof ArrayOfFields != 'object') {
+        if (!ArrayOfFields || !Array.isArray(ArrayOfFields)) {
             throw new Error("[Interactions.js => <Embed>.addFields] The input need to be an array.");
         }
 

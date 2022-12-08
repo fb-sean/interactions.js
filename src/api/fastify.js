@@ -39,7 +39,7 @@ module.exports = async (Client) => {
             Client.emit('debug', "[DEBUG] Response with Pong " + req.body.id);
             return res.send({type: InteractionResponseType.PONG});
         }
-        
+
         const interaction = new Interaction(req, Client, res);
 
         Client.emit('debug', "[DEBUG] Forward Interaction " + req.body.id);
@@ -54,6 +54,8 @@ module.exports = async (Client) => {
 
     app.listen({port: Client.port}, (err) => {
         Client.emit('debug', "[DEBUG] API Online on port " + Client.port);
+
+        Client.readySince = Date.now();
 
         /**
          * Emitted the ready event.
