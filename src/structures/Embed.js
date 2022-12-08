@@ -160,7 +160,7 @@ class Embed {
     /**
      * Sets the description of this embed
      *
-     * @param {String} description The description
+     * @param {String} desc The description
      */
     setDescription(desc) {
         if (!desc || typeof desc != 'string') {
@@ -185,7 +185,6 @@ class Embed {
             throw new Error("[Interactions.js => <Embed>.setThumbnail] The Thumbnail isn't a valid Image URL. (Need to start with 'attachment', 'http' or 'https')");
         }
 
-
         this.thumbnail = {
             url: url,
         };
@@ -200,7 +199,7 @@ class Embed {
      * @param {Array} ArrayOfFields fields The fields to set
      */
     setFields(ArrayOfFields) {
-        if (!ArrayOfFields || typeof ArrayOfFields != 'array') {
+        if (!ArrayOfFields || typeof ArrayOfFields != 'object') {
             throw new Error("[Interactions.js => <Embed>.setFields] The input need to be an array.");
         }
 

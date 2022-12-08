@@ -135,9 +135,9 @@ class Interaction {
 
     /**
      * Reply with deferred message
-     * @param {Boolean} ephemeral
+     * @param {boolean} ephemeral if the message should be ephemeral
      */
-    deferReply({ephemeral = false}) {
+    deferReply(ephemeral = false) {
         this.client.emit('debug', "[DEBUG] Sending a defer to " + this.id);
 
         return this._res.send({
