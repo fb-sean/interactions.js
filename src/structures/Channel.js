@@ -23,9 +23,8 @@ const ChannelTypes = {
  * Create a formatted Channel Object
  *
  * @example
- * ```js
  * const channel = new Channel(ResolvedChannel);
- * ```
+ *
  * @private
  */
 class Channel {

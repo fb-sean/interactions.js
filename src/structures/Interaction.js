@@ -18,9 +18,8 @@ const { Routes } = require('discord-api-types/rest/v10');
  * Create a formatted Interaction Object
  *
  * @example
- * ```js
  * const Interaction = new Interaction(request, client, response);
- * ```
+ *
  * @private
  */
 class Interaction {
@@ -121,6 +120,8 @@ class Interaction {
     /**
      * Reply to an Interaction
      * @param {Array, Array, String, Array, Boolean} The message payload (embeds, components, content, files, ephemeral)
+     * @example
+     * interaction.reply({ content: "Hello World" });
      */
     reply({embeds = [], components = [], content = null, files = [], ephemeral = false}) {
         if (embeds?.length <= 0 && components?.length <= 0 && !files && !content) throw new Error("[Interactions.js => <Interaction>.reply] You need to provide a MessagePayload (Content or Embeds or Components or files)");
@@ -142,6 +143,8 @@ class Interaction {
     /**
      * Reply with deferred message
      * @param {boolean} ephemeral if the message should be ephemeral
+     * @example
+     * interaction.deferReply(true); // true or false to make it ephemeral
      */
     deferReply(ephemeral = false) {
         this.client.emit('debug', "[DEBUG] Sending a defer to " + this.id);
@@ -157,6 +160,9 @@ class Interaction {
     /**
      * Edit the Reply
      * @param {Array, Array, String, Array, Boolean} The message payload (embeds, components, content, files, ephemeral)
+     * @example
+     * const response = await interaction.editReply({ content: "Hello World" });
+     * console.log(response);
      */
     editReply({embeds = [], components = [], content = null, files = []}) {
         if (embeds?.length <= 0 && components?.length <= 0 && !files && !content) throw new Error("[Interactions.js => <Interaction>.reply] You need to provide a MessagePayload (Content or Embeds or Components or files)");
@@ -179,7 +185,8 @@ class Interaction {
 
     /**
      * Update an Interaction
-     *
+     * @example
+     * interaction.update({ content: "Hello World" });
      * @param options The message payload (embeds, components, content, files)
      */
     update({embeds = [], components = [], content = null, files = []}) {

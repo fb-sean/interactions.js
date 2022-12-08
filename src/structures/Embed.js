@@ -5,13 +5,13 @@ const Util = new Utils();
  * Create a custom embed
  *
  * @example
- * ```js
+ *
  * const embed = new Embed()
  * .setTitle('This is a Title')
  * .setURL('https://github.com/fb-sean/interactions.js')
  * .setColor('#31B505')
  * .setAuthor("This is a Author", null, "https://github.com/fb-sean/interactions.js");
- * ```
+ *
  */
 class Embed {
     constructor() {

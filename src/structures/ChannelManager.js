@@ -11,15 +11,16 @@ const Channel = require("../structures/Channel.js");
  * @param {string} id the id of the channel
  *
  * @example
- * ```js
  * // You can use this way
- * const channel = new ChannelManager(<Client>);
- * await channel.fetchChannel(ChannelId);
+ * const manager = new ChannelManager(<Client>);
+ * const channel = await manager.fetchChannel(ChannelId);
+ * console.log(channel);
  *
  * // Or this way
- * const channel = new ChannelManager(<Client>, ChannelId);
- * await channel.fetchChannel();
- * ```
+ * const manager = new ChannelManager(<Client>, ChannelId);
+ * const channel = await manager.fetchChannel();
+ * console.log(channel);
+ *
  *
  */
 class ChannelManager {
@@ -42,6 +43,8 @@ class ChannelManager {
      * Get the channel from cache if enabled
      *
      * @param {string} channelID The id of the channel
+     * @example
+     * const channel = await new ChannelManager(client, "980770618087710754").getChannel();
      */
     getChannel(channelID = this.id) {
         return new Channel(this?.client?._cache?.channels?.get(this.id) || {});
@@ -51,6 +54,9 @@ class ChannelManager {
      * Fetch a channel from Discord
      *
      * @param {string} channelID The id of the channel
+     * @example
+     * const channel = await new ChannelManager(client, "980770618087710754").fetchChannel();
+     * console.log(channel);
      */
     async fetchChannel(channelID = this.id) {
         if (!this.client) throw new Error("[Interactions.js => <ChannelManager>.fetchChannel] The client is needed for this action!")
@@ -71,6 +77,9 @@ class ChannelManager {
      *
      * @param {string} channelID The id of the channel
      * @param {?string} reason The reason of the deletion
+     * @example
+     * const deleteChannel = await new ChannelManager(client, "980770618087710754").deleteChannel();
+     * console.log(deleteChannel);
      */
     async deleteChannel(channelID = this.id, reason = null) {
         if (!this.client) throw new Error("[Interactions.js => <ChannelManager>.deleteChannel] The client is needed for this action!")
