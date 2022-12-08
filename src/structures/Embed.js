@@ -204,7 +204,7 @@ class Embed {
         }
 
         if (ArrayOfFields.length >= 25) {
-            throw new Error("[Interactions.js => <Embed>.addFields] You try to set an array that is over max fields value. [max 25 fields]");
+            throw new Error("[Interactions.js => <Embed>.setFields] You try to set an array that is over max fields value. [max 25 fields]");
         }
 
         const wrongFields = [];
@@ -241,16 +241,14 @@ class Embed {
      * You can have a maximum of 25 fields.
      *
      * @example
-     * ```js
      * const embed = new Embed()
      *    .addFields(ArrayOfFields);
-     * ```
      *
      * @param {Array} ArrayOfFields fields The fields to add
      */
     addFields(ArrayOfFields) {
-        if (!ArrayOfFields || typeof ArrayOfFields != 'array') {
-            throw new Error("[Interactions.js => <Embed>.setFields] The input need to be an array.");
+        if (!ArrayOfFields || typeof ArrayOfFields != 'object') {
+            throw new Error("[Interactions.js => <Embed>.addFields] The input need to be an array.");
         }
 
         if (this.fields.length >= 25) {
@@ -274,7 +272,6 @@ class Embed {
             if (!field?.value || typeof field?.value != 'string') {
                 noValue = true;
             }
-
 
             if (noValue || noName) {
                 wrongFields.push(`${i}`);
