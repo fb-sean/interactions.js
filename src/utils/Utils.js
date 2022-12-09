@@ -66,9 +66,12 @@ class Utils {
     async DiscordRequest(client, endpoint, options, headers = {}, formData = false) {
         try {
             const url = 'https://discord.com/api/v10/' + endpoint;
-            if (options.body) options.body = JSON.stringify(options.body);
 
-            console.log(endpoint, options)
+            if(options.body.embeds) {
+                options.body.embeds = options.body.embeds.map(e => e.toJSON());
+            }
+
+            if (options.body) options.body = JSON.stringify(options.body);
 
             const res = await fetch(
                 url,
@@ -77,7 +80,7 @@ class Utils {
                 body: options.body ?? {},
                 headers: {
                     Authorization: `Bot ${client.botToken}`,
-                    'Content-Type': formData ? 'application/json; charset=UTF-8' : 'multipart/form-data',
+                    'Content-Type': !formData ? 'application/json; charset=UTF-8' : 'multipart/form-data',
                     'User-Agent': 'Discord Interactions.js Package (https://github.com/fb-sean/interactions.js)',
                     ...headers
                 },

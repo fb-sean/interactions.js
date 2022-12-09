@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const Application = require("../application/base");
+
 
 async function init(c) {
     this.client.emit('connectionToDatabase', c);
@@ -9,8 +11,8 @@ async function init(c) {
 
             /**
              * Emitted the database connected event.
-             * @event Client#databaseConnected
-             * @param {c} client The bot client
+             * @event Application#databaseConnected
+             * @param {Application} client The bot client
              */
             this.client.emit('databaseConnected', c);
 
@@ -21,8 +23,8 @@ async function init(c) {
 
             /**
              * Emitted the database error event.
-             * @event Client#databaseError
-             * @param {c} client The bot client
+             * @event Application#databaseError
+             * @param {Application} client The bot client
              * @param {err} err The error message
              */
             this.client.emit('databaseError', c, e.message);
@@ -35,8 +37,8 @@ async function init(c) {
 
         /**
          * Emitted the database error event.
-         * @event Client#databaseError
-         * @param {c} client The bot client
+         * @event Application#databaseError
+         * @param {Application} client The bot client
          * @param {err} err The error message
          */
         this.client.emit('databaseError', c, err);
@@ -47,8 +49,8 @@ async function init(c) {
 
         /**
          * Emitted the database disconnected event.
-         * @event Client#databaseDisconnected
-         * @param {c} client The bot client
+         * @event Application#databaseDisconnected
+         * @param {Application} client The bot client
          */
         this.client.emit('databaseDisconnected', c);
     });

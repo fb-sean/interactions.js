@@ -2,6 +2,7 @@
 const Member = require("./Member.js");
 const User = require("./User.js");
 const Guild = require("./Guild.js");
+const InteractionOptions = require("./InteractionOptions.js");
 
 // Require all needed types
 const InteractionResponseFlags = require("./InteractionResponseFlags");
@@ -43,6 +44,10 @@ class Interaction {
          */
         this.commandName = req?.body?.data?.name ?? null
 
+        /**
+         * Return the options of the interaction
+         * @type {InteractionOptions}
+         */
         this.options = new InteractionOptions(req?.body?.data?.options ?? null);
 
         /**

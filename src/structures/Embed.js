@@ -15,76 +15,88 @@ const Util = new Utils();
  */
 class Embed {
     constructor() {
-        /**
-         * the id of this user
-         * @type {string|number}
-         */
-        this.color = 0x585858
+        this.data = {
+            /**
+             * the id of this user
+             * @type {string|number}
+             * @private
+             */
+            color: 0x585858,
 
-        /**
-         * the title of the embed
-         * @type {?string}
-         */
-        this.title = null
+            /**
+             * the title of the embed
+             * @type {?string}
+             * @private
+             */
+            title: null,
 
-        /**
-         * the url of the title in the embed
-         * @type {?string}
-         */
-        this.url = null
+            /**
+             * the url of the title in the embed
+             * @type {?string}
+             * @private
+             */
+            url: null,
 
-        /**
-         * the author object in the embed
-         * @type {object}
-         */
-        this.author = {
-            name: null,
-            icon_url: null,
-            url: null
-        }
+            /**
+             * the author object in the embed
+             * @type {object}
+             * @private
+             */
+            author: {
+                name: null,
+                icon_url: null,
+                url: null
+            },
 
-        /**
-         * the description of the embed
-         * @type {?string}
-         */
-        this.description = null
+            /**
+             * the description of the embed
+             * @type {?string}
+             * @private
+             */
+            description: null,
 
-        /**
-         * the thumbnail of the embed
-         * @type {object}
-         */
-        this.thumbnail = {
-            url: null
-        }
+            /**
+             * the thumbnail of the embed
+             * @type {object}
+             * @private
+             */
+            thumbnail: {
+                url: null
+            },
 
-        /**
-         * An array of fields for the embed
-         * @type {array}
-         */
-        this.fields = []
+            /**
+             * An array of fields for the embed
+             * @type {array}
+             * @private
+             */
+            fields: [],
 
-        /**
-         * the image of the embed
-         * @type {object}
-         */
-        this.image = {
-            url: null
-        }
+            /**
+             * the image of the embed
+             * @type {object}
+             * @private
+             */
+            image: {
+                url: null
+            },
 
-        /**
-         * the timestamp for the embed
-         * @type {number|null}
-         */
-        this.timestamp = null
+            /**
+             * the timestamp for the embed
+             * @type {number|null}
+             * @private
+             */
+            timestamp: null,
 
-        /**
-         * the footer of the embed
-         * @type {object}
-         */
-        this.footer = {
-            text: null,
-            icon_url: null
-        }
+            /**
+             * the footer of the embed
+             * @type {object}
+             * @private
+             */
+            footer: {
+                text: null,
+                icon_url: null
+            }
+        };
     }
 
     /**
@@ -97,7 +109,7 @@ class Embed {
             throw new Error("[Interactions.js => <Embed>.setTitle] The Title need to be a string.");
         }
 
-        this.title = title;
+        this.data.title = title;
         return this;
     }
 
@@ -111,7 +123,7 @@ class Embed {
             throw new Error("[Interactions.js => <Embed>.setURL] The URL isn't a valid URL. (Need to start with 'http' or 'https')");
         }
 
-        this.url = url;
+        this.data.url = url;
         return this;
     }
 
@@ -125,7 +137,7 @@ class Embed {
             throw new Error("[Interactions.js => <Embed>.setColor] You need to provide a color.");
         }
 
-        this.color = Util.resolveColor(color);
+        this.data.color = Util.resolveColor(color);
         return this;
     }
 
@@ -149,7 +161,7 @@ class Embed {
             throw new Error("[Interactions.js => <Embed>.setAuthor] The Author Icon URL isn't a valid URL. (Need to start with 'http' or 'https')");
         }
 
-        this.author = {
+        this.data.author = {
             name: name ?? null,
             icon_url: iconUrl ?? null,
             url: url ?? null,
@@ -171,7 +183,7 @@ class Embed {
             throw new Error("[Interactions.js => <Embed>.setDescription] The Description is too long (4096 is the max length).");
         }
 
-        this.description = desc;
+        this.data.description = desc;
         return this;
     }
 
@@ -185,7 +197,7 @@ class Embed {
             throw new Error("[Interactions.js => <Embed>.setThumbnail] The Thumbnail isn't a valid Image URL. (Need to start with 'attachment', 'http' or 'https')");
         }
 
-        this.thumbnail = {
+        this.data.thumbnail = {
             url: url,
         };
         return this;
@@ -231,7 +243,7 @@ class Embed {
             throw new Error("[Interactions.js => <Embed>.setFields] Found some problems in the Array at postition: " + wrongFields.join(", ") + ".");
         }
 
-        this.fields = ArrayOfFields;
+        this.data.fields = ArrayOfFields;
         return this;
     }
 
@@ -251,11 +263,11 @@ class Embed {
             throw new Error("[Interactions.js => <Embed>.addFields] The input need to be an array.");
         }
 
-        if (this.fields.length >= 25) {
+        if (this.data.fields.length >= 25) {
             throw new Error("[Interactions.js => <Embed>.addFields] This embed reached the max value for fields. [max 25 fields]");
         }
 
-        if ((this.fields.length + ArrayOfFields.length) >= 25) {
+        if ((this.data.fields.length + ArrayOfFields.length) >= 25) {
             throw new Error("[Interactions.js => <Embed>.addFields] By adding this array it would go over the max value of fields. [max 25 fields]");
         }
 
@@ -282,7 +294,7 @@ class Embed {
             throw new Error("[Interactions.js => <Embed>.addFields] Found some problems in the Array at postition: " + wrongFields.join(", ") + ".");
         }
 
-        this.fields = this.fields.concat(ArrayOfFields);
+        this.data.fields = this.data.fields.concat(ArrayOfFields);
         return this;
     }
 
@@ -296,7 +308,7 @@ class Embed {
      * @param {Boolean} inline boolean if the embed should be inline
      */
     addField(name, value, inline = false) {
-        if (this.fields.length >= 25) {
+        if (this.data.fields.length >= 25) {
             throw new Error("[Interactions.js => <Embed>.addField] This embed reached the max value for fields. [max 25 fields]");
         }
 
@@ -308,7 +320,7 @@ class Embed {
             throw new Error("[Interactions.js => <Embed>.addField] The Field Value need to be a string.");
         }
 
-        this.fields = this.fields.concat([{
+        this.data.fields = this.data.fields.concat([{
             name,
             value,
             inline
@@ -326,7 +338,7 @@ class Embed {
             throw new Error("[Interactions.js => <Embed>.setImage] The Image isn't a valid Image URL. (Need to start with 'attachment', 'http' or 'https')");
         }
 
-        this.image = {
+        this.data.image = {
             url: url,
         };
         return this;
@@ -340,7 +352,7 @@ class Embed {
     setTimestamp(timestamp) {
         if (!timestamp) timestamp = new Date();
 
-        this.timestamp = timestamp ? new Date(timestamp).toISOString() : undefined;
+        this.data.timestamp = timestamp ? new Date(timestamp).toISOString() : undefined;
         return this;
     }
 
@@ -359,11 +371,19 @@ class Embed {
             throw new Error("[Interactions.js => <Embed>.setFooter] The Author Icon URL isn't a valid URL. (Need to start with 'http' or 'https')");
         }
 
-        this.footer = {
+        this.data.footer = {
             name: name ?? null,
             icon_url: iconUrl ?? null,
         };
         return this;
+    }
+
+    /**
+     * return the embed as json
+     * @return {Object} The embed as json
+     */
+    toJSON() {
+        return { ...this.data };
     }
 }
 

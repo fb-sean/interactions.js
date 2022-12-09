@@ -16,7 +16,7 @@ class Interaction {
          * the interaction option data
          * @type {Array}
          */
-        this.data = options ?? null
+        this.data = options ?? null;
     }
 
     /**

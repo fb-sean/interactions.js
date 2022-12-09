@@ -15,6 +15,30 @@
     "verbose": true,
     "template": "./node_modules/clean-jsdoc-theme",
     "theme_opts": {
+      "meta": [
+        {
+          "name": "author",
+          "content": "Interactions.js"
+        },
+        {
+          "name": "description",
+          "content": "interactions.js is a powerful Node.js module that allows you to easily interact with Discord interactions."
+        }
+      ],
+      "menu": [
+        {
+          "title": "Github",
+          "link": "https://github.com/fb-sean/interactions.js",
+          "target": "_blank",
+        },
+        {
+          "title": "Discord Server",
+          "link": "https://discord.gg/ZVERh35",
+          "target": "_blank",
+        }
+      ],
+      "homepageTitle": "Interactions.js",
+      "base_url": "https://interactionsjs.com",
       "default_theme": "dark"
     }
   },

@@ -7,6 +7,8 @@ const Interaction = require("../structures/Interaction.js");
 
 const Member = require("../structures/Member.js");
 
+const Application = require("../application/base");
+
 // Require the fastify application
 const app = require('fastify')({
     logger: false,
@@ -20,8 +22,8 @@ const Util = new Utils();
 module.exports = async (Client) => {
     /**
      * Emitted the starting event.
-     * @event Client#starting
-     * @param {Client} c The Client
+     * @event Application#starting
+     * @param {Application} c The Client
      */
     Client.emit('starting', Client);
 
@@ -46,7 +48,7 @@ module.exports = async (Client) => {
 
         /**
          * Emitted the interaction event.
-         * @event Client#interactionCreate
+         * @event Application#interactionCreate
          * @param {Interaction} interaction The Interaction to handle
          */
         Client.emit('interactionCreate', interaction);
@@ -59,8 +61,8 @@ module.exports = async (Client) => {
 
         /**
          * Emitted the ready event.
-         * @event Client#ready
-         * @param {Client} Client The Client
+         * @event Application#ready
+         * @param {Application} Client The Client
          */
         Client.emit('ready', Client);
     })

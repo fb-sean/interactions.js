@@ -23,6 +23,7 @@ Client.setAppCommands([
 ]).catch(console.log);
 
 Client.on("interactionCreate", async (i) => {
+    console.log("Sending...")
     i.deferReply(true);
 
     if (i.commandName === "ping") {
@@ -32,7 +33,5 @@ Client.on("interactionCreate", async (i) => {
                 new Embed().setTitle('Ping')
             ]
         });
-
-        console.log(test)
     }
 });
