@@ -42,8 +42,5 @@
   "author": "fb-sean",
   "devDependencies": {
     "clean-jsdoc-theme": "^4.1.10"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
   }
 }
