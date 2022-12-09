@@ -61,4 +61,5 @@ nudge in the right direction, please don't hesitate to join our [discord server]
 - [Imagine](https://discord.com/api/oauth2/authorize?client_id=1039996075882336336&permissions=313344&scope=applications.commands%20bot)
 - [Memer](https://discord.com/api/oauth2/authorize?client_id=927598798019108894&permissions=2147863616&scope=bot%20applications.commands)
 - [TindCord](https://discord.com/api/oauth2/authorize?client_id=935185892719603713&permissions=137439332416&scope=bot%20applications.commands)
+- [Crypto Helper](https://discord.com/api/oauth2/authorize?client_id=747050613656911892&permissions=0&scope=applications.commands%20bot)
 - your bot? [Join our discord server](https://discord.gg/ZVERh35) and let us know!

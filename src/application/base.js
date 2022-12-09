@@ -9,12 +9,12 @@ const CacheManager = require("../structures/CacheManager");
  * Create your Application
  *
  * @example
- * ```js
  * const client = new Application();
  * client.on("debug", debug => {
  *    console.log(debug);
  * })
- * ```
+ * client.start();
+ *
  *
  * @param {Object} options Your application options
  */

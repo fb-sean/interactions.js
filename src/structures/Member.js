@@ -1,15 +1,11 @@
 'use strict';
 
-const User = require("./User.js")
-
 /**
  * Create a formatted Member Object
  *
  * @example
- * ```js
  * const Member = new Member(MemberData);
- * ```
- * @private
+ *
  */
 class Member {
     constructor(raw) {

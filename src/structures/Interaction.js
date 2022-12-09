@@ -21,7 +21,6 @@ const { Routes } = require('discord-api-types/rest/v10');
  * @example
  * const Interaction = new Interaction(request, client, response);
  *
- * @private
  */
 class Interaction {
     constructor(req, c, res) {
@@ -94,7 +93,7 @@ class Interaction {
 
         /**
          * the member data of the interaction
-         * @type {object}
+         * @type {Member}
          */
         this.member = new Member(req?.body?.member ?? null)
 
@@ -106,7 +105,7 @@ class Interaction {
 
         /**
          * the user data of the interaction
-         * @type {object}
+         * @type {User}
          */
         this.user = new User(req?.body?.user ?? req?.body?.member?.user ?? null)
 
@@ -118,6 +117,7 @@ class Interaction {
 
         /**
          * private res property
+         * @private
          */
         this._res = res
     }
