@@ -4,9 +4,8 @@
  * Create a formatted User Object
  *
  * @example
- * ```js
  * const User = new User(UserData);
- * ```
+ *
  */
 class User {
     constructor(raw) {
