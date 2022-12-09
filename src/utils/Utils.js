@@ -68,7 +68,7 @@ class Utils {
             const url = 'https://discord.com/api/v10/' + endpoint;
 
             if(options.body.embeds) {
-                options.body.embeds = options.body.embeds.map(e => e.toJSON());
+                options.body.embeds = options.body.embeds.map(e => e?.data ? e?.toJSON() : e);
             }
 
             if (options.body) options.body = JSON.stringify(options.body);
