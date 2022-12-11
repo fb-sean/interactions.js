@@ -3,6 +3,7 @@ const InteractionOptionsType = require("./InteractionOptionsType");
 
 /**
  * Create a formatted Interaction Options Object
+ * @return {InteractionOptions}
  * @example
  * const subCommandOption = interaction.options.getSubCommand(); // returns the subcommand option
  * const subCommandGroupOption = interaction.options.getSubCommandGroup(); // returns the subcommand group option

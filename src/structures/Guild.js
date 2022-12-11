@@ -1,12 +1,10 @@
 /**
-* Create a formated Guild Object
-*
-* @example
-* ```js
-* const Guild = new Guild(GuildData);
-* ```
- * @private
-*/
+ * Create a formatted Guild Object
+ * @return {Guild}
+ * @example
+ * const guild = interaction.guild; // returns the guild object
+ * const guildId = interaction.guild.id; // returns the guild id
+ */
 class Guild {
     constructor(raw) {
 

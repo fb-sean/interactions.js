@@ -21,11 +21,9 @@ const ChannelTypes = {
 /**
  *
  * Create a formatted Channel Object
- *
  * @example
- * const channel = new Channel(ResolvedChannel);
- *
- * @private
+ * const channel = interaction.channel; // returns the channel object
+ * const channelId = interaction.channel.id; // returns the channel id
  */
 class Channel {
     constructor(options = {}) {

@@ -2,10 +2,10 @@
 
 /**
  * Create a formatted User Object
- *
+ * @return {User}
  * @example
- * const User = new User(UserData);
- *
+ * const user = interaction.user; // returns the user object
+ * const username = interaction.user.username; // returns the username
  */
 class User {
     constructor(raw) {

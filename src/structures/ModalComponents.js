@@ -1,16 +1,11 @@
-// Require all needed types
-const InteractionOptionsType = require("./InteractionOptionsType");
-
 /**
- * Create a formatted Interaction Object
- *
+ * Create a formatted Modal Components Object
+ * @return {ModalComponents}
  * @example
- * ```js
- * const Interaction = new Interaction(request, client, response);
- * ```
- * @private
+ * const textInput = interaction.components.getValueById("test"); // returns the field value
+ * const textInputTwo = interaction.components.getDataById("testTwo"); // returns the field as object
  */
-class Interaction {
+class ModalComponents {
     constructor(components) {
         /**
          * the interaction components data
@@ -23,6 +18,8 @@ class Interaction {
      * Get a field by id
      * @param {string} id
      * @return {object}
+     * @example
+     * const textInput = interaction.components.getDataById("textInput"); // returns the field as object
      */
     getDataById(id) {
         let data;
@@ -39,6 +36,8 @@ class Interaction {
      * Get the interaction components value
      * @param {string} id
      * @return {string}
+     * @example
+     * const textInput = interaction.components.getValueById("textInput"); // returns the field value
      */
     getValueById(id) {
         let data;
@@ -60,4 +59,4 @@ class Interaction {
     }
 }
 
-module.exports = Interaction;
+module.exports = ModalComponents;

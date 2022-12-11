@@ -2,10 +2,10 @@
 
 /**
  * Create a formatted Member Object
- *
+ * @return {User}
  * @example
- * const Member = new Member(MemberData);
- *
+ * const member = interaction.member; // returns the member object
+ * const memberFlags = interaction.member.flags; // returns the member flags
  */
 class Member {
     constructor(raw) {

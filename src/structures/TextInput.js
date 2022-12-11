@@ -8,6 +8,10 @@ const buttonStyles = require("./ButtonStyles");
  * const { TextInput } = require("interactions.js");
  *
  * const textInput = new TextInput()
+ *    .setCustomId("test")
+ *    .setPlaceholder("test")
+ *    .setStyle(TextInputStyles.Short)
+ *    .setLabel("test");
  *
  */
 class TextInput {
