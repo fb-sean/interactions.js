@@ -20,6 +20,8 @@ const Utils = require("../utils/Utils.js");
 const Util = new Utils();
 
 module.exports = async (Client) => {
+    Client.emit('debug', "[DEBUG] Starting Fastify Server");
+
     /**
      * Emitted the starting event.
      * @event Application#starting

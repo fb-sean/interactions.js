@@ -18,7 +18,7 @@ npm i interactions.js
 ## Example Application
 
 ```js
-const { Application, ChannelManager } = require("interactions.js");
+const { Application } = require("interactions.js");
 require('dotenv').config()
 
 const Client = new Application({
@@ -55,6 +55,9 @@ Client.on("interactionCreate", async (i) => {
 
 If you don't understand something in the documentation, you are experiencing problems, or you just need a gentle
 nudge in the right direction, please don't hesitate to join our [discord server](https://discord.gg/ZVERh35).
+
+## Example Handler
+- [http-bot-template](https://github.com/mezotv/http-bot-template)
 
 ## Bots Using interactions.js
 - [Himiko](https://discord.com/api/oauth2/authorize?client_id=1008142696801648711&permissions=2147797056&scope=bot%20applications.commands)

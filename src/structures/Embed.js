@@ -5,6 +5,7 @@ const Util = new Utils();
  * Create a custom embed
  *
  * @example
+ * const { Embed } = require("interactions.js");
  *
  * const embed = new Embed()
  * .setTitle('This is a Title')
@@ -15,6 +16,11 @@ const Util = new Utils();
  */
 class Embed {
     constructor() {
+        /**
+         * The data of this embed
+         * @type {{image: Object, thumbnail: Object, color: (string|number), footer: Object, author: Object, description: ?string, title: ?string, fields: Array, url: ?string, timestamp: (number|null)}}
+         * @private
+         */
         this.data = {
             /**
              * the id of this user
@@ -103,6 +109,7 @@ class Embed {
      * Sets the title of this embed
      *
      * @param {String} title The title
+     * @return {Embed}
      */
     setTitle(title) {
         if (!title || typeof title != 'string') {
@@ -117,6 +124,7 @@ class Embed {
      * Sets the URL of this embed
      *
      * @param {String} url The URL
+     * @return {Embed}
      */
     setURL(url) {
         if (!Util.checkURL(url)) {
@@ -131,6 +139,7 @@ class Embed {
      * Sets the color of this embed
      *
      * @param {String} color The color of the embed
+     * @return {Embed}
      */
     setColor(color) {
         if (!color) {
@@ -147,6 +156,7 @@ class Embed {
      * @param {String} name The name for the author
      * @param {String} iconUrl The icon url for the author
      * @param {String} url The url for the author
+     * @return {Embed}
      */
     setAuthor(name, iconUrl, url) {
         if (!name || typeof name != 'string') {
@@ -173,6 +183,7 @@ class Embed {
      * Sets the description of this embed
      *
      * @param {String} desc The description
+     * @return {Embed}
      */
     setDescription(desc) {
         if (!desc || typeof desc != 'string') {
@@ -191,6 +202,7 @@ class Embed {
      * Sets the thumbnail of this embed
      *
      * @param {String} url The URL of the thumbnail
+     * @return {Embed}
      */
     setThumbnail(url) {
         if (!url || !Util.checkURL(url, true)) {
@@ -205,10 +217,10 @@ class Embed {
 
     /**
      * Sets the embed's fields
-     *
      * You can set a maximum of 25 fields.
      *
      * @param {Array} ArrayOfFields fields The fields to set
+     * @return {Embed}
      */
     setFields(ArrayOfFields) {
         if (!ArrayOfFields || !Array.isArray(ArrayOfFields)) {
@@ -249,7 +261,6 @@ class Embed {
 
     /**
      * Appends fields to the embed
-     *
      * You can have a maximum of 25 fields.
      *
      * @example
@@ -257,6 +268,7 @@ class Embed {
      *    .addFields(ArrayOfFields);
      *
      * @param {Array} ArrayOfFields fields The fields to add
+     * @return {Embed}
      */
     addFields(ArrayOfFields) {
         if (!ArrayOfFields || !Array.isArray(ArrayOfFields)) {
@@ -306,6 +318,7 @@ class Embed {
      * @param {String} name The field name
      * @param {String} value The field value
      * @param {Boolean} inline boolean if the embed should be inline
+     * @return {Embed}
      */
     addField(name, value, inline = false) {
         if (this.data.fields.length >= 25) {
@@ -332,6 +345,7 @@ class Embed {
      * Sets the image of this embed
      *
      * @param {String} url The URL of the image
+     * @return {Embed}
      */
     setImage(url) {
         if (!url || !Util.checkURL(url, true)) {
@@ -348,6 +362,7 @@ class Embed {
      * Sets the timestamp of this embed
      *
      * @param {String} timestamp The timestamp or date
+     * @return {Embed}
      */
     setTimestamp(timestamp) {
         if (!timestamp) timestamp = new Date();
@@ -361,6 +376,7 @@ class Embed {
      *
      * @param {String} name The name for the footer
      * @param {String} iconUrl The iconUrl for the footer
+     * @return {Embed}
      */
     setFooter(name, iconUrl) {
         if (!name || typeof name != 'string') {
@@ -381,6 +397,7 @@ class Embed {
     /**
      * return the embed as json
      * @return {Object} The embed as json
+     * @private
      */
     toJSON() {
         return { ...this.data };

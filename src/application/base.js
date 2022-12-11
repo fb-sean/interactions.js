@@ -1,4 +1,4 @@
-const startAPI = require("../api/start.js");
+const startAPI = require("../api/api.js");
 const mongooseConnectionHelper = require("../mongo/mongoose.js")
 const EventEmitter = require('node:events');
 const {REST} = require('@discordjs/rest');
@@ -9,7 +9,9 @@ const CacheManager = require("../structures/CacheManager");
  * Create your Application
  *
  * @example
- * const client = new Application();
+ * const { Application } = require("interactions.js");
+ *
+ * const client = new Application({ botToken: "Bot Token", publicKey: "Public Key", applicationId: "Application Id" });
  * client.on("debug", debug => {
  *    console.log(debug);
  * })
@@ -166,7 +168,7 @@ class Application extends EventEmitter {
     }
 
     /**
-     * Set the Slash Commands for an Guild
+     * Set the Slash Commands for a Guild
      *
      * @param {array} arrayOfSlashCommands an array of slash commands to set
      * @param {string} GuildId the guild id to post the commands to

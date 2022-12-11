@@ -4,9 +4,7 @@
     "includePattern": ".js$",
     "excludePattern": "(node_modules/|docs)"
   },
-
   "plugins": ["plugins/markdown"],
-
   "opts": {
     "encoding": "utf8",
     "readme": "./README.md",
@@ -38,11 +36,9 @@
         }
       ],
       "homepageTitle": "Interactions.js",
-      "base_url": "https://interactionsjs.com",
       "default_theme": "dark"
     }
   },
-
   "markdown": {
     "hardwrap": false,
     "idInHeadings": true

@@ -5,7 +5,13 @@ const GuildsCacheSchema = require('../mongo/CacheSchemas/GuildsCache');
 const UsersCacheSchema = require('../mongo/CacheSchemas/UsersCache');
 const MembersCacheSchema = require('../mongo/CacheSchemas/MembersCache');
 
-
+/**
+ * Create a Cache Manager
+ *
+ * @param {object} client
+ * @return {CacheManager}
+ * @private
+ */
 class CacheManager {
     constructor(client) {
         this.roles = client?.cacheRoles ? new Map() : null;
@@ -35,7 +41,6 @@ class CacheManager {
     setMember(guildID, member) {
         this.members.set(member?.id + guildID, member);
     }
-
 
     // Getter
     getRole(roleID) {
@@ -92,8 +97,7 @@ class CacheManager {
     }
 
     async loadCache() {
-        let loaderArray;
-        loaderArray = this.buildLoaderArray();
+        let loaderArray = this.buildLoaderArray();
 
         loaderArray.forEach(({schema, cache}, i) => {
             // We use a little timeout here to avoid spamming the database

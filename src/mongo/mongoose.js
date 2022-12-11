@@ -1,8 +1,12 @@
 const mongoose = require('mongoose');
 const Application = require("../application/base");
 
-
 async function init(c) {
+    /**
+     * Emitted the database connection to event.
+     * @event Application#connectionToDatabase
+     * @param {Application} client The bot client
+     */
     this.client.emit('connectionToDatabase', c);
 
     mongoose.connect(this.client.mongooseString)
@@ -35,12 +39,6 @@ async function init(c) {
     mongoose.connection.on('err', err => {
         this.client.emit('debug', "[DEBUG] Got a error from the database", err);
 
-        /**
-         * Emitted the database error event.
-         * @event Application#databaseError
-         * @param {Application} client The bot client
-         * @param {err} err The error message
-         */
         this.client.emit('databaseError', c, err);
     });
 

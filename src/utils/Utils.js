@@ -5,7 +5,7 @@ const {createPublicKey, verify} = require('node:crypto');
 /**
  *
  * Utils for the package itself
- *
+ * @private
  */
 class Utils {
     constructor() {
@@ -69,6 +69,10 @@ class Utils {
 
             if(options.body.embeds) {
                 options.body.embeds = options.body.embeds.map(e => e?.data ? e?.toJSON() : e);
+            }
+
+            if(options.body.components) {
+                options.body.components = options.body.components.map(e => e?.data ? e?.toJSON() : e);
             }
 
             if (options.body) options.body = JSON.stringify(options.body);

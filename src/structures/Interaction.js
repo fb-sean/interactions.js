@@ -8,12 +8,10 @@ const InteractionOptions = require("./InteractionOptions.js");
 const InteractionResponseFlags = require("./InteractionResponseFlags");
 const InteractionType = require("./InteractionType");
 const InteractionResponseType = require("./InteractionResponseType");
+const ModalComponents = require("./ModalComponents");
 
 const Utils = require("../utils/Utils.js");
 const Util = new Utils();
-
-const { Routes } = require('discord-api-types/rest/v10');
-
 
 /**
  * Create a formatted Interaction Object
@@ -29,102 +27,150 @@ class Interaction {
          * the client that is bound to the interaction
          * @type {object}
          */
-        this.client = c
+        this.client = c;
 
         /**
          * interaction data payload
          * @type {object}
          */
-        this.data = req.body.data
+        this.data = req.body.data;
 
         /**
          * interaction command name
          * @type {string|null}
          */
-        this.commandName = req?.body?.data?.name ?? null
+        this.commandName = req?.body?.data?.name ?? null;
 
         /**
          * Return the options of the interaction
          * @type {InteractionOptions}
+         * @return {ModalComponents}
+         * @example
+         * const subCommandOption = interaction.options.getSubCommand(); // returns the subcommand option
+         * const subCommandGroupOption = interaction.options.getSubCommandGroup(); // returns the subcommand group option
+         * const stringOption = interaction.options.getString("optionName"); // returns the string option
+         * const integerOption = interaction.options.getInteger("optionName"); // returns the integer option
+         * const booleanOption = interaction.options.getBoolean("optionName"); // returns the boolean option
+         * const userOption = interaction.options.getUser("optionName"); // returns the user option
+         * const memberOption = interaction.options.getMember("optionName"); // returns the member option
+         * const channelOption = interaction.options.getChannel("optionName"); // returns the channel option
+         * const roleOption = interaction.options.getRole("optionName"); // returns the role option
+         * const numberOption = interaction.options.getNumber("optionName"); // returns the number option
+         * const mentionableOption = interaction.options.getMentionable("optionName"); // returns the mentionable option
          */
         this.options = new InteractionOptions(req?.body?.data?.options ?? null);
+
+        /**
+         * Return the components data of the interaction (for modals)
+         * @type {Interaction}
+         * @return {ModalComponents}
+         * @example
+         * const fieldTest = interaction.components.getDataById("fieldTest"); // Returns the object of field "fieldTest"!
+         * const fieldTestValue = interaction.components.getDataById("fieldTest").value; // Returns the value of field "fieldTest"!
+         * const fieldTestValueTwo = interaction.components.getValueById("fieldTest"); // Returns also the value of field "fieldTest"!
+         */
+        this.components = new ModalComponents(req?.body?.data?.components ?? null);
+
+
+        /**
+         * select menu values if select menu interaction
+         * @type {array}
+         */
+        this.values = req?.body?.data?.values ?? [];
 
         /**
          * interaction custom id
          * @type {string|null}
          */
-        this.customId = req?.body?.data?.custom_id ?? null
+        this.customId = req?.body?.data?.custom_id ?? null;
 
         /**
          * continuation token for responding to the interaction
          * @type {string}
          */
-        this.token = req.body.token
+        this.token = req.body.token;
 
         /**
          * ID of the application this interaction is for
          * @type {number}
          */
-        this.applicationId = req.body.application_id
+        this.applicationId = req.body.application_id;
 
         /**
          * ID of the interaction
          * @type {number}
          */
-        this.id = req.body.id
+        this.id = req.body.id;
 
         /**
          * type of interaction
          * @type {number}
          */
-        this.type = req.body.type
+        this.type = req.body.type;
 
         /**
          * the guild data of the interaction
          * @type {object}
          */
-        this.guild = new Guild(req.body)
+        this.guild = new Guild(req.body);
 
         /**
          * channel that the interaction was sent from
          * @type {number}
          */
-        this.channelId = req?.body?.channel_id ?? null
+        this.channelId = req?.body?.channel_id ?? null;
 
         /**
          * the member data of the interaction
          * @type {Member}
          */
-        this.member = new Member(req?.body?.member ?? null)
+        this.member = new Member(req?.body?.member ?? null);
 
         /**
          * bitwise set of permissions the app or bot has within the channel the interaction was sent from
          * @type {number}
          */
-        this.appPermissions = req?.body?.app_permissions ?? null
+        this.appPermissions = req?.body?.app_permissions ?? null;
 
         /**
          * the user data of the interaction
          * @type {User}
          */
-        this.user = new User(req?.body?.user ?? req?.body?.member?.user ?? null)
+        this.user = new User(req?.body?.user ?? req?.body?.member?.user ?? null);
 
         /**
          * selected language of the invoking user
          * @type {number}
          */
-        this.locale = req?.body?.locale ?? null
+        this.locale = req?.body?.locale ?? null;
 
         /**
          * private res property
          * @private
          */
-        this._res = res
+        this._res = res;
+
+        /**
+         * Add data to the cache
+         */
+        if (this.isInGuild()) {
+            if (this.client.cacheMembers) {
+                this.client._cache.setMember(this.guild.id, this.member);
+            }
+
+            if (this.client.cacheGuilds) {
+                this.client._cache.setGuild(this.guild.id, this.guild);
+            }
+        }
+
+        if (this.client.cacheUsers) {
+            this.client._cache.setUser(this.user.id, this.user);
+        }
     }
 
     /**
      * Reply to an Interaction
-     * @param {Array, Array, String, Array, Boolean} The message payload (embeds, components, content, files, ephemeral)
+     * @param options The message payload (embeds, components, content, files, ephemeral)
      * @example
      * interaction.reply({ content: "Hello World" });
      */
@@ -141,7 +187,10 @@ class Interaction {
                 components,
                 files,
                 flags: ephemeral ? InteractionResponseFlags.EPHEMERAL : null,
-            }
+            },
+            headers: {
+                'User-Agent': 'Discord Interactions.js Package (https://github.com/fb-sean/interactions.js)',
+            },
         });
     }
 
@@ -158,27 +207,30 @@ class Interaction {
             type: InteractionResponseType.DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE,
             data: {
                 flags: ephemeral ? InteractionResponseFlags.EPHEMERAL : null,
-            }
+            },
+            headers: {
+                'User-Agent': 'Discord Interactions.js Package (https://github.com/fb-sean/interactions.js)',
+            },
         });
     }
 
     /**
      * Edit the Reply
-     * @param {Array, Array, String, Array, Boolean} The message payload (embeds, components, content, files, ephemeral)
+     * @param options The message payload (embeds, components, content, files, ephemeral)
      * @example
      * const response = await interaction.editReply({ content: "Hello World" });
      * console.log(response);
      */
     editReply({embeds = [], components = [], content = null, files = []}) {
-        if (embeds?.length <= 0 && components?.length <= 0 && !files && !content) throw new Error("[Interactions.js => <Interaction>.reply] You need to provide a MessagePayload (Content or Embeds or Components or files)");
+        if (embeds?.length <= 0 && components?.length <= 0 && !files?.length <= 0 && !content) throw new Error("[Interactions.js => <Interaction>.reply] You need to provide a MessagePayload (Content or Embeds or Components or files)");
 
         this.client.emit('debug', "[DEBUG] Sending a edit");
 
         let payload = {};
-        if(embeds?.length > 0) payload.embeds = embeds;
-        if(components?.length > 0) payload.components = components;
-        if(content) payload.content = content;
-        if(files?.length > 0) payload.files = files;
+        if (embeds?.length > 0) payload.embeds = embeds;
+        if (components?.length > 0) payload.components = components;
+        if (content) payload.content = content;
+        if (files?.length > 0) payload.files = files;
 
         const endpoint = `/webhooks/${this.client.applicationId}/${this.token}/messages/@original?wait=true`;
 
@@ -190,12 +242,12 @@ class Interaction {
 
     /**
      * Update an Interaction
+     * @param options The message payload (embeds, components, content, files)
      * @example
      * interaction.update({ content: "Hello World" });
-     * @param options The message payload (embeds, components, content, files)
      */
     update({embeds = [], components = [], content = null, files = []}) {
-        if (embeds?.length <= 0 && components?.length <= 0 && !files && !content) throw new Error("[Interactions.js => <Interaction>.update] You need to provide a MessagePayload (Content or Embeds or Components or files)");
+        if (embeds?.length <= 0 && components?.length <= 0 && files?.length <= 0 && !content) throw new Error("[Interactions.js => <Interaction>.update] You need to provide a MessagePayload (Content or Embeds or Components or files)");
 
         this.client.emit('debug', "[DEBUG] Sending a interaction update to " + this.id);
 
@@ -206,13 +258,85 @@ class Interaction {
                 embeds,
                 components,
                 files,
-            }
+            },
+            headers: {
+                'User-Agent': 'Discord Interactions.js Package (https://github.com/fb-sean/interactions.js)',
+            },
+        });
+    }
+
+    /**
+     * Response to an interaction with a modal
+     * @param {object | modal} modal
+     * @example
+     * const { Modal, TextInput, TextInputStyles } = require('interactions.js');
+     *
+     *  const modal = new Modal()
+     *      .setCustomId("test")
+     *      .setTitle("Test Modal")
+     *      .addComponent(
+     *          new ActionRow()
+     *              .addComponent(
+     *                  new TextInput()
+     *                      .setCustomId("test")
+     *                      .setPlaceholder("test")
+     *                      .setStyle(TextInputStyles.Short)
+     *                      .setLabel("test")
+     *              )
+     *      );
+     *
+     * return interaction.showModal(modal);
+     */
+    showModal(modal) {
+        if (this.isModal()) {
+            throw new Error("[Interactions.js => <Interaction>.showModal] You can't reply with a modal to a modal");
+        }
+
+        if (!modal) {
+            throw new Error("[Interactions.js => <Interaction>.showModal] You need to provide a modal");
+        }
+
+        this.client.emit('debug', "[DEBUG] Sending a modal to " + this.id);
+
+        const data = modal?.data ? modal.toJSON() : modal;
+
+        if (!data.custom_id) {
+            throw new Error("[Interactions.js => <Interaction>.showModal] You need to provide a customId");
+        }
+
+        if (!data.title) {
+            throw new Error("[Interactions.js => <Interaction>.showModal] You need to provide a title");
+        }
+
+        if (data.components > 5) {
+            throw new Error("[Interactions.js => <Interaction>.showModal] You can't provide more than 5 components");
+        }
+
+        if (data.components?.length < 1) {
+            throw new Error("[Interactions.js => <Interaction>.showModal] You need to provide at least 1 component");
+        }
+
+        if (data.components?.length > 0) {
+            data.components.forEach((component) => {
+                if (component.components?.length > 5) {
+                    throw new Error("[Interactions.js => <Interaction>.showModal] You can't provide more than 5 components in a row");
+                }
+            });
+        }
+
+        return this._res.send({
+            type: InteractionResponseType.MODAL,
+            data,
+            headers: {
+                'User-Agent': 'Discord Interactions.js Package (https://github.com/fb-sean/interactions.js)',
+            },
         });
     }
 
     /**
      * Check if the interaction is a modal submit
      * @type {boolean}
+     * @return {boolean}
      * @readonly
      */
     isModal() {
@@ -222,6 +346,7 @@ class Interaction {
     /**
      * Check if the interaction is a message component
      * @type {boolean}
+     * @return {boolean}
      * @readonly
      */
     isComponent() {
@@ -231,6 +356,7 @@ class Interaction {
     /**
      * Check if the interaction is an auto complete
      * @type {boolean}
+     * @return {boolean}
      * @readonly
      */
     isAutoComplete() {
@@ -240,10 +366,19 @@ class Interaction {
     /**
      * Check if the interaction is an application command
      * @type {boolean}
+     * @return {boolean}
      * @readonly
      */
     isCommand() {
         return this.type === InteractionType.APPLICATION_COMMAND;
+    }
+
+    /**
+     * Check if the interaction is in a guild
+     * @return {boolean}
+     */
+    isInGuild() {
+        return this.guild !== null;
     }
 }
 
