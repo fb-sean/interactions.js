@@ -195,7 +195,24 @@ class Interaction {
     }
 
     /**
-     * Reply with deferred message
+     * For components, ACK an interaction and edit the original message later; the user does not see a loading state
+     * @example
+     * interaction.deferUpdate();
+     */
+    deferUpdate() {
+        this.client.emit('debug', "[DEBUG] Sending a defer update to " + this.id);
+
+        return this._res.send({
+            type: 6,
+            data: {},
+            headers: {
+                'User-Agent': 'Discord Interactions.js Package (https://github.com/fb-sean/interactions.js)',
+            },
+        });
+    }
+
+    /**
+     * ACK an interaction and edit a response later, the user sees a loading state
      * @param {boolean} ephemeral if the message should be ephemeral
      * @example
      * interaction.deferReply(true); // true or false to make it ephemeral
