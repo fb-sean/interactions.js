@@ -70,14 +70,14 @@ class SelectMenu {
              * @type {number | null}
              * @private
              */
-            min_values: 1,
+            min_values: null,
 
             /**
              * The maximum values of the select menu
              * @type {number | null}
              * @private
              */
-            max_values: 1,
+            max_values: null,
 
             /**
              * The disabled state of the select menu
