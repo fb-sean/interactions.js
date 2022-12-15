@@ -5,7 +5,6 @@ const {createPublicKey, verify} = require('node:crypto');
 /**
  *
  * Utils for the package itself
- * @private
  */
 class Utils {
     constructor() {
@@ -114,6 +113,7 @@ class Utils {
      * @param client - The current client
      * @param req - The request data
      * @returns The middleware function
+     * @private
      */
     InteractionsMiddleware(client, req) {
         if (!client.publicKey) {

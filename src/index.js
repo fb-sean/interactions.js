@@ -26,4 +26,5 @@ exports.TextInputStyles = require("./structures/TextInputStyles.js");
 
 // Utils
 exports.Colors = require("./structures/Colors.js");
+exports.Utils = require("./utils/Utils.js");
 exports.version = require("../package.json").version;

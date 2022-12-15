@@ -3,6 +3,8 @@ const Member = require("./Member.js");
 const User = require("./User.js");
 const Guild = require("./Guild.js");
 const InteractionOptions = require("./InteractionOptions.js");
+const Message = require("./Message.js");
+const Application = require("../application/base.js");
 
 // Require all needed types
 const InteractionResponseFlags = require("./InteractionResponseFlags");
@@ -25,7 +27,7 @@ class Interaction {
 
         /**
          * the client that is bound to the interaction
-         * @type {object}
+         * @type {Application}
          */
         this.client = c;
 
@@ -70,7 +72,6 @@ class Interaction {
          * const fieldTestValueTwo = interaction.components.getValueById("fieldTest"); // Returns also the value of field "fieldTest"!
          */
         this.components = new ModalComponents(req?.body?.data?.components ?? null);
-
 
         /**
          * select menu values if select menu interaction
@@ -143,6 +144,12 @@ class Interaction {
          * @type {number}
          */
         this.locale = req?.body?.locale ?? null;
+
+        /**
+         * the message data of the interaction
+         * @type {Message}
+         */
+        this.message = new Message(req?.body?.message ?? null);
 
         /**
          * private res property
