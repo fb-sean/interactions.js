@@ -7,12 +7,11 @@
  * @typedef {import("./structures/SelectMenuTypes.js").SelectMenuTypes} SelectMenuTypes
  * @typedef {import("./structures/SelectMenuOption.js").SelectMenuOption} SelectMenuOption
  * @typedef {import("./structures/ActionRow.js").ActionRow} ActionRow
- * @typedef {import("./structures/Colors.js").Colors} Colors
- * @typedef {import("./structures/Colors.js").Color} Color
  * @typedef {import("./structures/ChannelManager.js").ChannelManager} ChannelManager
  * @typedef {import("./structures/Modal.js").Modal} Modal
  * @typedef {import("./structures/TextInput.js").TextInput} TextInput
  * @typedef {import("./structures/TextInputStyles.js").TextInputStyles} TextInputStyles
+ * @typedef {import("./structures/Colors.js").Colors} Colors
  * @typedef {import("./utils/Utils.js").Utils} Utils
- * @typedef {import("./utils/Utils.js").MessageContent} MessageContent
+ * @typedef {import("./package.json").version} version 
  */
