@@ -26,26 +26,26 @@ Client.start().then(() => {
 
 Client.on("debug", debug => console.log(debug));
 
-Client.setAppCommands([
-    {
-        name: "select",
-        description: "Send a select menu",
-    },
-    {
-        name: "modal",
-        description: "Send a modal!",
-    },
-    {
-        name: "embed",
-        description: "Send an embed!",
-    }
-]).catch(console.log);
+// Client.setAppCommands([
+//     {
+//         name: "select",
+//         description: "Send a select menu",
+//     },
+//     {
+//         name: "modal",
+//         description: "Send a modal!",
+//     },
+//     {
+//         name: "embed",
+//         description: "Send an embed!",
+//     }
+// ]).catch(console.log);
 
 Client.on("interactionCreate", async (i) => {
-    if(i.isCommand()) {
+    if (i.isCommand()) {
 
         // Handle a command interaction
-        if(i.commandName === "modal") {
+        if (i.commandName === "modal") {
             const modal = new Modal()
                 .setCustomId("test")
                 .setTitle("Test Modal")
@@ -60,11 +60,11 @@ Client.on("interactionCreate", async (i) => {
                         )
                 );
 
-           return i.showModal(modal);
+            return i.showModal(modal);
         } else if (i.commandName === "select") {
             i.deferReply(true);
 
-            const test =  await i.editReply({
+            const test = await i.editReply({
                 content: "Pong!",
                 embeds: [
                     new Embed().setTitle('Ping')
@@ -79,7 +79,7 @@ Client.on("interactionCreate", async (i) => {
                         )
                 ]
             });
-        } else if(i.commandName === "embed") {
+        } else if (i.commandName === "embed") {
             return i.reply({
                 embeds: [
                     new Embed()
@@ -93,10 +93,10 @@ Client.on("interactionCreate", async (i) => {
             })
         }
 
-    } else if(i.isComponent()) {
+    } else if (i.isComponent()) {
 
         // Handle a component interaction
-        if(i.customId === "click_to_function") {
+        if (i.customId === "click_to_function") {
             i.reply({
                 embeds: [
                     new Embed().setTitle('Select Menu Clicked!').setDescription(`Selected Channel: ${i.values.map(ch => `<#${ch}>`).join(", ")}`)
@@ -105,7 +105,7 @@ Client.on("interactionCreate", async (i) => {
             });
         }
 
-    } else if(i.isModal()) {
+    } else if (i.isModal()) {
 
         // Handle a modal interaction
         i.reply({
