@@ -7,15 +7,15 @@ const InteractionOptionsType = require("./InteractionOptionsType");
  * @example
  * const subCommandOption = interaction.options.getSubCommand(); // returns the subcommand option
  * const subCommandGroupOption = interaction.options.getSubCommandGroup(); // returns the subcommand group option
- * const stringOption = interaction.options.getString("optionName"); // returns the string option
- * const integerOption = interaction.options.getInteger("optionName"); // returns the integer option
- * const booleanOption = interaction.options.getBoolean("optionName"); // returns the boolean option
- * const userOption = interaction.options.getUser("optionName"); // returns the user option
- * const memberOption = interaction.options.getMember("optionName"); // returns the member option
- * const channelOption = interaction.options.getChannel("optionName"); // returns the channel option
- * const roleOption = interaction.options.getRole("optionName"); // returns the role option
- * const numberOption = interaction.options.getNumber("optionName"); // returns the number option
- * const mentionableOption = interaction.options.getMentionable("optionName"); // returns the mentionable option
+ * const stringOption = interaction.options.getStringOption("optionName"); // returns the string option
+ * const integerOption = interaction.options.getIntegerOption("optionName"); // returns the integer option
+ * const booleanOption = interaction.options.getBooleanOption("optionName"); // returns the boolean option
+ * const userOption = interaction.options.getUserOption("optionName"); // returns the user option
+ * const memberOption = interaction.options.getMemberOption("optionName"); // returns the member option
+ * const channelOption = interaction.options.getChannelOption("optionName"); // returns the channel option
+ * const roleOption = interaction.options.getRoleOption("optionName"); // returns the role option
+ * const numberOption = interaction.options.getNumberOption("optionName"); // returns the number option
+ * const mentionableOption = interaction.options.getMentionableOption("optionName"); // returns the mentionable option
  */
 class InteractionOptions {
     constructor(options) {
@@ -53,7 +53,7 @@ class InteractionOptions {
      * @property {String} name - The name of the option
      * @return {InteractionOptionsType.structure}
      * @example
-     * const stringOption = interaction.options.getString("optionName"); // returns the string
+     * const stringOption = interaction.options.getStringOption("optionName"); // returns the string
      */
     getStringOption(name) {
         return this.data?.find(option => option?.type === InteractionOptionsType.types.STRING && option?.name === name);
@@ -64,9 +64,9 @@ class InteractionOptions {
      * @property {String} name - The name of the option
      * @return {InteractionOptionsType.structure}
      * @example
-     * const integerOption = interaction.options.getIntegerOption("optionName"); // returns the integer
+     * const integerOption = interaction.options.getIntegerOptionOption("optionName"); // returns the integer
      */
-    getIntegerOption() {
+    getIntegerOption(name) {
         return this.data?.find(option => option?.type === InteractionOptionsType.types.INTEGER && option?.name === name);
     }
 
@@ -75,9 +75,9 @@ class InteractionOptions {
      * @property {String} name - The name of the option
      * @return {InteractionOptionsType.structure}
      * @example
-     * const booleanOption = interaction.options.getBoolean("optionName"); // returns the boolean
+     * const booleanOption = interaction.options.getBooleanOption("optionName"); // returns the boolean
      */
-    getBooleanOption() {
+    getBooleanOption(name) {
         return this.data?.find(option => option?.type === InteractionOptionsType.types.BOOLEAN && option?.name === name);
     }
 
@@ -86,9 +86,9 @@ class InteractionOptions {
      * @property {String} name - The name of the option
      * @return {InteractionOptionsType.structure}
      * @example
-     * const userOption = interaction.options.getUser("optionName"); // returns the user
+     * const userOption = interaction.options.getUserOption("optionName"); // returns the user
      */
-    getUserOption() {
+    getUserOption(name) {
         return this.data?.find(option => option?.type === InteractionOptionsType.types.USER && option?.name === name);
     }
 
@@ -97,9 +97,9 @@ class InteractionOptions {
      * @property {String} name - The name of the option
      * @return {InteractionOptionsType.structure}
      * @example
-     * const channelOption = interaction.options.getChannel("optionName"); // returns the channel
+     * const channelOption = interaction.options.getChannelOption("optionName"); // returns the channel
      */
-    getChannelOption() {
+    getChannelOption(name) {
         return this.data?.find(option => option?.type === InteractionOptionsType.types.CHANNEL && option?.name === name);
     }
 
@@ -108,9 +108,9 @@ class InteractionOptions {
      * @property {String} name - The name of the option
      * @return {InteractionOptionsType.structure}
      * @example
-     * const roleOption = interaction.options.getRole("optionName"); // returns the role
+     * const roleOption = interaction.options.getRoleOption("optionName"); // returns the role
      */
-    getRoleOption() {
+    getRoleOption(name) {
         return this.data?.find(option => option?.type === InteractionOptionsType.types.ROLE && option?.name === name);
     }
 
@@ -119,9 +119,9 @@ class InteractionOptions {
      * @property {String} name - The name of the option
      * @return {InteractionOptionsType.structure}
      * @example
-     * const mentionableOption = interaction.options.getMentionable("optionName"); // returns the mentionable
+     * const mentionableOption = interaction.options.getMentionableOption("optionName"); // returns the mentionable
      */
-    getMentionableOption() {
+    getMentionableOption(name) {
         return this.data?.find(option => option?.type === InteractionOptionsType.types.MENTIONABLE && option?.name === name);
     }
 
@@ -130,9 +130,9 @@ class InteractionOptions {
      * @property {String} name - The name of the option
      * @return {InteractionOptionsType.structure}
      * @example
-     * const numberOption = interaction.options.getNumber("optionName"); // returns the number
+     * const numberOption = interaction.options.getNumberOption("optionName"); // returns the number
      */
-    getNumberOption() {
+    getNumberOption(name) {
         return this.data?.find(option => option?.type === InteractionOptionsType.types.NUMBER && option?.name === name);
     }
 
@@ -141,9 +141,9 @@ class InteractionOptions {
      * @property {String} name - The name of the option
      * @return {InteractionOptionsType.structure}
      * @example
-     * const attachmentOption = interaction.options.getAttachment("optionName"); // returns the attachment
+     * const attachmentOption = interaction.options.getAttachmentOption("optionName"); // returns the attachment
      */
-    getAttachmentOption() {
+    getAttachmentOption(name) {
         return this.data?.find(option => option?.type === InteractionOptionsType.types.ATTACHMENT && option?.name === name);
     }
 

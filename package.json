@@ -1,6 +1,6 @@
 {
   "name": "interactions.js",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "A powerful Javascript library to work with discords interactions",
   "main": "./src/index.js",
   "types": "./src/index.d.ts",
