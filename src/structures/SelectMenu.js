@@ -142,24 +142,26 @@ class SelectMenu {
             throw new Error("[Interactions.js => <SelectMenu>.addOptions] Options must be less than 25");
         }
 
-        for(const option of options) {
-            if(option.label.length > 100) {
+        for(let option of options) {
+            if(option?.data) option = option.toJSON();
+
+            if(option?.label?.length > 100) {
                 throw new Error("[Interactions.js => <SelectMenu>.addOptions] Option label must be less than 100 characters");
             }
 
-            if(option.description && option.description.length > 100) {
+            if(option?.description && option?.description?.length > 100) {
                 throw new Error("[Interactions.js => <SelectMenu>.addOptions] Option description must be less than 100 characters");
             }
 
-            if(option.value.length > 100) {
+            if(option?.value?.length > 100) {
                 throw new Error("[Interactions.js => <SelectMenu>.addOptions] Option value must be less than 100 characters");
             }
 
-            if(option.emoji?.name && option.emoji.name.length > 100) {
+            if(option?.emoji?.name && option?.emoji?.name?.length > 100) {
                 throw new Error("[Interactions.js => <SelectMenu>.addOptions] Option emoji name must be less than 100 characters");
             }
 
-            if(option.emoji && option.emoji.id && option.emoji.id.length > 100) {
+            if(option?.emoji && option?.emoji.id && option?.emoji?.id?.length > 100) {
                 throw new Error("[Interactions.js => <SelectMenu>.addOptions] Option emoji id must be less than 100 characters");
             }
 
@@ -181,6 +183,8 @@ class SelectMenu {
         if(typeof option !== "object") {
             throw new Error("[Interactions.js => <SelectMenu>.addOption] Option must be an object");
         }
+
+        if(option?.data) option = option.toJSON();
 
         if(option.label.length > 100) {
             throw new Error("[Interactions.js => <SelectMenu>.addOption] Option label must be less than 100 characters");
@@ -228,24 +232,26 @@ class SelectMenu {
             throw new Error("[Interactions.js => <SelectMenu>.setOptions] Options must be less than 25");
         }
 
-        for(const option of options) {
-            if(option.label.length > 100) {
+        for(let option of options) {
+            if(option?.data) option = option.toJSON();
+
+            if(option?.label?.length > 100) {
                 throw new Error("[Interactions.js => <SelectMenu>.setOptions] Option label must be less than 100 characters");
             }
 
-            if(option.description && option.description.length > 100) {
+            if(option?.description && option?.description?.length > 100) {
                 throw new Error("[Interactions.js => <SelectMenu>.setOptions] Option description must be less than 100 characters");
             }
 
-            if(option.value.length > 100) {
+            if(option?.value?.length > 100) {
                 throw new Error("[Interactions.js => <SelectMenu>.setOptions] Option value must be less than 100 characters");
             }
 
-            if(option.emoji?.name && option.emoji.name.length > 100) {
+            if(option?.emoji?.name && option?.emoji?.name?.length > 100) {
                 throw new Error("[Interactions.js => <SelectMenu>.setOptions] Option emoji name must be less than 100 characters");
             }
 
-            if(option.emoji && option.emoji.id && option.emoji.id.length > 100) {
+            if(option?.emoji && option?.emoji.id && option?.emoji?.id?.length > 100) {
                 throw new Error("[Interactions.js => <SelectMenu>.setOptions] Option emoji id must be less than 100 characters");
             }
 
