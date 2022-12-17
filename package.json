@@ -3,6 +3,7 @@
   "version": "1.2.5",
   "description": "A powerful Javascript library to work with discords interactions",
   "main": "./src/index.js",
+  "typings": "./typings/index.d.ts",
   "directories": {
     "lib": "src"
   },
@@ -37,7 +38,8 @@
   },
   "homepage": "https://github.com/fb-sean/interactions.js#readme",
   "scripts": {
-    "generate-docs": "jsdoc --configure jsdoc.json --verbose"
+    "generate-docs": "jsdoc --configure jsdoc.json --verbose",
+    "generate-typings": "tsc"
   },
   "author": "fb-sean",
   "devDependencies": {
