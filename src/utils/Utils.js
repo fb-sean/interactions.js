@@ -1,5 +1,5 @@
 const Colors = require("../structures/Colors.js");
-const fetch = require('node-fetch');
+const fetch = import('node-fetch');
 const {createPublicKey, verify} = require('node:crypto');
 
 /**

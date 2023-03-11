@@ -125,25 +125,14 @@ class Application extends EventEmitter {
     }
 
     /**
-     * Get the rest client
-     * @type {REST} the rest client
-     * @return {REST} the rest client
-     */
-    rest;
-
-    /**
      * Get the REST object
      * @type {REST} the rest object
      * @return {REST} the rest object
      */
     static getRest() {
-        if(!this.rest instanceof REST) {
-            this.rest = new REST({version: '10'})
-                .setAgent('Discord Interactions.js Package (https://github.com/fb-sean/interactions.js)')
-                .setToken(process.env.DISCORD_TOKEN);
-        }
-
-        return this.rest;
+        return new REST({version: '10'})
+            .setAgent('Discord Interactions.js Package (https://github.com/fb-sean/interactions.js)')
+            .setToken(process.env.DISCORD_TOKEN);
     }
 
     /**
@@ -176,7 +165,7 @@ class Application extends EventEmitter {
 
         if (!this.applicationId) throw new Error("[Interactions.js => <Client>.setAppCommands] You need to provide a valid applicationId.");
 
-        const rest = self.getRest();
+        const rest = Application.getRest();
 
         try {
             await rest.put(
@@ -210,7 +199,7 @@ class Application extends EventEmitter {
 
         if (!GuildId) throw new Error("[Interactions.js => <Client>.setGuildCommands] You need to provide a valid GuildId.");
 
-        const rest = self.getRest();
+        const rest = Application.getRest();
 
         try {
             await rest.put(
