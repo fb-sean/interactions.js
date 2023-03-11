@@ -80,7 +80,7 @@ Client.on("interactionCreate", async (i) => {
                 ]
             });
         } else if (i.commandName === "embed") {
-            return i.reply({
+            await i.reply({
                 embeds: [
                     new Embed()
                         .setTitle("Test Embed")
@@ -90,7 +90,12 @@ Client.on("interactionCreate", async (i) => {
                         .setColor("#00FF00")
                         .setFooter("Interactions.js", "https://interactionsjs.com/interactions.js/1.2.0/assets/logo.png")
                 ]
-            })
+            });
+
+            const c = await i.user.send({
+                content: 'Hi MD',
+            });
+            console.log(c)
         }
 
     } else if (i.isComponent()) {

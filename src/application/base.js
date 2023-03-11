@@ -2,7 +2,7 @@ const startAPI = require("../api/api.js");
 const mongooseConnectionHelper = require("../mongo/mongoose.js")
 const EventEmitter = require('node:events');
 const {REST} = require('@discordjs/rest');
-const {Routes} = require('discord-api-types/v9');
+const {Routes} = require('discord-api-types/v10');
 const CacheManager = require("../structures/CacheManager");
 
 /**
@@ -19,11 +19,11 @@ const CacheManager = require("../structures/CacheManager");
  *
  *
  * @param {Object} options Your application options
+ * @return {Application} The application
  */
 class Application extends EventEmitter {
     constructor(options) {
-        super(options);
-
+        super();
         /**
          * the token of the bot application (needed)
          * @type {string}
@@ -56,31 +56,31 @@ class Application extends EventEmitter {
 
         /**
          * boolean to enable or disable the client channels cache
-         * @type {*|boolean}
+         * @type {boolean}
          */
         this.cacheChannels = options?.cacheChannels ?? false;
 
         /**
          * boolean to enable or disable the client users cache
-         * @type {*|boolean}
+         * @type {boolean}
          */
         this.cacheUsers = options?.cacheUsers ?? false;
 
         /**
          * boolean to enable or disable the client members cache
-         * @type {*|boolean}
+         * @type {boolean}
          */
         this.cacheMembers = options?.cacheMembers ?? false;
 
         /**
          * boolean to enable or disable the client guilds cache
-         * @type {*|boolean}
+         * @type {boolean}
          */
         this.cacheGuilds = options?.cacheGuilds ?? false;
 
         /**
          * boolean to enable or disable the client roles cache
-         * @type {*|boolean}
+         * @type {boolean}
          */
         this.cacheRoles = options?.cacheRoles ?? false;
 
@@ -109,11 +109,41 @@ class Application extends EventEmitter {
          */
         this.readySince = null;
 
+        /**
+         * The rest client
+         * @type {REST} the rest client
+         * @return {REST} the rest client
+         * @private
+         */
+        this.rest = Application.getRest();
+
         // Adding some ENV Data
         process.env.DISCORD_TOKEN = this.botToken;
         process.env.MONGOOSE_STRING = this.mongooseString;
         process.env.PUBLIC_KEY = this.publicKey;
         process.env.APPLICATION_ID = this.applicationId;
+    }
+
+    /**
+     * Get the rest client
+     * @type {REST} the rest client
+     * @return {REST} the rest client
+     */
+    rest;
+
+    /**
+     * Get the REST object
+     * @type {REST} the rest object
+     * @return {REST} the rest object
+     */
+    static getRest() {
+        if(!this.rest instanceof REST) {
+            this.rest = new REST({version: '10'})
+                .setAgent('Discord Interactions.js Package (https://github.com/fb-sean/interactions.js)')
+                .setToken(process.env.DISCORD_TOKEN);
+        }
+
+        return this.rest;
     }
 
     /**
@@ -146,7 +176,7 @@ class Application extends EventEmitter {
 
         if (!this.applicationId) throw new Error("[Interactions.js => <Client>.setAppCommands] You need to provide a valid applicationId.");
 
-        const rest = new REST({version: '10'}).setToken(this.botToken);
+        const rest = self.getRest();
 
         try {
             await rest.put(
@@ -180,7 +210,7 @@ class Application extends EventEmitter {
 
         if (!GuildId) throw new Error("[Interactions.js => <Client>.setGuildCommands] You need to provide a valid GuildId.");
 
-        const rest = new REST({version: '10'}).setToken(this.botToken);
+        const rest = self.getRest();
 
         try {
             await rest.put(

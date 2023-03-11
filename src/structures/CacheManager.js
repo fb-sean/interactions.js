@@ -109,7 +109,6 @@ class CacheManager {
             }, 100 * i);
         });
 
-
         setInterval(() => {
             loaderArray = this.buildLoaderArray();
 

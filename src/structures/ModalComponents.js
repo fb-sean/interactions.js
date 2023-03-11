@@ -9,7 +9,7 @@ class ModalComponents {
     constructor(components) {
         /**
          * the interaction components data
-         * @type {Array}
+         * @type {object[] | array}
          */
         this.components = components ?? null;
     }
@@ -52,7 +52,7 @@ class ModalComponents {
 
     /**
      * Get the interaction components
-     * @return {Array}
+     * @return {object[]}
      */
     getComponents() {
         return this.components;

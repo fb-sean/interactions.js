@@ -1,5 +1,8 @@
 'use strict';
 
+const Application = require('../application/base');
+const {Routes} = require('discord-api-types/v10');
+
 /**
  * Create a formatted User Object
  * @return {User}
@@ -11,7 +14,7 @@ class User {
     constructor(raw) {
         /**
          * the id of this user
-         * @type {number}
+         * @type {string}
          */
         this.id = raw?.id ?? null;
 
@@ -56,6 +59,31 @@ class User {
          * @type {?string}
          */
         this.avatarURL = this?.avatar ? `https://cdn.discordapp.com/avatars/${this.id}/${this.avatar}.${this.avatar.startsWith("a_") ? "gif" : "png"}` : null;
+    }
+
+    /**
+     * Send a message to the user
+     * @param {object} data the message payload
+     * @return {Promise<object>}
+     */
+    async send(data) {
+        const rest = Application.getRest();
+
+        const channel = await rest.post(
+            Routes.userChannels(),
+            {
+                body: JSON.stringify({
+                    recipient_id: this.id
+                }),
+            }
+        );
+
+        if (!channel.id) throw new Error('');
+
+        return rest.post(
+            Routes.channelMessages(channel.id),
+            data
+        );
     }
 }
 
