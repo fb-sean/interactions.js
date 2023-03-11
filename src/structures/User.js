@@ -1,6 +1,6 @@
 'use strict';
 
-const Application = require('../application/base');
+const Rest = require("../structures/Rest.js");
 const {Routes} = require('discord-api-types/v10');
 
 /**
@@ -11,54 +11,69 @@ const {Routes} = require('discord-api-types/v10');
  * const username = interaction.user.username; // returns the username
  */
 class User {
-    constructor(raw) {
+    constructor(data) {
         /**
          * the id of this user
          * @type {string}
          */
-        this.id = raw?.id ?? null;
+        this.id = data?.id ?? null;
 
         /**
          * the avatar hash of this user
          * @type {string}
          */
-        this.avatar = raw?.avatar ?? null;
+        this.avatar = data?.avatar ?? null;
 
         /**
          * the avatar decoration of this user
          * @type {string}
          */
-        this.avatarDecoration = raw?.avatar_decoration ?? null;
+        this.avatarDecoration = data?.avatar_decoration ?? null;
 
         /**
          * the discriminator of this user
          * @type {string}
          */
-        this.disc = raw?.discriminator ?? null;
+        this.disc = data?.discriminator ?? null;
 
         /**
          * the tag of this user
          * @type {string}
          */
-        this.tag = `${raw?.username}#${raw?.discriminator}`;
+        this.tag = `${data?.username}#${data?.discriminator}`;
 
         /**
          * the public flags of this user
          * @type {number}
          */
-        this.publicFlags = raw?.public_flags;
+        this.publicFlags = data?.public_flags;
 
         /**
          * the username of this user
          * @type {string}
          */
-        this.username = raw?.username;
+        this.username = data?.username;
 
         /**
          * the avatar url of the user
          * @type {?string}
          */
         this.avatarURL = this?.avatar ? `https://cdn.discordapp.com/avatars/${this.id}/${this.avatar}.${this.avatar.startsWith("a_") ? "gif" : "png"}` : null;
+
+        // When fetchUser is true we fetch the user this is good when wanting to get a user outside an interaction
+        if(data?.fetchUser === true && typeof data?.id === 'string') {
+            const rest = Rest.getRest();
+            rest.get(Routes.user(data.id)).then(res => {
+                this.id = res?.id ?? null;
+                this.avatar = res?.avatar ?? null;
+                this.avatarDecoration = res?.avatar_decoration ?? null;
+                this.disc = res?.discriminator ?? null;
+                this.tag = `${res?.username}#${res?.discriminator}`;
+                this.publicFlags = res?.public_flags;
+                this.username = res?.username;
+                this.avatarUrl = res?.avatar ? `https://cdn.discordapp.com/avatars/${res.id}/${res.avatar}${res.avatar_decoration ? `.${res.avatar_decoration}` : ''}` : null;
+            });
+        }
     }
 
     /**
@@ -67,7 +82,7 @@ class User {
      * @return {Promise<object>}
      */
     async send(data) {
-        const rest = Application.getRest();
+        const rest = Rest.getRest();
 
         const channel = await rest.post(
             Routes.userChannels(),
@@ -78,7 +93,9 @@ class User {
             }
         );
 
-        if (!channel.id) throw new Error('');
+        if (!channel.id) {
+            throw new Error("[Interactions.js => <User>.send] Wasn't able to create a DM channel with the user");
+        }
 
         return rest.post(
             Routes.channelMessages(channel.id),

@@ -1,7 +1,7 @@
 const startAPI = require("../api/api.js");
 const mongooseConnectionHelper = require("../mongo/mongoose.js")
 const EventEmitter = require('node:events');
-const {REST} = require('@discordjs/rest');
+const Rest = require("../structures/Rest.js");
 const {Routes} = require('discord-api-types/v10');
 const CacheManager = require("../structures/CacheManager");
 
@@ -109,30 +109,11 @@ class Application extends EventEmitter {
          */
         this.readySince = null;
 
-        /**
-         * The rest client
-         * @type {REST} the rest client
-         * @return {REST} the rest client
-         * @private
-         */
-        this.rest = Application.getRest();
-
         // Adding some ENV Data
         process.env.DISCORD_TOKEN = this.botToken;
         process.env.MONGOOSE_STRING = this.mongooseString;
         process.env.PUBLIC_KEY = this.publicKey;
         process.env.APPLICATION_ID = this.applicationId;
-    }
-
-    /**
-     * Get the REST object
-     * @type {REST} the rest object
-     * @return {REST} the rest object
-     */
-    static getRest() {
-        return new REST({version: '10'})
-            .setAgent('Discord Interactions.js Package (https://github.com/fb-sean/interactions.js)')
-            .setToken(process.env.DISCORD_TOKEN);
     }
 
     /**
@@ -165,7 +146,7 @@ class Application extends EventEmitter {
 
         if (!this.applicationId) throw new Error("[Interactions.js => <Client>.setAppCommands] You need to provide a valid applicationId.");
 
-        const rest = Application.getRest();
+        const rest = Rest.getRest();
 
         try {
             await rest.put(
@@ -199,7 +180,7 @@ class Application extends EventEmitter {
 
         if (!GuildId) throw new Error("[Interactions.js => <Client>.setGuildCommands] You need to provide a valid GuildId.");
 
-        const rest = Application.getRest();
+        const rest = Rest.getRest();
 
         try {
             await rest.put(

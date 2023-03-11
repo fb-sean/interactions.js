@@ -42,6 +42,7 @@ class Interaction {
          */
         this.commandName = req?.body?.data?.name ?? null;
 
+        // Only using options when it's needed.
         if(req.body.type === InteractionType.APPLICATION_COMMAND || req.body.type === InteractionType.APPLICATION_COMMAND_AUTOCOMPLETE) {
             /**
              * Return the options of the interaction
@@ -63,6 +64,7 @@ class Interaction {
             this.options = new InteractionOptions(req?.body?.data?.options ?? null);
         }
 
+        // Only using components when it's needed.
         if(req.body.type === InteractionType.MODAL_SUBMIT) {
             /**
              * Return the components data of the interaction (for modals)
