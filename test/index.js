@@ -8,7 +8,8 @@ const {
     SelectMenuOption,
     Modal,
     TextInput,
-    TextInputStyles
+    TextInputStyles,
+    UserManager
 } = require("../src"); // require("interactions.js");
 
 require('dotenv').config()
@@ -18,6 +19,7 @@ const Client = new Application({
     publicKey: process.env.PUBLICKEY,
     applicationId: process.env.APPLICATIONID,
     port: 8221,
+    fetchClient: true,
 });
 
 Client.start().then(() => {
@@ -40,6 +42,10 @@ Client.on("debug", debug => console.log(debug));
 //         description: "Send an embed!",
 //     }
 // ]).catch(console.log);
+
+Client.on("ready", () => {
+
+});
 
 Client.on("interactionCreate", async (i) => {
     if (i.isCommand()) {
@@ -91,11 +97,6 @@ Client.on("interactionCreate", async (i) => {
                         .setFooter("Interactions.js", "https://interactionsjs.com/interactions.js/1.2.0/assets/logo.png")
                 ]
             });
-
-            const c = await i.user.send({
-                content: 'Hi MD',
-            });
-            console.log(c)
         }
 
     } else if (i.isComponent()) {

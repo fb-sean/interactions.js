@@ -30,9 +30,11 @@ class Rest {
         if (Rest.rest instanceof REST) {
             return Rest.rest;
         } else {
-            Rest.rest = new REST({version: '10'})
-                .setAgent('Discord Interactions.js Package (https://github.com/fb-sean/interactions.js)')
-                .setToken(process.env.DISCORD_TOKEN);
+            Rest.rest = new REST({
+                version: '10',
+                userAgentAppendix: 'Discord Interactions.js Package (https://github.com/fb-sean/interactions.js)'
+            }).setToken(process.env.DISCORD_TOKEN);
+
             return Rest.rest;
         }
     }

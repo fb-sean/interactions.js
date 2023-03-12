@@ -146,23 +146,6 @@ class ChannelManager {
     }
 
     /**
-     * create a reaction to a message
-     * @param {string | null} channelId the id of the channel
-     * @param {string} messageId the id of the message
-     * @param {string} emoji the emoji to react with
-     * @return {Promise<object>}
-     */
-    async createReaction(channelId = this.id, messageId, emoji) {
-        if(typeof messageId !== 'string') throw new Error("[Interactions.js => <ChannelManager>.createReaction] The message id is needed for this action!");
-
-        const rest = Rest.getRest();
-
-        return await rest.put(
-            Routes.channelMessageReaction(channelId, messageId, emoji),
-        );
-    }
-
-    /**
      * edit a message
      * @param {string | null} channelId the id of the channel
      * @param {string} messageId the id of the message
@@ -221,6 +204,24 @@ class ChannelManager {
             }
         );
     }
+
+    /**
+     * create a reaction to a message
+     * @param {string | null} channelId the id of the channel
+     * @param {string} messageId the id of the message
+     * @param {string} emoji the emoji to react with
+     * @return {Promise<object>}
+     */
+    async createReaction(channelId = this.id, messageId, emoji) {
+        if(typeof messageId !== 'string') throw new Error("[Interactions.js => <ChannelManager>.createReaction] The message id is needed for this action!");
+
+        const rest = Rest.getRest();
+
+        return await rest.put(
+            Routes.channelMessageReaction(channelId, messageId, emoji),
+        );
+    }
+
 }
 
 module.exports = ChannelManager;

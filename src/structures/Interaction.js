@@ -12,8 +12,8 @@ const InteractionType = require("./InteractionType");
 const InteractionResponseType = require("./InteractionResponseType");
 const ModalComponents = require("./ModalComponents");
 
-const Utils = require("../utils/Utils.js");
-const Util = new Utils();
+// Rest Handler
+const Rest = require("./Rest");
 
 /**
  * Create a formatted Interaction Object
@@ -43,7 +43,7 @@ class Interaction {
         this.commandName = req?.body?.data?.name ?? null;
 
         // Only using options when it's needed.
-        if(req.body.type === InteractionType.APPLICATION_COMMAND || req.body.type === InteractionType.APPLICATION_COMMAND_AUTOCOMPLETE) {
+        if (req.body.type === InteractionType.APPLICATION_COMMAND || req.body.type === InteractionType.APPLICATION_COMMAND_AUTOCOMPLETE) {
             /**
              * Return the options of the interaction
              * @type {InteractionOptions}
@@ -65,7 +65,7 @@ class Interaction {
         }
 
         // Only using components when it's needed.
-        if(req.body.type === InteractionType.MODAL_SUBMIT) {
+        if (req.body.type === InteractionType.MODAL_SUBMIT) {
             /**
              * Return the components data of the interaction (for modals)
              * @type {Interaction}
@@ -255,12 +255,15 @@ class Interaction {
         if (content) payload.content = content;
         if (files?.length > 0) payload.files = files;
 
-        const endpoint = `/webhooks/${this.client.applicationId}/${this.token}/messages/@original?wait=true`;
+        const rest = Rest.getRest();
 
-        return Util.DiscordRequest(this.client, endpoint, {
-            method: "PATCH",
-            body: payload,
-        }, {}, !!payload.files);
+        return rest.patch(
+            `/webhooks/${this.client.applicationId}/${this.token}/messages/@original?wait=true`,
+            {
+                body: payload,
+                files: payload.files ?? undefined,
+            }
+        );
     }
 
     /**
@@ -281,12 +284,15 @@ class Interaction {
         if (content) payload.content = content;
         if (files?.length > 0) payload.files = files;
 
-        const endpoint = `/webhooks/${this.client.applicationId}/${this.token}?wait=true`;
+        const rest = Rest.getRest();
 
-        return Util.DiscordRequest(this.client, endpoint, {
-            method: "POST",
-            body: payload,
-        }, {}, !!payload.files);
+        return rest.post(
+            `/webhooks/${this.client.applicationId}/${this.token}/messages/@original?wait=true`,
+            {
+                body: payload,
+                files: payload.files ?? undefined,
+            }
+        );
     }
 
     /**
@@ -383,7 +389,7 @@ class Interaction {
      * @param {object[]} choices the choices including (name, name_localizations?, value)
      */
     sendAutoComplete(choices = []) {
-        for(const choice of choices) {
+        for (const choice of choices) {
             if (!choice.name) {
                 throw new Error("[Interactions.js => <Interaction>.sendAutoComplete] You need to provide a name for each choice");
             }

@@ -37,15 +37,15 @@ class UserManager {
      * @param {object} data the message payload
      * @return {Promise<object>}
      */
-    async sendDM(userId = null, data) {
+    async sendDM(userId = this.id, data) {
         const rest = Rest.getRest();
 
         const channel = await rest.post(
             Routes.userChannels(),
             {
-                body: JSON.stringify({
+                body: {
                     recipient_id: userId ?? this.id
-                }),
+                },
             }
         );
 
@@ -55,7 +55,10 @@ class UserManager {
 
         return rest.post(
             Routes.channelMessages(channel.id),
-            data
+            {
+                body: data,
+                files: data?.files ?? undefined,
+            }
         );
     }
 
@@ -64,7 +67,7 @@ class UserManager {
      * @param {string | null} userId
      * @return {Promise<object>}
      */
-    async fetch(userId = null) {
+    async fetch(userId = this.id) {
         const rest = Rest.getRest();
 
         return rest.get(

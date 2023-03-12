@@ -4,6 +4,7 @@ const EventEmitter = require('node:events');
 const Rest = require("../structures/Rest.js");
 const {Routes} = require('discord-api-types/v10');
 const CacheManager = require("../structures/managers/CacheManager");
+const User = require("../structures/User");
 
 /**
  * Create your Application
@@ -11,7 +12,7 @@ const CacheManager = require("../structures/managers/CacheManager");
  * @example
  * const { Application } = require("interactions.js");
  *
- * const client = new Application({ botToken: "Bot Token", publicKey: "Public Key", applicationId: "Application Id" });
+ * const client = new Application({ botToken: "Bot Token", publicKey: "Public Key", applicationId: "Application Id", fetchClient: true });
  * client.on("debug", debug => {
  *    console.log(debug);
  * })
@@ -114,6 +115,23 @@ class Application extends EventEmitter {
         process.env.MONGOOSE_STRING = this.mongooseString;
         process.env.PUBLIC_KEY = this.publicKey;
         process.env.APPLICATION_ID = this.applicationId;
+
+        // Fetch the client data
+        if (options?.fetchClient) this.fetchClient();
+    }
+
+    fetchClient() {
+        const rest = Rest.getRest();
+
+        rest
+            .get(Routes.user(this.applicationId))
+            .then(data => {
+                this.emit('debug', "[DEBUG] Got the client data from the API");
+                this.user = new User(data);
+            }).catch(e => {
+                this.emit('debug', "[DEBUG] Got a error by fetching the client data from the API!" + e);
+                console.log(e)
+        });
     }
 
     /**
