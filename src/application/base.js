@@ -3,7 +3,7 @@ const mongooseConnectionHelper = require("../mongo/mongoose.js")
 const EventEmitter = require('node:events');
 const Rest = require("../structures/Rest.js");
 const {Routes} = require('discord-api-types/v10');
-const CacheManager = require("../structures/CacheManager");
+const CacheManager = require("../structures/managers/CacheManager");
 
 /**
  * Create your Application

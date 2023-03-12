@@ -1,9 +1,9 @@
 // Cache Schemas
-const RolesCacheSchema = require('../mongo/CacheSchemas/RolesCache');
-const ChannelsCacheSchema = require('../mongo/CacheSchemas/ChannelsCache');
-const GuildsCacheSchema = require('../mongo/CacheSchemas/GuildsCache');
-const UsersCacheSchema = require('../mongo/CacheSchemas/UsersCache');
-const MembersCacheSchema = require('../mongo/CacheSchemas/MembersCache');
+const RolesCacheSchema = require('../../mongo/CacheSchemas/RolesCache');
+const ChannelsCacheSchema = require('../../mongo/CacheSchemas/ChannelsCache');
+const GuildsCacheSchema = require('../../mongo/CacheSchemas/GuildsCache');
+const UsersCacheSchema = require('../../mongo/CacheSchemas/UsersCache');
+const MembersCacheSchema = require('../../mongo/CacheSchemas/MembersCache');
 
 /**
  * Create a Cache Manager
