@@ -1,6 +1,6 @@
 {
   "name": "interactions.js",
-  "version": "1.2.1",
+  "version": "1.2.5",
   "description": "A powerful Javascript library to work with discords interactions",
   "main": "./src/index.js",
   "types": "./src/index.d.ts",
@@ -42,6 +42,6 @@
   },
   "author": "fb-sean",
   "devDependencies": {
-    "clean-jsdoc-theme": "^4.1.10"
+    "clean-jsdoc-theme": "^4.2.7"
   }
 }
