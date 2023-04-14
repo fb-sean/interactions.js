@@ -520,9 +520,16 @@ function initTooltip() {
 }
 
 function fixTable() {
-    const tables = document.querySelectorAll('table');
+    var tables = document.querySelectorAll('table');
+    var table;
 
-    for (const table of tables) {
+    // eslint-disable-next-line no-undef
+    if (window.innerWidth > 900) {
+        // Only fixing table if width is smaller than 900px
+        return;
+    }
+
+    for (table of tables) {
         if (table.classList.contains('hljs-ln')) {
             // don't want to wrap code blocks.
             return;
