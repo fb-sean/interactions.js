@@ -43,6 +43,6 @@
   },
   "author": "fb-sean",
   "devDependencies": {
-    "clean-jsdoc-theme": "^4.1.10"
+    "clean-jsdoc-theme": "^4.2.7"
   }
 }
