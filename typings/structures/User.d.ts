@@ -7,12 +7,12 @@ export = User;
  * const username = interaction.user.username; // returns the username
  */
 declare class User {
-    constructor(raw: any);
+    constructor(data: any);
     /**
      * the id of this user
-     * @type {number}
+     * @type {string}
      */
-    id: number;
+    id: string;
     /**
      * the avatar hash of this user
      * @type {string}

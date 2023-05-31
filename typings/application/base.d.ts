@@ -5,7 +5,7 @@ export = Application;
  * @example
  * const { Application } = require("interactions.js");
  *
- * const client = new Application({ botToken: "Bot Token", publicKey: "Public Key", applicationId: "Application Id" });
+ * const client = new Application({ botToken: "Bot Token", publicKey: "Public Key", applicationId: "Application Id", fetchClient: true });
  * client.on("debug", debug => {
  *    console.log(debug);
  * })
@@ -13,6 +13,7 @@ export = Application;
  *
  *
  * @param {Object} options Your application options
+ * @return {Application} The application
  */
 declare class Application extends EventEmitter {
     constructor(options: any);
@@ -43,29 +44,29 @@ declare class Application extends EventEmitter {
     port: number;
     /**
      * boolean to enable or disable the client channels cache
-     * @type {*|boolean}
+     * @type {boolean}
      */
-    cacheChannels: any | boolean;
+    cacheChannels: boolean;
     /**
      * boolean to enable or disable the client users cache
-     * @type {*|boolean}
+     * @type {boolean}
      */
-    cacheUsers: any | boolean;
+    cacheUsers: boolean;
     /**
      * boolean to enable or disable the client members cache
-     * @type {*|boolean}
+     * @type {boolean}
      */
-    cacheMembers: any | boolean;
+    cacheMembers: boolean;
     /**
      * boolean to enable or disable the client guilds cache
-     * @type {*|boolean}
+     * @type {boolean}
      */
-    cacheGuilds: any | boolean;
+    cacheGuilds: boolean;
     /**
      * boolean to enable or disable the client roles cache
-     * @type {*|boolean}
+     * @type {boolean}
      */
-    cacheRoles: any | boolean;
+    cacheRoles: boolean;
     /**
      * boolean to enable or disable that interactions.js use the mongoose connection to save and load cache
      * @type {*|boolean}
@@ -87,6 +88,8 @@ declare class Application extends EventEmitter {
      * @type {number|null}
      */
     readySince: number | null;
+    fetchClient(): void;
+    user: User;
     /**
      * Start the application
      *
@@ -114,4 +117,5 @@ declare class Application extends EventEmitter {
     }>;
 }
 import EventEmitter = require("events");
+import User = require("../structures/User");
 //# sourceMappingURL=base.d.ts.map

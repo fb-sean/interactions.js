@@ -8,48 +8,48 @@
  * const username = interaction.user.username; // returns the username
  */
 class User {
-    constructor(raw) {
+    constructor(data) {
         /**
          * the id of this user
-         * @type {number}
+         * @type {string}
          */
-        this.id = raw?.id ?? null;
+        this.id = data?.id ?? null;
 
         /**
          * the avatar hash of this user
          * @type {string}
          */
-        this.avatar = raw?.avatar ?? null;
+        this.avatar = data?.avatar ?? null;
 
         /**
          * the avatar decoration of this user
          * @type {string}
          */
-        this.avatarDecoration = raw?.avatar_decoration ?? null;
+        this.avatarDecoration = data?.avatar_decoration ?? null;
 
         /**
          * the discriminator of this user
          * @type {string}
          */
-        this.disc = raw?.discriminator ?? null;
+        this.disc = data?.discriminator ?? null;
 
         /**
          * the tag of this user
          * @type {string}
          */
-        this.tag = `${raw?.username}#${raw?.discriminator}`;
+        this.tag = `${data?.username}#${data?.discriminator}`;
 
         /**
          * the public flags of this user
          * @type {number}
          */
-        this.publicFlags = raw?.public_flags;
+        this.publicFlags = data?.public_flags;
 
         /**
          * the username of this user
          * @type {string}
          */
-        this.username = raw?.username;
+        this.username = data?.username;
 
         /**
          * the avatar url of the user

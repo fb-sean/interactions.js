@@ -1,9 +1,10 @@
 const startAPI = require("../api/api.js");
 const mongooseConnectionHelper = require("../mongo/mongoose.js")
 const EventEmitter = require('node:events');
-const {REST} = require('@discordjs/rest');
-const {Routes} = require('discord-api-types/v9');
-const CacheManager = require("../structures/CacheManager");
+const Rest = require("../structures/Rest.js");
+const {Routes} = require('discord-api-types/v10');
+const CacheManager = require("../structures/managers/CacheManager");
+const User = require("../structures/User");
 
 /**
  * Create your Application
@@ -11,7 +12,7 @@ const CacheManager = require("../structures/CacheManager");
  * @example
  * const { Application } = require("interactions.js");
  *
- * const client = new Application({ botToken: "Bot Token", publicKey: "Public Key", applicationId: "Application Id" });
+ * const client = new Application({ botToken: "Bot Token", publicKey: "Public Key", applicationId: "Application Id", fetchClient: true });
  * client.on("debug", debug => {
  *    console.log(debug);
  * })
@@ -19,11 +20,11 @@ const CacheManager = require("../structures/CacheManager");
  *
  *
  * @param {Object} options Your application options
+ * @return {Application} The application
  */
 class Application extends EventEmitter {
     constructor(options) {
-        super(options);
-
+        super();
         /**
          * the token of the bot application (needed)
          * @type {string}
@@ -56,31 +57,31 @@ class Application extends EventEmitter {
 
         /**
          * boolean to enable or disable the client channels cache
-         * @type {*|boolean}
+         * @type {boolean}
          */
         this.cacheChannels = options?.cacheChannels ?? false;
 
         /**
          * boolean to enable or disable the client users cache
-         * @type {*|boolean}
+         * @type {boolean}
          */
         this.cacheUsers = options?.cacheUsers ?? false;
 
         /**
          * boolean to enable or disable the client members cache
-         * @type {*|boolean}
+         * @type {boolean}
          */
         this.cacheMembers = options?.cacheMembers ?? false;
 
         /**
          * boolean to enable or disable the client guilds cache
-         * @type {*|boolean}
+         * @type {boolean}
          */
         this.cacheGuilds = options?.cacheGuilds ?? false;
 
         /**
          * boolean to enable or disable the client roles cache
-         * @type {*|boolean}
+         * @type {boolean}
          */
         this.cacheRoles = options?.cacheRoles ?? false;
 
@@ -114,6 +115,23 @@ class Application extends EventEmitter {
         process.env.MONGOOSE_STRING = this.mongooseString;
         process.env.PUBLIC_KEY = this.publicKey;
         process.env.APPLICATION_ID = this.applicationId;
+
+        // Fetch the client data
+        if (options?.fetchClient) this.fetchClient();
+    }
+
+    fetchClient() {
+        const rest = Rest.getRest();
+
+        rest
+            .get(Routes.user(this.applicationId))
+            .then(data => {
+                this.emit('debug', "[DEBUG] Got the client data from the API");
+                this.user = new User(data);
+            }).catch(e => {
+                this.emit('debug', "[DEBUG] Got a error by fetching the client data from the API!" + e);
+                console.log(e)
+        });
     }
 
     /**
@@ -146,7 +164,7 @@ class Application extends EventEmitter {
 
         if (!this.applicationId) throw new Error("[Interactions.js => <Client>.setAppCommands] You need to provide a valid applicationId.");
 
-        const rest = new REST({version: '10'}).setToken(this.botToken);
+        const rest = Rest.getRest();
 
         try {
             await rest.put(
@@ -180,7 +198,7 @@ class Application extends EventEmitter {
 
         if (!GuildId) throw new Error("[Interactions.js => <Client>.setGuildCommands] You need to provide a valid GuildId.");
 
-        const rest = new REST({version: '10'}).setToken(this.botToken);
+        const rest = Rest.getRest();
 
         try {
             await rest.put(

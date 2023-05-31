@@ -247,7 +247,7 @@ class SelectMenu {
                 throw new Error("[Interactions.js => <SelectMenu>.setOptions] Option value must be less than 100 characters");
             }
 
-            if(option?.emoji?.name && option?.emoji?.name?.length > 100) {
+            if(option?.emoji && option?.emoji?.name && option?.emoji?.name?.length > 100) {
                 throw new Error("[Interactions.js => <SelectMenu>.setOptions] Option emoji name must be less than 100 characters");
             }
 
@@ -255,7 +255,7 @@ class SelectMenu {
                 throw new Error("[Interactions.js => <SelectMenu>.setOptions] Option emoji id must be less than 100 characters");
             }
 
-            if(!option?.emoji?.id && !option?.emoji?.name) {
+            if(option?.emoji && !option?.emoji?.id && !option?.emoji?.name) {
                 throw new Error("[Interactions.js => <SelectMenu>.setOptions] Option emoji must have an id or name");
             }
         }

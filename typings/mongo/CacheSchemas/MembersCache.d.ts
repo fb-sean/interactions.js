@@ -24,9 +24,21 @@
 /// <reference types="mongoose/types/inferschematype" />
 declare const _exports: import("mongoose").Model<{
     members?: Map<string, {}>;
-}, {}, {}, {}, Schema<any, import("mongoose").Model<any, any, any, any, any>, {}, {}, {}, {}, import("mongoose").DefaultSchemaOptions, {
+}, {}, {}, {}, import("mongoose").Document<unknown, {}, {
     members?: Map<string, {}>;
-}>>;
+}> & Omit<{
+    members?: Map<string, {}>;
+} & {
+    _id: import("mongoose").Types.ObjectId;
+}, never>, Schema<any, import("mongoose").Model<any, any, any, any, any, any>, {}, {}, {}, {}, import("mongoose").DefaultSchemaOptions, {
+    members?: Map<string, {}>;
+}, import("mongoose").Document<unknown, {}, import("mongoose").FlatRecord<{
+    members?: Map<string, {}>;
+}>> & Omit<import("mongoose").FlatRecord<{
+    members?: Map<string, {}>;
+}> & {
+    _id: import("mongoose").Types.ObjectId;
+}, never>>>;
 export = _exports;
 import { Schema } from "mongoose";
 //# sourceMappingURL=MembersCache.d.ts.map

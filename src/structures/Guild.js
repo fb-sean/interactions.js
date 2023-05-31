@@ -10,7 +10,7 @@ class Guild {
 
         /**
          * the id of the guild
-         * @type {number}
+         * @type {string}
          */
         this.id = raw?.guild_id ?? null
 

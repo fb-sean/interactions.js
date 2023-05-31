@@ -10,9 +10,9 @@ declare class ModalComponents {
     constructor(components: any);
     /**
      * the interaction components data
-     * @type {Array}
+     * @type {object[] | array}
      */
-    components: any[];
+    components: object[] | any[];
     /**
      * Get a field by id
      * @param {string} id
@@ -31,8 +31,8 @@ declare class ModalComponents {
     getValueById(id: string): string;
     /**
      * Get the interaction components
-     * @return {Array}
+     * @return {object[]}
      */
-    getComponents(): any[];
+    getComponents(): object[];
 }
 //# sourceMappingURL=ModalComponents.d.ts.map

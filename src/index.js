@@ -7,7 +7,9 @@ exports.Application = require("./application/base.js");
 exports.Embed = require("./structures/Embed.js");
 
 // Managers
-exports.ChannelManager = require("./structures/ChannelManager.js");
+exports.ChannelManager = require("./structures/managers/ChannelManager.js");
+exports.UserManager = require("./structures/managers/UserManager.js");
+exports.Rest = require("./structures/Rest.js");
 
 // Message Components
 exports.Button = require("./structures/Button.js");

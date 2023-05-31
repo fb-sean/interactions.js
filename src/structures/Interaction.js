@@ -12,8 +12,8 @@ const InteractionType = require("./InteractionType");
 const InteractionResponseType = require("./InteractionResponseType");
 const ModalComponents = require("./ModalComponents");
 
-const Utils = require("../utils/Utils.js");
-const Util = new Utils();
+// Rest Handler
+const Rest = require("./Rest");
 
 /**
  * Create a formatted Interaction Object
@@ -24,7 +24,6 @@ const Util = new Utils();
  */
 class Interaction {
     constructor(req, c, res) {
-
         /**
          * the client that is bound to the interaction
          * @type {Application}
@@ -43,35 +42,41 @@ class Interaction {
          */
         this.commandName = req?.body?.data?.name ?? null;
 
-        /**
-         * Return the options of the interaction
-         * @type {InteractionOptions}
-         * @return {ModalComponents}
-         * @example
-         * const subCommandOption = interaction.options.getSubCommand(); // returns the subcommand option
-         * const subCommandGroupOption = interaction.options.getSubCommandGroup(); // returns the subcommand group option
-         * const stringOption = interaction.options.getString("optionName"); // returns the string option
-         * const integerOption = interaction.options.getInteger("optionName"); // returns the integer option
-         * const booleanOption = interaction.options.getBoolean("optionName"); // returns the boolean option
-         * const userOption = interaction.options.getUser("optionName"); // returns the user option
-         * const memberOption = interaction.options.getMember("optionName"); // returns the member option
-         * const channelOption = interaction.options.getChannel("optionName"); // returns the channel option
-         * const roleOption = interaction.options.getRole("optionName"); // returns the role option
-         * const numberOption = interaction.options.getNumber("optionName"); // returns the number option
-         * const mentionableOption = interaction.options.getMentionable("optionName"); // returns the mentionable option
-         */
-        this.options = new InteractionOptions(req?.body?.data?.options ?? null);
+        // Only using options when it's needed.
+        if (req.body.type === InteractionType.APPLICATION_COMMAND || req.body.type === InteractionType.APPLICATION_COMMAND_AUTOCOMPLETE) {
+            /**
+             * Return the options of the interaction
+             * @type {InteractionOptions}
+             * @return {InteractionOptions}
+             * @example
+             * const subCommandOption = interaction.options.getSubCommand(); // returns the subcommand option
+             * const subCommandGroupOption = interaction.options.getSubCommandGroup(); // returns the subcommand group option
+             * const stringOption = interaction.options.getString("optionName"); // returns the string option
+             * const integerOption = interaction.options.getInteger("optionName"); // returns the integer option
+             * const booleanOption = interaction.options.getBoolean("optionName"); // returns the boolean option
+             * const userOption = interaction.options.getUser("optionName"); // returns the user option
+             * const memberOption = interaction.options.getMember("optionName"); // returns the member option
+             * const channelOption = interaction.options.getChannel("optionName"); // returns the channel option
+             * const roleOption = interaction.options.getRole("optionName"); // returns the role option
+             * const numberOption = interaction.options.getNumber("optionName"); // returns the number option
+             * const mentionableOption = interaction.options.getMentionable("optionName"); // returns the mentionable option
+             */
+            this.options = new InteractionOptions(req?.body?.data?.options ?? null);
+        }
 
-        /**
-         * Return the components data of the interaction (for modals)
-         * @type {Interaction}
-         * @return {ModalComponents}
-         * @example
-         * const fieldTest = interaction.components.getDataById("fieldTest"); // Returns the object of field "fieldTest"!
-         * const fieldTestValue = interaction.components.getDataById("fieldTest").value; // Returns the value of field "fieldTest"!
-         * const fieldTestValueTwo = interaction.components.getValueById("fieldTest"); // Returns also the value of field "fieldTest"!
-         */
-        this.components = new ModalComponents(req?.body?.data?.components ?? null);
+        // Only using components when it's needed.
+        if (req.body.type === InteractionType.MODAL_SUBMIT) {
+            /**
+             * Return the components data of the interaction (for modals)
+             * @type {Interaction}
+             * @return {ModalComponents}
+             * @example
+             * const fieldTest = interaction.components.getDataById("fieldTest"); // Returns the object of field "fieldTest"!
+             * const fieldTestValue = interaction.components.getDataById("fieldTest").value; // Returns the value of field "fieldTest"!
+             * const fieldTestValueTwo = interaction.components.getValueById("fieldTest"); // Returns also the value of field "fieldTest"!
+             */
+            this.components = new ModalComponents(req?.body?.data?.components ?? []);
+        }
 
         /**
          * select menu values if select menu interaction
@@ -93,13 +98,13 @@ class Interaction {
 
         /**
          * ID of the application this interaction is for
-         * @type {number}
+         * @type {string}
          */
         this.applicationId = req.body.application_id;
 
         /**
          * ID of the interaction
-         * @type {number}
+         * @type {string}
          */
         this.id = req.body.id;
 
@@ -186,6 +191,7 @@ class Interaction {
 
         this.client.emit('debug', "[DEBUG] Sending a reply to " + this.id);
 
+        this._res.header('User-Agent', 'Discord Interactions.js Package (https://github.com/fb-sean/interactions.js)');
         return this._res.send({
             type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
             data: {
@@ -194,9 +200,6 @@ class Interaction {
                 components,
                 files,
                 flags: ephemeral ? InteractionResponseFlags.EPHEMERAL : null,
-            },
-            headers: {
-                'User-Agent': 'Discord Interactions.js Package (https://github.com/fb-sean/interactions.js)',
             },
         });
     }
@@ -209,12 +212,10 @@ class Interaction {
     deferUpdate() {
         this.client.emit('debug', "[DEBUG] Sending a defer update to " + this.id);
 
+        this._res.header('User-Agent', 'Discord Interactions.js Package (https://github.com/fb-sean/interactions.js)');
         return this._res.send({
             type: 6,
             data: {},
-            headers: {
-                'User-Agent': 'Discord Interactions.js Package (https://github.com/fb-sean/interactions.js)',
-            },
         });
     }
 
@@ -227,13 +228,11 @@ class Interaction {
     deferReply(ephemeral = false) {
         this.client.emit('debug', "[DEBUG] Sending a defer to " + this.id);
 
+        this._res.header('User-Agent', 'Discord Interactions.js Package (https://github.com/fb-sean/interactions.js)');
         return this._res.send({
             type: InteractionResponseType.DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE,
             data: {
                 flags: ephemeral ? InteractionResponseFlags.EPHEMERAL : null,
-            },
-            headers: {
-                'User-Agent': 'Discord Interactions.js Package (https://github.com/fb-sean/interactions.js)',
             },
         });
     }
@@ -246,7 +245,7 @@ class Interaction {
      * console.log(response);
      */
     editReply({embeds = [], components = [], content = null, files = []}) {
-        if (embeds?.length <= 0 && components?.length <= 0 && !files?.length <= 0 && !content) throw new Error("[Interactions.js => <Interaction>.reply] You need to provide a MessagePayload (Content or Embeds or Components or files)");
+        if (embeds?.length <= 0 && components?.length <= 0 && !files?.length <= 0 && !content) throw new Error("[Interactions.js => <Interaction>.editReply] You need to provide a MessagePayload (Content or Embeds or Components or files)");
 
         this.client.emit('debug', "[DEBUG] Sending a edit");
 
@@ -256,12 +255,44 @@ class Interaction {
         if (content) payload.content = content;
         if (files?.length > 0) payload.files = files;
 
-        const endpoint = `/webhooks/${this.client.applicationId}/${this.token}/messages/@original?wait=true`;
+        const rest = Rest.getRest();
 
-        return Util.DiscordRequest(this.client, endpoint, {
-            method: "PATCH",
-            body: payload,
-        }, {}, !!payload.files);
+        return rest.patch(
+            `/webhooks/${this.client.applicationId}/${this.token}/messages/@original?wait=true`,
+            {
+                body: payload,
+                files: payload.files ?? undefined,
+            }
+        );
+    }
+
+    /**
+     * Send a simple follow-up message
+     * @param options The message payload (embeds, components, content, files, ephemeral)
+     * @example
+     * const response = await interaction.editReply({ content: "Hello World" });
+     * console.log(response);
+     */
+    followUp({embeds = [], components = [], content = null, files = []}) {
+        if (embeds?.length <= 0 && components?.length <= 0 && !files?.length <= 0 && !content) throw new Error("[Interactions.js => <Interaction>.followUp] You need to provide a MessagePayload (Content or Embeds or Components or files)");
+
+        this.client.emit('debug', "[DEBUG] Sending a follow up");
+
+        let payload = {};
+        if (embeds?.length > 0) payload.embeds = embeds;
+        if (components?.length > 0) payload.components = components;
+        if (content) payload.content = content;
+        if (files?.length > 0) payload.files = files;
+
+        const rest = Rest.getRest();
+
+        return rest.post(
+            `/webhooks/${this.client.applicationId}/${this.token}/messages/@original?wait=true`,
+            {
+                body: payload,
+                files: payload.files ?? undefined,
+            }
+        );
     }
 
     /**
@@ -275,6 +306,7 @@ class Interaction {
 
         this.client.emit('debug', "[DEBUG] Sending a interaction update to " + this.id);
 
+        this._res.header('User-Agent', 'Discord Interactions.js Package (https://github.com/fb-sean/interactions.js)');
         return this._res.send({
             type: InteractionResponseType.UPDATE_MESSAGE,
             data: {
@@ -282,9 +314,6 @@ class Interaction {
                 embeds,
                 components,
                 files,
-            },
-            headers: {
-                'User-Agent': 'Discord Interactions.js Package (https://github.com/fb-sean/interactions.js)',
             },
         });
     }
@@ -348,14 +377,44 @@ class Interaction {
             });
         }
 
+        this._res.header('User-Agent', 'Discord Interactions.js Package (https://github.com/fb-sean/interactions.js)');
         return this._res.send({
             type: InteractionResponseType.MODAL,
             data,
-            headers: {
-                'User-Agent': 'Discord Interactions.js Package (https://github.com/fb-sean/interactions.js)',
+        });
+    }
+
+    /**
+     * Response to an autocomplete interaction
+     * @param {object[]} choices the choices including (name, name_localizations?, value)
+     */
+    sendAutoComplete(choices = []) {
+        for (const choice of choices) {
+            if (!choice.name) {
+                throw new Error("[Interactions.js => <Interaction>.sendAutoComplete] You need to provide a name for each choice");
+            }
+            if (!choice.value) {
+                throw new Error("[Interactions.js => <Interaction>.sendAutoComplete] You need to provide a value for each choice");
+            }
+
+            if (choice.name.length > 100) {
+                throw new Error("[Interactions.js => <Interaction>.sendAutoComplete] You can't provide a name longer than 100 characters");
+            }
+
+            if (choice.value.length > 100) {
+                throw new Error("[Interactions.js => <Interaction>.sendAutoComplete] You can't provide a value longer than 100 characters");
+            }
+        }
+
+        this._res.header('User-Agent', 'Discord Interactions.js Package (https://github.com/fb-sean/interactions.js)');
+        return this._res.send({
+            type: InteractionResponseType.APPLICATION_COMMAND_AUTOCOMPLETE_RESULT,
+            data: {
+                choices: choices,
             },
         });
     }
+
 
     /**
      * Check if the interaction is a modal submit
