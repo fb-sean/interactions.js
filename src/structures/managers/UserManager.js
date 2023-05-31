@@ -74,6 +74,35 @@ class UserManager {
             Routes.user(userId ?? this.id)
         );
     }
+
+    /**
+     * Fetch the current bot from Discord
+     * @return {Promise<object>}
+     */
+    async fetchMyself() {
+        const rest = Rest.getRest();
+
+        return rest.get(
+            Routes.user(process.env.APPLICATION_ID)
+        );
+    }
+
+    /**
+     * Fetch the current bot's application (Pretty useful for guild count!)
+     * @return {Promise<object>}
+     */
+    async fetchMyApplication() {
+        const rest = Rest.getRest();
+
+        return rest.get(
+            '/applications/@me',
+            {
+                headers: {
+                    Authorization: 'Bot ' + process.env.DISCORD_TOKEN,
+                }
+            }
+        );
+    }
 }
 
 module.exports = UserManager;

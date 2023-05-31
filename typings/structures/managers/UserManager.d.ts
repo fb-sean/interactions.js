@@ -38,5 +38,15 @@ declare class UserManager {
      * @return {Promise<object>}
      */
     fetch(userId?: string | null): Promise<object>;
+    /**
+     * Fetch the current bot from Discord
+     * @return {Promise<object>}
+     */
+    fetchMyself(): Promise<object>;
+    /**
+     * Fetch the current bot's application (Pretty useful for guild count!)
+     * @return {Promise<object>}
+     */
+    fetchMyApplication(): Promise<object>;
 }
 //# sourceMappingURL=UserManager.d.ts.map

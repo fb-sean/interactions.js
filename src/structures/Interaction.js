@@ -270,7 +270,7 @@ class Interaction {
      * Send a simple follow-up message
      * @param options The message payload (embeds, components, content, files, ephemeral)
      * @example
-     * const response = await interaction.editReply({ content: "Hello World" });
+     * const response = await interaction.followUp({ content: "Hello World" });
      * console.log(response);
      */
     followUp({embeds = [], components = [], content = null, files = []}) {
