@@ -10,9 +10,9 @@ declare class Guild {
     constructor(raw: any);
     /**
      * the id of the guild
-     * @type {number}
+     * @type {string}
      */
-    id: number;
+    id: string;
     /**
      * Guild's preferred locale
      * @type {string}

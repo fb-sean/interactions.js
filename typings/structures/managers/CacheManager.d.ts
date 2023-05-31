@@ -53,47 +53,27 @@ declare class CacheManager {
     deleteGuild(guildID: any): void;
     deleteUser(userID: any): void;
     deleteMember(guildID: any, memberID: any): void;
-    buildLoaderArray(): ({
+    buildLoaderArray(): {
         schema: import("mongoose").Model<{
             roles?: Map<string, {}>;
-        }, {}, {}, {}, import("mongoose").Schema<any, import("mongoose").Model<any, any, any, any, any>, {}, {}, {}, {}, import("mongoose").DefaultSchemaOptions, {
+        }, {}, {}, {}, import("mongoose").Document<unknown, {}, {
             roles?: Map<string, {}>;
-        }>>;
+        }> & Omit<{
+            roles?: Map<string, {}>;
+        } & {
+            _id: import("mongoose").Types.ObjectId;
+        }, never>, import("mongoose").Schema<any, import("mongoose").Model<any, any, any, any, any, any>, {}, {}, {}, {}, import("mongoose").DefaultSchemaOptions, {
+            roles?: Map<string, {}>;
+        }, import("mongoose").Document<unknown, {}, import("mongoose").FlatRecord<{
+            roles?: Map<string, {}>;
+        }>> & Omit<import("mongoose").FlatRecord<{
+            roles?: Map<string, {}>;
+        }> & {
+            _id: import("mongoose").Types.ObjectId;
+        }, never>>>;
         cache: Map<any, any>;
         trigger: string;
-    } | {
-        schema: import("mongoose").Model<{
-            channels?: Map<string, {}>;
-        }, {}, {}, {}, import("mongoose").Schema<any, import("mongoose").Model<any, any, any, any, any>, {}, {}, {}, {}, import("mongoose").DefaultSchemaOptions, {
-            channels?: Map<string, {}>;
-        }>>;
-        cache: Map<any, any>;
-        trigger: string;
-    } | {
-        schema: import("mongoose").Model<{
-            guilds?: Map<string, {}>;
-        }, {}, {}, {}, import("mongoose").Schema<any, import("mongoose").Model<any, any, any, any, any>, {}, {}, {}, {}, import("mongoose").DefaultSchemaOptions, {
-            guilds?: Map<string, {}>;
-        }>>;
-        cache: Map<any, any>;
-        trigger: string;
-    } | {
-        schema: import("mongoose").Model<{
-            users?: Map<string, {}>;
-        }, {}, {}, {}, import("mongoose").Schema<any, import("mongoose").Model<any, any, any, any, any>, {}, {}, {}, {}, import("mongoose").DefaultSchemaOptions, {
-            users?: Map<string, {}>;
-        }>>;
-        cache: Map<any, any>;
-        trigger: string;
-    } | {
-        schema: import("mongoose").Model<{
-            members?: Map<string, {}>;
-        }, {}, {}, {}, import("mongoose").Schema<any, import("mongoose").Model<any, any, any, any, any>, {}, {}, {}, {}, import("mongoose").DefaultSchemaOptions, {
-            members?: Map<string, {}>;
-        }>>;
-        cache: Map<any, any>;
-        trigger: string;
-    })[];
+    }[];
     loadCache(): Promise<void>;
 }
 //# sourceMappingURL=CacheManager.d.ts.map

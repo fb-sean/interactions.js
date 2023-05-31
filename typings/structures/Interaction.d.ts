@@ -26,7 +26,7 @@ declare class Interaction {
     /**
      * Return the options of the interaction
      * @type {InteractionOptions}
-     * @return {ModalComponents}
+     * @return {InteractionOptions}
      * @example
      * const subCommandOption = interaction.options.getSubCommand(); // returns the subcommand option
      * const subCommandGroupOption = interaction.options.getSubCommandGroup(); // returns the subcommand group option
@@ -68,14 +68,14 @@ declare class Interaction {
     token: string;
     /**
      * ID of the application this interaction is for
-     * @type {number}
+     * @type {string}
      */
-    applicationId: number;
+    applicationId: string;
     /**
      * ID of the interaction
-     * @type {number}
+     * @type {string}
      */
-    id: number;
+    id: string;
     /**
      * type of interaction
      * @type {number}
@@ -159,7 +159,20 @@ declare class Interaction {
         components?: any[];
         content?: any;
         files?: any[];
-    }): Promise<any>;
+    }): Promise<unknown>;
+    /**
+     * Send a simple follow-up message
+     * @param options The message payload (embeds, components, content, files, ephemeral)
+     * @example
+     * const response = await interaction.editReply({ content: "Hello World" });
+     * console.log(response);
+     */
+    followUp({ embeds, components, content, files }: {
+        embeds?: any[];
+        components?: any[];
+        content?: any;
+        files?: any[];
+    }): Promise<unknown>;
     /**
      * Update an Interaction
      * @param options The message payload (embeds, components, content, files)
@@ -195,6 +208,11 @@ declare class Interaction {
      * return interaction.showModal(modal);
      */
     showModal(modal: any): any;
+    /**
+     * Response to an autocomplete interaction
+     * @param {object[]} choices the choices including (name, name_localizations?, value)
+     */
+    sendAutoComplete(choices?: object[]): any;
     /**
      * Check if the interaction is a modal submit
      * @type {boolean}

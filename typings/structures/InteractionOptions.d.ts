@@ -19,12 +19,12 @@ declare class InteractionOptions {
     constructor(options: any);
     /**
      * the interaction option data
-     * @type {Array}
+     * @type {object[]}
      */
-    data: any[];
+    data: object[];
     /**
      * Get the interaction option "Sub Command"
-     * @property {String} name - The name of the option
+     * @property {string} name - The name of the option
      * @return {InteractionOptionsType.structure}
      * @example
      * const subCommandOption = interaction.options.getSubCommand(); // returns the subcommand
@@ -32,7 +32,7 @@ declare class InteractionOptions {
     getSubCommand(): InteractionOptionsType.structure;
     /**
      * Get the interaction option "Sub Command Group"
-     * @property {String} name - The name of the option
+     * @property {string} name - The name of the option
      * @return {InteractionOptionsType.structure}
      * @example
      * const subCommandGroupOption = interaction.options.getSubCommandGroup(); // returns the subcommand group
@@ -40,7 +40,7 @@ declare class InteractionOptions {
     getSubCommandGroup(): InteractionOptionsType.structure;
     /**
      * Get the interaction option "String"
-     * @property {String} name - The name of the option
+     * @property {string} name - The name of the option
      * @return {InteractionOptionsType.structure}
      * @example
      * const stringOption = interaction.options.getStringOption("optionName"); // returns the string
@@ -48,7 +48,7 @@ declare class InteractionOptions {
     getStringOption(name: any): InteractionOptionsType.structure;
     /**
      * Get the interaction option "String"
-     * @property {String} name - The name of the option
+     * @property {string} name - The name of the option
      * @return {InteractionOptionsType.structure}
      * @example
      * const integerOption = interaction.options.getIntegerOptionOption("optionName"); // returns the integer
@@ -56,7 +56,7 @@ declare class InteractionOptions {
     getIntegerOption(name: any): InteractionOptionsType.structure;
     /**
      * Get the interaction option "Boolean"
-     * @property {String} name - The name of the option
+     * @property {string} name - The name of the option
      * @return {InteractionOptionsType.structure}
      * @example
      * const booleanOption = interaction.options.getBooleanOption("optionName"); // returns the boolean
@@ -64,7 +64,7 @@ declare class InteractionOptions {
     getBooleanOption(name: any): InteractionOptionsType.structure;
     /**
      * Get the interaction option "User"
-     * @property {String} name - The name of the option
+     * @property {string} name - The name of the option
      * @return {InteractionOptionsType.structure}
      * @example
      * const userOption = interaction.options.getUserOption("optionName"); // returns the user
@@ -72,7 +72,7 @@ declare class InteractionOptions {
     getUserOption(name: any): InteractionOptionsType.structure;
     /**
      * Get the interaction option "Channel"
-     * @property {String} name - The name of the option
+     * @property {string} name - The name of the option
      * @return {InteractionOptionsType.structure}
      * @example
      * const channelOption = interaction.options.getChannelOption("optionName"); // returns the channel
@@ -80,7 +80,7 @@ declare class InteractionOptions {
     getChannelOption(name: any): InteractionOptionsType.structure;
     /**
      * Get the interaction option "Role"
-     * @property {String} name - The name of the option
+     * @property {string} name - The name of the option
      * @return {InteractionOptionsType.structure}
      * @example
      * const roleOption = interaction.options.getRoleOption("optionName"); // returns the role
@@ -88,7 +88,7 @@ declare class InteractionOptions {
     getRoleOption(name: any): InteractionOptionsType.structure;
     /**
      * Get the interaction option "Mentionable"
-     * @property {String} name - The name of the option
+     * @property {string} name - The name of the option
      * @return {InteractionOptionsType.structure}
      * @example
      * const mentionableOption = interaction.options.getMentionableOption("optionName"); // returns the mentionable
@@ -96,7 +96,7 @@ declare class InteractionOptions {
     getMentionableOption(name: any): InteractionOptionsType.structure;
     /**
      * Get the interaction option "Number"
-     * @property {String} name - The name of the option
+     * @property {string} name - The name of the option
      * @return {InteractionOptionsType.structure}
      * @example
      * const numberOption = interaction.options.getNumberOption("optionName"); // returns the number
@@ -104,7 +104,7 @@ declare class InteractionOptions {
     getNumberOption(name: any): InteractionOptionsType.structure;
     /**
      * Get the interaction option "Attachment"
-     * @property {String} name - The name of the option
+     * @property {string} name - The name of the option
      * @return {InteractionOptionsType.structure}
      * @example
      * const attachmentOption = interaction.options.getAttachmentOption("optionName"); // returns the attachment
@@ -112,10 +112,10 @@ declare class InteractionOptions {
     getAttachmentOption(name: any): InteractionOptionsType.structure;
     /**
      * Get the interaction options
-     * @return {Array}
+     * @return {object[]}
      * @example
      * const options = interaction.options.getOptions(); // returns the options
      */
-    getOptions(): any[];
+    getOptions(): object[];
 }
 //# sourceMappingURL=InteractionOptions.d.ts.map

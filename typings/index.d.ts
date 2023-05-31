@@ -1,6 +1,8 @@
 export const Application: typeof import("./application/base.js");
 export const Embed: typeof import("./structures/Embed.js");
-export const ChannelManager: typeof import("./structures/ChannelManager.js");
+export const ChannelManager: typeof import("./structures/managers/ChannelManager.js");
+export const UserManager: typeof import("./structures/managers/UserManager.js");
+export const Rest: typeof import("./structures/Rest.js");
 export const Button: typeof import("./structures/Button.js");
 export const SelectMenu: typeof import("./structures/SelectMenu.js");
 export const ActionRow: typeof import("./structures/ActionRow.js");
