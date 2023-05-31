@@ -120,6 +120,7 @@ class Application extends EventEmitter {
         if (options?.fetchClient) this.fetchClient();
     }
 
+
     fetchClient() {
         const rest = Rest.getRest();
 

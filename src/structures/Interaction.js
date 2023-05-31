@@ -287,7 +287,7 @@ class Interaction {
         const rest = Rest.getRest();
 
         return rest.post(
-            `/webhooks/${this.client.applicationId}/${this.token}/messages/@original?wait=true`,
+            `/webhooks/${this.client.applicationId}/${this.token}?wait=true`,
             {
                 body: payload,
                 files: payload.files ?? undefined,

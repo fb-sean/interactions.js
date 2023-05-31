@@ -51,6 +51,15 @@ Client.on("interactionCreate", async (i) => {
 });
 ```
 
+## Example way to get the guild count
+```js
+const { UserManager } = require("interactions.js");
+const application = await UserManager.fetchMyApplication();
+
+// Note: This is not the actual guild count, but an approximation
+const guildCount = application.approximate_guild_count;
+```
+
 ## Help
 
 If you don't understand something in the documentation, you are experiencing problems, or you just need a gentle
