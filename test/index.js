@@ -12,6 +12,7 @@ const {
     UserManager
 } = require("../src"); // require("interactions.js");
 
+const express = require("express");
 require('dotenv').config()
 
 const Client = new Application({
@@ -22,7 +23,9 @@ const Client = new Application({
     fetchClient: true,
 });
 
-Client.start().then(() => {
+Client
+    .start()
+    .then(() => {
     console.log("Client Started");
 });
 
@@ -119,6 +122,5 @@ Client.on("interactionCreate", async (i) => {
                 new Embed().setTitle('Modal Submitted!').setDescription(`Your Input: ${i.components.getDataById("test").value}`)
             ],
         });
-
     }
 });

@@ -10,10 +10,13 @@ const Member = require("../structures/Member.js");
 const Application = require("../application/base");
 
 // Require the fastify application
-const app = require('fastify')({
+const Fastify = require('fastify');
+let app = Fastify({
     logger: false,
     trustProxy: true
 });
+
+const express = require('express');
 
 // Require the util class
 const Utils = require("../utils/Utils.js");
@@ -22,6 +25,14 @@ const Util = new Utils();
 module.exports = async (Client) => {
     Client.emit('debug', "[DEBUG] Starting Fastify Server");
 
+    let isCustomInstance = false;
+    if(Client.apiInstance !== null) {
+        isCustomInstance = true;
+        app = Client.apiInstance;
+    } else {
+        Client.apiInstance = app;
+    }
+
     /**
      * Emitted the starting event.
      * @event Application#starting
@@ -29,11 +40,11 @@ module.exports = async (Client) => {
      */
     Client.emit('starting', Client);
 
-    app.get('/', (req, res) => {
-        return res.redirect(`https://github.com/fb-sean/interactions.js`)
-    })
-
     app.post('/interactions', async (req, res) => {
+        if(req.body === null || req.body === undefined) {
+            throw new Error("[Interactions.js => <Client>#interactionCreate] Your custom API Instance doesn't support the body-parser. Please use the default API Instance or install the body-parser package.");
+        }
+
         Client.emit('debug', "[DEBUG] New Interaction " + req.body.id);
 
         const verifyPayload = await Util.InteractionsMiddleware(Client, req);
@@ -56,9 +67,20 @@ module.exports = async (Client) => {
         Client.emit('interactionCreate', interaction);
     });
 
-    app.listen({port: Client.port}, (err) => {
-        Client.emit('debug', "[DEBUG] API Online on port " + Client.port);
+    if(!isCustomInstance) {
+        app.listen({port: Client.port}, (err) => {
+            Client.emit('debug', "[DEBUG] API Online on port " + Client.port);
 
+            Client.readySince = Date.now();
+
+            /**
+             * Emitted the ready event.
+             * @event Application#ready
+             * @param {Application} Client The Client
+             */
+            Client.emit('ready', Client);
+        });
+    } else {
         Client.readySince = Date.now();
 
         /**
@@ -67,5 +89,5 @@ module.exports = async (Client) => {
          * @param {Application} Client The Client
          */
         Client.emit('ready', Client);
-    })
+    }
 };

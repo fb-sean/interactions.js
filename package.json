@@ -1,6 +1,6 @@
 {
   "name": "interactions.js",
-  "version": "1.2.8",
+  "version": "1.2.9",
   "description": "A powerful Javascript library to work with discords interactions",
   "main": "./src/index.js",
   "typings": "./typings/index.d.ts",
@@ -16,6 +16,7 @@
     "api",
     "node",
     "discordapp",
+    "bot",
     "interactions"
   ],
   "repository": {
@@ -26,6 +27,7 @@
     "@discordjs/rest": "^1.5.0",
     "discord-api-types": "^0.37.35",
     "dotenv": "^16.0.3",
+    "express": "^4.18.2",
     "fastify": "^4.14.1",
     "mongoose": "^7.0.1",
     "node-fetch": "^3.3.1"
@@ -36,7 +38,7 @@
   "bugs": {
     "url": "https://github.com/fb-sean/interactions.js/issues"
   },
-  "homepage": "https://interactionsjs.com/1.2.6/",
+  "homepage": "https://interactionsjs.com/1.2.9/",
   "scripts": {
     "generate-docs": "jsdoc --configure jsdoc.json --verbose",
     "generate-typings": "tsc"

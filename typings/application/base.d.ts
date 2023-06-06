@@ -12,7 +12,20 @@ export = Application;
  * client.start();
  *
  *
- * @param {Object} options Your application options
+ * @param  {Object}  options The options for the application
+ * @param  {string}  options.botToken the bot token
+ * @param  {string}  options.publicKey the public key
+ * @param  {string}  options.applicationId the application id
+ * @param  {string}  options.mongooseString the mongoose connection string
+ * @param  {number}  options.port the port for the application
+ * @param  {boolean}  options.cacheChannels whether to cache channels or not
+ * @param  {boolean}  options.cacheUsers whether to cache users or not
+ * @param  {boolean}  options.cacheMembers whether to cache members or not
+ * @param  {boolean}  options.cacheGuilds whether to cache guilds or not
+ * @param  {boolean}  options.cacheRoles whether to cache roles or not
+ * @param  {boolean}  options.useMongooseCache whether to use the mongoose cache or not
+ * @param  {number}  options.customCacheCooldown the custom cache cooldown
+ * @param  {*|null}  options.apiInstance if you want to use your own express or fastify instance
  * @return {Application} The application
  */
 declare class Application extends EventEmitter {
@@ -77,6 +90,11 @@ declare class Application extends EventEmitter {
      * @type {*|number}
      */
     customCacheCooldown: any | number;
+    /**
+     * if you want to use your own express or fastify instance
+     * @type {*|null}
+     */
+    apiInstance: any | null;
     /**
      * Private property to store the client cache
      * @type {CacheManager} the cache manager
