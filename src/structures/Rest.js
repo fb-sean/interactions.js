@@ -32,7 +32,7 @@ class Rest {
         } else {
             Rest.rest = new REST({
                 version: '10',
-                userAgentAppendix: 'Discord Interactions.js Package (https://github.com/fb-sean/interactions.js)'
+                userAgentAppendix: 'DiscordBot (https://github.com/fb-sean/interactions.js, v1.2.10)'
             }).setToken(process.env.DISCORD_TOKEN);
 
             return Rest.rest;
