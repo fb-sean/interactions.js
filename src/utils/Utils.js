@@ -84,7 +84,7 @@ class Utils {
                 headers: {
                     Authorization: `Bot ${client.botToken}`,
                     'Content-Type': !formData ? 'application/json; charset=UTF-8' : 'multipart/form-data',
-                    'User-Agent': 'Discord Interactions.js Package (https://github.com/fb-sean/interactions.js)',
+                    'User-Agent': 'DiscordBot (https://github.com/fb-sean/interactions.js, v1.2.9)',
                     ...headers
                 },
             });
