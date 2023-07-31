@@ -111,11 +111,11 @@ declare class Embed {
     /**
      * Sets the footer of this embed
      *
-     * @param {String} name The name for the footer
+     * @param {String} text The name for the footer
      * @param {String} iconUrl The iconUrl for the footer
      * @return {Embed}
      */
-    setFooter(name: string, iconUrl: string): Embed;
+    setFooter(text: string, iconUrl: string): Embed;
     /**
      * return the embed as json
      * @return {Object} The embed as json

@@ -374,13 +374,13 @@ class Embed {
     /**
      * Sets the footer of this embed
      *
-     * @param {String} name The name for the footer
+     * @param {String} text The name for the footer
      * @param {String} iconUrl The iconUrl for the footer
      * @return {Embed}
      */
-    setFooter(name, iconUrl) {
-        if (!name || typeof name != 'string') {
-            throw new Error("[Interactions.js => <Embed>.setFooter] The Author Name need to be a String.");
+    setFooter(text, iconUrl) {
+        if (!text || typeof text != 'string') {
+            throw new Error("[Interactions.js => <Embed>.setFooter] The Author text need to be a String.");
         }
 
         if (iconUrl && !Util.checkURL(iconUrl)) {
@@ -388,7 +388,7 @@ class Embed {
         }
 
         this.data.footer = {
-            name: name ?? null,
+            text: text ?? null,
             icon_url: iconUrl ?? null,
         };
         return this;

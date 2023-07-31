@@ -1,6 +1,6 @@
 {
   "name": "interactions.js",
-  "version": "1.2.10",
+  "version": "1.2.11",
   "description": "A powerful Javascript library to work with discords interactions",
   "main": "./src/index.js",
   "typings": "./typings/index.d.ts",
@@ -38,7 +38,7 @@
   "bugs": {
     "url": "https://github.com/fb-sean/interactions.js/issues"
   },
-  "homepage": "https://interactionsjs.com/1.2.9/",
+  "homepage": "https://interactionsjs.com/1.2.11/",
   "scripts": {
     "generate-docs": "jsdoc --configure jsdoc.json --verbose",
     "generate-typings": "tsc"

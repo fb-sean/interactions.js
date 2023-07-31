@@ -191,7 +191,7 @@ class Interaction {
 
         this.client.emit('debug', "[DEBUG] Sending a reply to " + this.id);
 
-        this._res.header('User-Agent', 'DiscordBot (https://github.com/fb-sean/interactions.js, v1.2.10)');
+        this._res.header('User-Agent', 'DiscordBot (https://github.com/fb-sean/interactions.js, v1.2.11)');
         return this._res.send({
             type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
             data: {
@@ -212,7 +212,7 @@ class Interaction {
     deferUpdate() {
         this.client.emit('debug', "[DEBUG] Sending a defer update to " + this.id);
 
-        this._res.header('User-Agent', 'DiscordBot (https://github.com/fb-sean/interactions.js, v1.2.10)');
+        this._res.header('User-Agent', 'DiscordBot (https://github.com/fb-sean/interactions.js, v1.2.11)');
         return this._res.send({
             type: 6,
             data: {},
@@ -228,7 +228,7 @@ class Interaction {
     deferReply(ephemeral = false) {
         this.client.emit('debug', "[DEBUG] Sending a defer to " + this.id);
 
-        this._res.header('User-Agent', 'DiscordBot (https://github.com/fb-sean/interactions.js, v1.2.10)');
+        this._res.header('User-Agent', 'DiscordBot (https://github.com/fb-sean/interactions.js, v1.2.11)');
         return this._res.send({
             type: InteractionResponseType.DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE,
             data: {
@@ -306,7 +306,7 @@ class Interaction {
 
         this.client.emit('debug', "[DEBUG] Sending a interaction update to " + this.id);
 
-        this._res.header('User-Agent', 'DiscordBot (https://github.com/fb-sean/interactions.js, v1.2.10)');
+        this._res.header('User-Agent', 'DiscordBot (https://github.com/fb-sean/interactions.js, v1.2.11)');
         return this._res.send({
             type: InteractionResponseType.UPDATE_MESSAGE,
             data: {
@@ -377,7 +377,7 @@ class Interaction {
             });
         }
 
-        this._res.header('User-Agent', 'DiscordBot (https://github.com/fb-sean/interactions.js, v1.2.10)');
+        this._res.header('User-Agent', 'DiscordBot (https://github.com/fb-sean/interactions.js, v1.2.11)');
         return this._res.send({
             type: InteractionResponseType.MODAL,
             data,
@@ -406,7 +406,7 @@ class Interaction {
             }
         }
 
-        this._res.header('User-Agent', 'DiscordBot (https://github.com/fb-sean/interactions.js, v1.2.10)');
+        this._res.header('User-Agent', 'DiscordBot (https://github.com/fb-sean/interactions.js, v1.2.11)');
         return this._res.send({
             type: InteractionResponseType.APPLICATION_COMMAND_AUTOCOMPLETE_RESULT,
             data: {

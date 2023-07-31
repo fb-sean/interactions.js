@@ -26,19 +26,19 @@ declare const _exports: import("mongoose").Model<{
     guilds?: Map<string, {}>;
 }, {}, {}, {}, import("mongoose").Document<unknown, {}, {
     guilds?: Map<string, {}>;
-}> & Omit<{
+}> & {
     guilds?: Map<string, {}>;
 } & {
     _id: import("mongoose").Types.ObjectId;
-}, never>, Schema<any, import("mongoose").Model<any, any, any, any, any, any>, {}, {}, {}, {}, import("mongoose").DefaultSchemaOptions, {
+}, Schema<any, import("mongoose").Model<any, any, any, any, any, any>, {}, {}, {}, {}, import("mongoose").DefaultSchemaOptions, {
     guilds?: Map<string, {}>;
-}, import("mongoose").Document<unknown, {}, import("mongoose").FlatRecord<{
-    guilds?: Map<string, {}>;
-}>> & Omit<import("mongoose").FlatRecord<{
+}, import("mongoose").Document<unknown, {}, {
     guilds?: Map<string, {}>;
 }> & {
+    guilds?: Map<string, {}>;
+} & {
     _id: import("mongoose").Types.ObjectId;
-}, never>>>;
+}>>;
 export = _exports;
 import { Schema } from "mongoose";
 //# sourceMappingURL=GuildsCache.d.ts.map

@@ -26,19 +26,19 @@ declare const _exports: import("mongoose").Model<{
     channels?: Map<string, {}>;
 }, {}, {}, {}, import("mongoose").Document<unknown, {}, {
     channels?: Map<string, {}>;
-}> & Omit<{
+}> & {
     channels?: Map<string, {}>;
 } & {
     _id: import("mongoose").Types.ObjectId;
-}, never>, Schema<any, import("mongoose").Model<any, any, any, any, any, any>, {}, {}, {}, {}, import("mongoose").DefaultSchemaOptions, {
+}, Schema<any, import("mongoose").Model<any, any, any, any, any, any>, {}, {}, {}, {}, import("mongoose").DefaultSchemaOptions, {
     channels?: Map<string, {}>;
-}, import("mongoose").Document<unknown, {}, import("mongoose").FlatRecord<{
-    channels?: Map<string, {}>;
-}>> & Omit<import("mongoose").FlatRecord<{
+}, import("mongoose").Document<unknown, {}, {
     channels?: Map<string, {}>;
 }> & {
+    channels?: Map<string, {}>;
+} & {
     _id: import("mongoose").Types.ObjectId;
-}, never>>>;
+}>>;
 export = _exports;
 import { Schema } from "mongoose";
 //# sourceMappingURL=ChannelsCache.d.ts.map
