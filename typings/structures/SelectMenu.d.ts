@@ -90,6 +90,12 @@ declare class SelectMenu {
      */
     setDisabled(disabled: boolean): SelectMenu;
     /**
+     * set the default values of the select menu
+     * @param {array} defaultValues
+     * @returns {SelectMenu}
+     */
+    setDefaultValues(defaultValues: any[]): SelectMenu;
+    /**
      * return the select menu as json
      * @return {Object} The select menu as json
      * @private

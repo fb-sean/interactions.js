@@ -84,7 +84,14 @@ class SelectMenu {
              * @type {boolean}
              * @private
              */
-            disabled: false
+            disabled: false,
+
+            /**
+             * The default values of the select menu
+             * @type {array}
+             * @private
+             */
+            default_values: []
         };
     }
 
@@ -98,7 +105,7 @@ class SelectMenu {
             throw new Error("[Interactions.js => <SelectMenu>.setType] Type must be a number");
         }
 
-        if(!Object.values(SelectMenuTypes).includes(type)) {
+        if (!Object.values(SelectMenuTypes).includes(type)) {
             throw new Error("[Interactions.js => <SelectMenu>.setType] Type must be a valid type");
         }
 
@@ -116,7 +123,7 @@ class SelectMenu {
             throw new Error("[Interactions.js => <SelectMenu>.setCustomId] Custom id must be a string");
         }
 
-        if(customId.length > 100) {
+        if (customId.length > 100) {
             throw new Error("[Interactions.js => <SelectMenu>.setCustomId] Custom id must be less than 100 characters");
         }
 
@@ -130,42 +137,42 @@ class SelectMenu {
      * @return {SelectMenu}
      */
     addOptions(options) {
-        if(!options) {
+        if (!options) {
             throw new Error("[Interactions.js => <SelectMenu>.addOptions] Options are required");
         }
 
-        if(!Array.isArray(options)) {
+        if (!Array.isArray(options)) {
             throw new Error("[Interactions.js => <SelectMenu>.addOptions] Options must be an array");
         }
 
-        if(options.length > 25) {
+        if (options.length > 25) {
             throw new Error("[Interactions.js => <SelectMenu>.addOptions] Options must be less than 25");
         }
 
-        for(let option of options) {
-            if(option?.data) option = option.toJSON();
+        for (let option of options) {
+            if (option?.data) option = option.toJSON();
 
-            if(option?.label?.length > 100) {
+            if (option?.label?.length > 100) {
                 throw new Error("[Interactions.js => <SelectMenu>.addOptions] Option label must be less than 100 characters");
             }
 
-            if(option?.description && option?.description?.length > 100) {
+            if (option?.description && option?.description?.length > 100) {
                 throw new Error("[Interactions.js => <SelectMenu>.addOptions] Option description must be less than 100 characters");
             }
 
-            if(option?.value?.length > 100) {
+            if (option?.value?.length > 100) {
                 throw new Error("[Interactions.js => <SelectMenu>.addOptions] Option value must be less than 100 characters");
             }
 
-            if(option?.emoji?.name && option?.emoji?.name?.length > 100) {
+            if (option?.emoji?.name && option?.emoji?.name?.length > 100) {
                 throw new Error("[Interactions.js => <SelectMenu>.addOptions] Option emoji name must be less than 100 characters");
             }
 
-            if(option?.emoji && option?.emoji.id && option?.emoji?.id?.length > 100) {
+            if (option?.emoji && option?.emoji.id && option?.emoji?.id?.length > 100) {
                 throw new Error("[Interactions.js => <SelectMenu>.addOptions] Option emoji id must be less than 100 characters");
             }
 
-            if(!option?.emoji?.id && !option?.emoji?.name) {
+            if (!option?.emoji?.id && !option?.emoji?.name) {
                 throw new Error("[Interactions.js => <SelectMenu>.addOptions] Option emoji must have an id or name");
             }
         }
@@ -180,33 +187,33 @@ class SelectMenu {
      * @return {SelectMenu}
      */
     addOption(option) {
-        if(typeof option !== "object") {
+        if (typeof option !== "object") {
             throw new Error("[Interactions.js => <SelectMenu>.addOption] Option must be an object");
         }
 
-        if(option?.data) option = option.toJSON();
+        if (option?.data) option = option.toJSON();
 
-        if(option.label.length > 100) {
+        if (option.label.length > 100) {
             throw new Error("[Interactions.js => <SelectMenu>.addOption] Option label must be less than 100 characters");
         }
 
-        if(option.description && option.description.length > 100) {
+        if (option.description && option.description.length > 100) {
             throw new Error("[Interactions.js => <SelectMenu>.addOption] Option description must be less than 100 characters");
         }
 
-        if(option.value.length > 100) {
+        if (option.value.length > 100) {
             throw new Error("[Interactions.js => <SelectMenu>.addOption] Option value must be less than 100 characters");
         }
 
-        if(option.emoji?.name && option.emoji.name.length > 100) {
+        if (option.emoji?.name && option.emoji.name.length > 100) {
             throw new Error("[Interactions.js => <SelectMenu>.addOption] Option emoji name must be less than 100 characters");
         }
 
-        if(option.emoji && option.emoji.id && option.emoji.id.length > 100) {
+        if (option.emoji && option.emoji.id && option.emoji.id.length > 100) {
             throw new Error("[Interactions.js => <SelectMenu>.addOption] Option emoji id must be less than 100 characters");
         }
 
-        if(!option?.emoji?.id && !option?.emoji?.name) {
+        if (!option?.emoji?.id && !option?.emoji?.name) {
             throw new Error("[Interactions.js => <SelectMenu>.addOption] Option emoji must have an id or name");
         }
 
@@ -220,42 +227,42 @@ class SelectMenu {
      * @return {SelectMenu}
      */
     setOptions(options) {
-        if(!options) {
+        if (!options) {
             throw new Error("[Interactions.js => <SelectMenu>.setOptions] Options are required");
         }
 
-        if(!Array.isArray(options)) {
+        if (!Array.isArray(options)) {
             throw new Error("[Interactions.js => <SelectMenu>.setOptions] Options must be an array");
         }
 
-        if(options.length > 25) {
+        if (options.length > 25) {
             throw new Error("[Interactions.js => <SelectMenu>.setOptions] Options must be less than 25");
         }
 
-        for(let option of options) {
-            if(option?.data) option = option.toJSON();
+        for (let option of options) {
+            if (option?.data) option = option.toJSON();
 
-            if(option?.label?.length > 100) {
+            if (option?.label?.length > 100) {
                 throw new Error("[Interactions.js => <SelectMenu>.setOptions] Option label must be less than 100 characters");
             }
 
-            if(option?.description && option?.description?.length > 100) {
+            if (option?.description && option?.description?.length > 100) {
                 throw new Error("[Interactions.js => <SelectMenu>.setOptions] Option description must be less than 100 characters");
             }
 
-            if(option?.value?.length > 100) {
+            if (option?.value?.length > 100) {
                 throw new Error("[Interactions.js => <SelectMenu>.setOptions] Option value must be less than 100 characters");
             }
 
-            if(option?.emoji && option?.emoji?.name && option?.emoji?.name?.length > 100) {
+            if (option?.emoji && option?.emoji?.name && option?.emoji?.name?.length > 100) {
                 throw new Error("[Interactions.js => <SelectMenu>.setOptions] Option emoji name must be less than 100 characters");
             }
 
-            if(option?.emoji && option?.emoji.id && option?.emoji?.id?.length > 100) {
+            if (option?.emoji && option?.emoji.id && option?.emoji?.id?.length > 100) {
                 throw new Error("[Interactions.js => <SelectMenu>.setOptions] Option emoji id must be less than 100 characters");
             }
 
-            if(option?.emoji && !option?.emoji?.id && !option?.emoji?.name) {
+            if (option?.emoji && !option?.emoji?.id && !option?.emoji?.name) {
                 throw new Error("[Interactions.js => <SelectMenu>.setOptions] Option emoji must have an id or name");
             }
         }
@@ -270,7 +277,7 @@ class SelectMenu {
      * @return {SelectMenu}
      */
     setChannelTypes(channelTypes) {
-        if(!Array.isArray(channelTypes)) {
+        if (!Array.isArray(channelTypes)) {
             throw new Error("[Interactions.js => <SelectMenu>.setChannelTypes] Channel types must be an array");
         }
 
@@ -284,11 +291,11 @@ class SelectMenu {
      * @return {SelectMenu}
      */
     setPlaceholder(placeholder) {
-        if(typeof placeholder !== "string") {
+        if (typeof placeholder !== "string") {
             throw new Error("[Interactions.js => <SelectMenu>.setPlaceholder] Placeholder must be a string");
         }
 
-        if(placeholder.length > 100) {
+        if (placeholder.length > 100) {
             throw new Error("[Interactions.js => <SelectMenu>.setPlaceholder] Placeholder must be less than 100 characters");
         }
 
@@ -302,15 +309,15 @@ class SelectMenu {
      * @return {SelectMenu}
      */
     setMinValues(minValues) {
-        if(typeof minValues !== "number") {
+        if (typeof minValues !== "number") {
             throw new Error("[Interactions.js => <SelectMenu>.setMinValues] Min values must be a number");
         }
 
-        if(minValues < 1) {
+        if (minValues < 1) {
             throw new Error("[Interactions.js => <SelectMenu>.setMinValues] Min values must be greater than 0");
         }
 
-        if(minValues > 25) {
+        if (minValues > 25) {
             throw new Error("[Interactions.js => <SelectMenu>.setMinValues] Min values must be less than 25");
         }
 
@@ -324,15 +331,15 @@ class SelectMenu {
      * @return {SelectMenu}
      */
     setMaxValues(maxValues) {
-        if(typeof maxValues !== "number") {
+        if (typeof maxValues !== "number") {
             throw new Error("[Interactions.js => <SelectMenu>.setMaxValues] Max values must be a number");
         }
 
-        if(maxValues < 1) {
+        if (maxValues < 1) {
             throw new Error("[Interactions.js => <SelectMenu>.setMaxValues] Max values must be greater than 0");
         }
 
-        if(maxValues > 25) {
+        if (maxValues > 25) {
             throw new Error("[Interactions.js => <SelectMenu>.setMaxValues] Max values must be less than 25");
         }
 
@@ -346,11 +353,39 @@ class SelectMenu {
      * @return {SelectMenu}
      */
     setDisabled(disabled) {
-        if(typeof disabled !== "boolean") {
+        if (typeof disabled !== "boolean") {
             throw new Error("[Interactions.js => <SelectMenu>.setDisabled] Disabled must be a boolean");
         }
 
         this.data.disabled = disabled;
+        return this;
+    }
+
+    /**
+     * set the default values of the select menu
+     * @param {array} defaultValues
+     * @returns {SelectMenu}
+     */
+    setDefaultValues(defaultValues) {
+        if (!Array.isArray(defaultValues)) {
+            throw new Error("[Interactions.js => <SelectMenu>.setDefaultValues] Default values must be an array");
+        }
+
+        if (defaultValues.length > 25) {
+            throw new Error("[Interactions.js => <SelectMenu>.setDefaultValues] Default values must be less than 25");
+        }
+
+        for (let value of defaultValues) {
+            if (!value.id) {
+                throw new Error("[Interactions.js => <SelectMenu>.setDefaultValues] Default values must have an id");
+            }
+
+            if (!value.type) {
+                throw new Error("[Interactions.js => <SelectMenu>.setDefaultValues] Default values must have a type [role, user, channel]");
+            }
+        }
+
+        this.data.default_values = defaultValues;
         return this;
     }
 
@@ -360,9 +395,9 @@ class SelectMenu {
      * @private
      */
     toJSON() {
-        const data = { ...this.data };
+        const data = {...this.data};
 
-        if(data.type === 3 && data.options <= 0) {
+        if (data.type === 3 && data.options <= 0) {
             throw new Error("[Interactions.js => <SelectMenu>.toJSON] Select menu must have at least one option");
         }
 
