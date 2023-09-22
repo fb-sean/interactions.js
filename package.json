@@ -38,7 +38,7 @@
   "bugs": {
     "url": "https://github.com/fb-sean/interactions.js/issues"
   },
-  "homepage": "https://interactionsjs.com/1.2.11/",
+  "homepage": "https://interactionsjs.com",
   "scripts": {
     "generate-docs": "jsdoc --configure jsdoc.json --verbose",
     "generate-typings": "tsc"
