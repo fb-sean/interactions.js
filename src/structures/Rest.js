@@ -1,4 +1,5 @@
 const {REST} = require('@discordjs/rest');
+const version = require("../../package.json").version;
 
 /**
  * Interactions.js rest handler
@@ -32,7 +33,7 @@ class Rest {
         } else {
             Rest.rest = new REST({
                 version: '10',
-                userAgentAppendix: 'DiscordBot (https://github.com/fb-sean/interactions.js, v1.2.11)'
+                userAgentAppendix: `DiscordBot (https://github.com/fb-sean/interactions.js, v${version})`,
             }).setToken(process.env.DISCORD_TOKEN);
 
             return Rest.rest;

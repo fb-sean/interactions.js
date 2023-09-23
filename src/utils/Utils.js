@@ -1,6 +1,7 @@
 const Colors = require("../structures/Colors.js");
 const fetch = import('node-fetch');
 const {createPublicKey, verify} = require('node:crypto');
+const version = require("../../package.json").version;
 
 /**
  *
@@ -84,7 +85,7 @@ class Utils {
                 headers: {
                     Authorization: `Bot ${client.botToken}`,
                     'Content-Type': !formData ? 'application/json; charset=UTF-8' : 'multipart/form-data',
-                    'User-Agent': 'DiscordBot (https://github.com/fb-sean/interactions.js, v1.2.11)',
+                    'User-Agent': `DiscordBot (https://github.com/fb-sean/interactions.js, v${version})`,
                     ...headers
                 },
             });
