@@ -373,11 +373,11 @@ class Interaction {
         }
 
         if (data.components?.length > 0) {
-            data.components.forEach((component) => {
+            for (const component of data.components) {
                 if (component.components?.length > 5) {
                     throw new Error("[Interactions.js => <Interaction>.showModal] You can't provide more than 5 components in a row");
                 }
-            });
+            };
         }
 
         this._res.header('User-Agent', `DiscordBot (https://github.com/fb-sean/interactions.js, v${version})`);

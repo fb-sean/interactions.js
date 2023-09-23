@@ -99,34 +99,34 @@ class CacheManager {
     async loadCache() {
         let loaderArray = this.buildLoaderArray();
 
-        loaderArray.forEach(({schema, cache}, i) => {
+        for (const { schema, cache } of loaderArray) {
             // We use a little timeout here to avoid spamming the database
             setTimeout(async () => {
-                const data = await schema.findOne();
-                if (data) {
-                    cache = data;
-                }
-            }, 100 * i);
-        });
+              const data = await schema.findOne();
+              if (data) {
+                cache = data;
+              }
+            }, 100 * loaderArray.indexOf({ schema, cache }));
+          }
 
         setInterval(() => {
             loaderArray = this.buildLoaderArray();
 
-            loaderArray.forEach(({schema, cache, trigger}, i) => {
+            for (const { schema, cache, trigger } of loaderArray) {
                 // We use a little timeout here to avoid spamming the database
                 setTimeout(async () => {
-                    const data = await schema.findOne();
-                    if (data) {
-                        await data.updateOne({
-                            [trigger]: cache,
-                        });
-                    } else {
-                        await schema.create({
-                            [trigger]: cache,
-                        });
-                    }
-                }, 100 * i);
-            });
+                  const data = await schema.findOne();
+                  if (data) {
+                    await data.updateOne({
+                      [trigger]: cache,
+                    });
+                  } else {
+                    await schema.create({
+                      [trigger]: cache,
+                    });
+                  }
+                }, 100 * loaderArray.indexOf({ schema, cache, trigger }));
+              }
         }, client.customCacheCooldown);
     }
 }
