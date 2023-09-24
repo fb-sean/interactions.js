@@ -99,7 +99,7 @@ class CacheManager {
     async loadCache() {
         let loaderArray = this.buildLoaderArray();
 
-        for (const { schema, cache } of loaderArray) {
+        for (let { schema, cache } of loaderArray) {
             // We use a little timeout here to avoid spamming the database
             setTimeout(async () => {
               const data = await schema.findOne();
@@ -112,7 +112,7 @@ class CacheManager {
         setInterval(() => {
             loaderArray = this.buildLoaderArray();
 
-            for (const { schema, cache, trigger } of loaderArray) {
+            for (let { schema, cache, trigger } of loaderArray) {
                 // We use a little timeout here to avoid spamming the database
                 setTimeout(async () => {
                   const data = await schema.findOne();
