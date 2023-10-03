@@ -107,7 +107,7 @@ Client.on("interactionCreate", async (i) => {
         });
 
         /**
-         * After calling start(), the api starts on port 8221 in this example and you need to set your  application's interaction url to https://your-domain.com/interactions
+         * After calling start(), the api starts on port 8221 in this example and you need to set your application's interaction url to https://your-domain.com/interactions
          * 
          * The /interactions parts is required and you can't change it.
          */
