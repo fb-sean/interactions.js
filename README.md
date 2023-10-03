@@ -1,5 +1,6 @@
 ## Table of Contents
 
+- [About](#about)
 - [Getting Started](#getting-started)
   - [Installation](#installation)
   - [Example:](#example)
@@ -36,7 +37,6 @@ Some key features of interactions.js include:
 npm install interactions.js
 
 //This installs interactions.js and its dependencies using npm.
-
 ```
 
 ## Example:
