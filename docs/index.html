@@ -1,9 +1,67 @@
-<body>
-Hi
-<script>
-    setTimeout(function () {
-        window.location.href = 'https://interactionsjs.com/1.2.12';
-    }, 1000);
-</script>
-    <script defer data-domain="interactionsjs.com" src="https://stats.sattler.dev/js/script.js"></script>
-</body>
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Redirecting...</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+    
+    <style>
+      @font-face {
+        font-family: "heading";
+        src: url("./1.2.12/fonts/WorkSans-Bold.ttf") format("truetype");
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "body";
+        src: url("./1.2.12/fonts/OpenSans-Regular.ttf") format("truetype");
+        font-display: swap;
+      }
+
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #1a1a1a;
+      }
+
+      .container {
+        text-align: center;
+      }
+
+      .message {
+        font-size: 24px;
+        font-family: "heading";
+        color: #ffffff;
+        margin-bottom: 20px;
+      }
+
+      .redirect-link {
+        font-size: 18px;
+        font-family: "body";
+        color: #999999;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="message">
+        <i class="fas fa-circle-notch fa-spin"></i> Redirecting...
+      </div>
+      <a class="redirect-link" href="https://interactionsjs.com/1.2.12">If you are not redirected automatically, click here!</a>
+    </div>
+
+    <script>
+      setTimeout(function () {
+        window.location.href = "https://interactionsjs.com/1.2.12";
+      }, 1000);
+    </script>
+    <script defer data-domain="interactionsjs.com" src="https://stats.sattler.dev/js/script.js" ></script>
+  </body>
+</html>
