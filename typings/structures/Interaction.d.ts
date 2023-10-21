@@ -57,6 +57,11 @@ declare class Interaction {
      */
     values: any[];
     /**
+     * For monetized apps, any entitlements for the invoking user, representing access to premium SKUs
+     * @type {array}
+     */
+    entitlements: any[];
+    /**
      * interaction custom id
      * @type {string|null}
      */
@@ -122,6 +127,21 @@ declare class Interaction {
      */
     private _res;
     /**
+     * Get all entitlements for the current application
+     * @returns {array}
+     */
+    getEntitlements(): any[];
+    /**
+     * Check if the guild has a premium subscription
+     * @returns {boolean}
+     */
+    guildHavePremium(): boolean;
+    /**
+     * Check if the user has a premium subscription
+     * @returns {boolean}
+     */
+    userHavePremium(): boolean;
+    /**
      * Reply to an Interaction
      * @param options The message payload (embeds, components, content, files, ephemeral)
      * @example
@@ -134,6 +154,12 @@ declare class Interaction {
         files?: any[];
         ephemeral?: boolean;
     }): any;
+    /**
+     * Reply to an Interaction with a premium message
+     * @example
+     * interaction.replyPremium();
+     */
+    replyPremium(): any;
     /**
      * For components, ACK an interaction and edit the original message later; the user does not see a loading state
      * @example

@@ -88,6 +88,12 @@ class Interaction {
         this.values = req?.body?.data?.values ?? [];
 
         /**
+         * For monetized apps, any entitlements for the invoking user, representing access to premium SKUs
+         * @type {array}
+         */
+        this.entitlements = req?.body?.entitlements ?? [];
+
+        /**
          * interaction custom id
          * @type {string|null}
          */
@@ -184,6 +190,30 @@ class Interaction {
     }
 
     /**
+     * Get all entitlements for the current application
+     * @returns {array}
+     */
+    getEntitlements() {
+        return this.entitlements.filter((entitlement) => entitlement.application_id === this.client.applicationId);
+    }
+
+    /**
+     * Check if the guild has a premium subscription
+     * @returns {boolean}
+     */
+    guildHavePremium() {
+        return this.getEntitlements().filter((entitlement) => entitlement.guild_id === this.guild.id) >= 0;
+    }
+
+    /**
+     * Check if the user has a premium subscription
+     * @returns {boolean}
+     */
+    userHavePremium() {
+        return this.getEntitlements().filter((entitlement) => entitlement.user_id === this.user.id) >= 0;
+    }
+
+    /**
      * Reply to an Interaction
      * @param options The message payload (embeds, components, content, files, ephemeral)
      * @example
@@ -204,6 +234,21 @@ class Interaction {
                 files,
                 flags: ephemeral ? InteractionResponseFlags.EPHEMERAL : null,
             },
+        });
+    }
+
+    /**
+     * Reply to an Interaction with a premium message
+     * @example
+     * interaction.replyPremium();
+     */
+    replyPremium() {
+        this.client.emit('debug', "[DEBUG] Sending a premium reply to " + this.id);
+
+        this._res.header('User-Agent', `DiscordBot (https://github.com/fb-sean/interactions.js, v${version})`);
+        return this._res.send({
+            type: 10,
+            data: {},
         });
     }
 
