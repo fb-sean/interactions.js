@@ -65,7 +65,7 @@ class ChannelManager {
             Routes.channel(channelId),
         );
 
-        if(this?.client?.cacheChannels) this.client._cache.setChannel(channelId, data);
+        if (this?.client?.cacheChannels) this.client._cache.setChannel(channelId, data);
 
         return data;
     }
@@ -91,7 +91,7 @@ class ChannelManager {
             }
         );
 
-        if(this?.client?.cacheChannels) this.client._cache.deleteChannel(channelId, data);
+        if (this?.client?.cacheChannels) this.client._cache.deleteChannel(channelId, data);
 
         return data;
     }
@@ -103,7 +103,7 @@ class ChannelManager {
      * @return {Promise<object>}
      */
     async fetchMessage(channelId = this.id, messageId) {
-        if(typeof messageId !== 'string') throw new Error("[Interactions.js => <ChannelManager>.fetchMessage] The message id is needed for this action!");
+        if (typeof messageId !== 'string') throw new Error("[Interactions.js => <ChannelManager>.fetchMessage] The message id is needed for this action!");
 
         const rest = Rest.getRest();
 
@@ -119,13 +119,16 @@ class ChannelManager {
      * @return {Promise<object>}
      */
     async createMessage(channelId = this.id, data) {
-        if(typeof data !== 'object') throw new Error("[Interactions.js => <ChannelManager>.createMessage] a message payload is needed for this action!");
+        if (typeof data !== 'object') throw new Error("[Interactions.js => <ChannelManager>.createMessage] a message payload is needed for this action!");
 
         const rest = Rest.getRest();
 
         return await rest.post(
             Routes.channelMessages(channelId),
-            { body: data }
+            {
+                body: data,
+                files: data.files ?? undefined
+            }
         );
     }
 
@@ -136,7 +139,7 @@ class ChannelManager {
      * @return {Promise<object>}
      */
     async crosspostMessage(channelId = this.id, messageId) {
-        if(typeof messageId !== 'string') throw new Error("[Interactions.js => <ChannelManager>.crosspostMessage] The message id is needed for this action!");
+        if (typeof messageId !== 'string') throw new Error("[Interactions.js => <ChannelManager>.crosspostMessage] The message id is needed for this action!");
 
         const rest = Rest.getRest();
 
@@ -153,14 +156,17 @@ class ChannelManager {
      * @return {Promise<object>}
      */
     async editMessage(channelId = this.id, messageId, data) {
-        if(typeof messageId !== 'string') throw new Error("[Interactions.js => <ChannelManager>.editMessage] The message id is needed for this action!");
-        if(typeof data !== 'object') throw new Error("[Interactions.js => <ChannelManager>.editMessage] a message payload is needed for this action!");
+        if (typeof messageId !== 'string') throw new Error("[Interactions.js => <ChannelManager>.editMessage] The message id is needed for this action!");
+        if (typeof data !== 'object') throw new Error("[Interactions.js => <ChannelManager>.editMessage] a message payload is needed for this action!");
 
         const rest = Rest.getRest();
 
         return await rest.patch(
             Routes.channelMessage(channelId, messageId),
-            data
+            {
+                body: data,
+                files: data.files ?? undefined
+            }
         );
     }
 
@@ -171,7 +177,7 @@ class ChannelManager {
      * @return {Promise<object>}
      */
     async deleteMessage(channelId = this.id, messageId) {
-        if(typeof messageId !== 'string') throw new Error("[Interactions.js => <ChannelManager>.deleteMessage] The message id is needed for this action!");
+        if (typeof messageId !== 'string') throw new Error("[Interactions.js => <ChannelManager>.deleteMessage] The message id is needed for this action!");
 
         const rest = Rest.getRest();
 
@@ -189,7 +195,7 @@ class ChannelManager {
      * @return {Promise<object>}
      */
     async fetchReactions(channelId = this.id, messageId, after, limit) {
-        if(typeof messageId !== 'string') throw new Error("[Interactions.js => <ChannelManager>.fetchReactions] The message id is needed for this action!");
+        if (typeof messageId !== 'string') throw new Error("[Interactions.js => <ChannelManager>.fetchReactions] The message id is needed for this action!");
 
         const rest = Rest.getRest();
 
@@ -213,7 +219,7 @@ class ChannelManager {
      * @return {Promise<object>}
      */
     async createReaction(channelId = this.id, messageId, emoji) {
-        if(typeof messageId !== 'string') throw new Error("[Interactions.js => <ChannelManager>.createReaction] The message id is needed for this action!");
+        if (typeof messageId !== 'string') throw new Error("[Interactions.js => <ChannelManager>.createReaction] The message id is needed for this action!");
 
         const rest = Rest.getRest();
 
