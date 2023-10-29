@@ -125,7 +125,7 @@ class ChannelManager {
 
         return await rest.post(
             Routes.channelMessages(channelId),
-            data
+            { body: data }
         );
     }
 
