@@ -228,10 +228,10 @@ class Interaction {
         return this._res.send({
             type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
             data: {
-                content,
-                embeds,
-                components,
-                files,
+                content: content,
+                embeds: embeds,
+                components: components,
+                files: files,
                 flags: ephemeral ? InteractionResponseFlags.EPHEMERAL : null,
             },
         });
@@ -288,23 +288,39 @@ class Interaction {
     /**
      * Edit the Reply
      * @param options The message payload (embeds, components, content, files, ephemeral)
+     * @param {string} options.content The content of the message
+     * @param {array} options.embeds The embeds of the message
+     * @param {array} options.components The components of the message
+     * @param {array} options.files The files of the message
      * @example
      * const response = await interaction.editReply({ content: "Hello World" });
      * console.log(response);
      */
-    editReply({embeds = [], components = [], content = null, files = []}) {
-        if (embeds?.length <= 0 && components?.length <= 0 && !files?.length <= 0 && !content) throw new Error("[Interactions.js => <Interaction>.editReply] You need to provide a MessagePayload (Content or Embeds or Components or files)");
+    editReply(options = {}) {
+        if (
+            !options.hasOwnProperty('content') &&
+            !options.hasOwnProperty('embeds') &&
+            !options.hasOwnProperty('components') &&
+            !options.hasOwnProperty('files')
+        ) throw new Error("[Interactions.js => <Interaction>.editReply] You need to provide a MessagePayload (Content or Embeds or Components or files)");
 
         this.client.emit('debug', "[DEBUG] Sending a edit");
 
         let payload = {};
-        if (embeds?.length > 0) payload.embeds = embeds;
-        if (components?.length > 0) payload.components = components;
-        if (content) payload.content = content;
-        if (files?.length > 0) payload.files = files;
+        if (options.hasOwnProperty('content')) {
+            payload.content = options.content;
+        }
+        if (options.hasOwnProperty('embeds')) {
+            payload.embeds = options.embeds;
+        }
+        if (options.hasOwnProperty('components')) {
+            payload.components = options.components;
+        }
+        if (options.hasOwnProperty('files')) {
+            payload.files = options.files;
+        }
 
         const rest = Rest.getRest();
-
         return rest.patch(
             `/webhooks/${this.client.applicationId}/${this.token}/messages/@original?wait=true`,
             {
@@ -317,23 +333,39 @@ class Interaction {
     /**
      * Send a simple follow-up message
      * @param options The message payload (embeds, components, content, files, ephemeral)
+     * @param {string} options.content The content of the message
+     * @param {array} options.embeds The embeds of the message
+     * @param {array} options.components The components of the message
+     * @param {array} options.files The files of the message
      * @example
      * const response = await interaction.followUp({ content: "Hello World" });
      * console.log(response);
      */
-    followUp({embeds = [], components = [], content = null, files = []}) {
-        if (embeds?.length <= 0 && components?.length <= 0 && !files?.length <= 0 && !content) throw new Error("[Interactions.js => <Interaction>.followUp] You need to provide a MessagePayload (Content or Embeds or Components or files)");
+    followUp(options) {
+        if (
+            !options.hasOwnProperty('content') &&
+            !options.hasOwnProperty('embeds') &&
+            !options.hasOwnProperty('components') &&
+            !options.hasOwnProperty('files')
+        ) throw new Error("[Interactions.js => <Interaction>.followUp] You need to provide a MessagePayload (Content or Embeds or Components or files)");
 
         this.client.emit('debug', "[DEBUG] Sending a follow up");
 
         let payload = {};
-        if (embeds?.length > 0) payload.embeds = embeds;
-        if (components?.length > 0) payload.components = components;
-        if (content) payload.content = content;
-        if (files?.length > 0) payload.files = files;
+        if (options.hasOwnProperty('content')) {
+            payload.content = options.content;
+        }
+        if (options.hasOwnProperty('embeds')) {
+            payload.embeds = options.embeds;
+        }
+        if (options.hasOwnProperty('components')) {
+            payload.components = options.components;
+        }
+        if (options.hasOwnProperty('files')) {
+            payload.files = options.files;
+        }
 
         const rest = Rest.getRest();
-
         return rest.post(
             `/webhooks/${this.client.applicationId}/${this.token}?wait=true`,
             {
@@ -358,10 +390,10 @@ class Interaction {
         return this._res.send({
             type: InteractionResponseType.UPDATE_MESSAGE,
             data: {
-                content,
-                embeds,
-                components,
-                files,
+                content: content,
+                embeds: embeds,
+                components: components,
+                files: files,
             },
         });
     }

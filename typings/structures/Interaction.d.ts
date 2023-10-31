@@ -176,29 +176,27 @@ declare class Interaction {
     /**
      * Edit the Reply
      * @param options The message payload (embeds, components, content, files, ephemeral)
+     * @param {string} options.content The content of the message
+     * @param {array} options.embeds The embeds of the message
+     * @param {array} options.components The components of the message
+     * @param {array} options.files The files of the message
      * @example
      * const response = await interaction.editReply({ content: "Hello World" });
      * console.log(response);
      */
-    editReply({ embeds, components, content, files }: {
-        embeds?: any[];
-        components?: any[];
-        content?: any;
-        files?: any[];
-    }): Promise<unknown>;
+    editReply(options?: {}): Promise<unknown>;
     /**
      * Send a simple follow-up message
      * @param options The message payload (embeds, components, content, files, ephemeral)
+     * @param {string} options.content The content of the message
+     * @param {array} options.embeds The embeds of the message
+     * @param {array} options.components The components of the message
+     * @param {array} options.files The files of the message
      * @example
      * const response = await interaction.followUp({ content: "Hello World" });
      * console.log(response);
      */
-    followUp({ embeds, components, content, files }: {
-        embeds?: any[];
-        components?: any[];
-        content?: any;
-        files?: any[];
-    }): Promise<unknown>;
+    followUp(options: any): Promise<unknown>;
     /**
      * Update an Interaction
      * @param options The message payload (embeds, components, content, files)
