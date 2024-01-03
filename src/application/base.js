@@ -32,6 +32,7 @@ const User = require("../structures/User");
  * @param  {boolean}  options.cacheRoles whether to cache roles or not
  * @param  {boolean}  options.useMongooseCache whether to use the mongoose cache or not
  * @param  {number}  options.customCacheCooldown the custom cache cooldown
+ * @param  {boolean}  options.runOnAllInterfaces whether to run the application on all interfaces or not - needed for docker
  * @param  {*|null}  options.apiInstance if you want to use your own express or fastify instance
  * @return {Application} The application
  */
@@ -110,6 +111,12 @@ class Application extends EventEmitter {
          */
         this.customCacheCooldown = options?.customCacheCooldown ?? 10 * 60 * 1000;
 
+        /**
+         * whether to run the application on all interfaces or not - needed for docker
+         * @type {boolean}
+         */
+        this.runOnAllInterfaces = options?.runOnAllInterfaces ?? false;
+        
         /**
          * if you want to use your own express or fastify instance
          * @type {*|null}

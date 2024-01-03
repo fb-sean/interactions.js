@@ -25,6 +25,7 @@ export = Application;
  * @param  {boolean}  options.cacheRoles whether to cache roles or not
  * @param  {boolean}  options.useMongooseCache whether to use the mongoose cache or not
  * @param  {number}  options.customCacheCooldown the custom cache cooldown
+ * @param  {boolean} options.runOnAllInterfaces whether to run the application on all interfaces or not - needed for docker
  * @param  {*|null}  options.apiInstance if you want to use your own express or fastify instance
  * @return {Application} The application
  */
@@ -90,6 +91,11 @@ declare class Application extends EventEmitter {
      * @type {*|number}
      */
     customCacheCooldown: any | number;
+    /**
+     * whether to run the application on all interfaces or not - needed for docker
+     * @type {boolean}
+     */
+    runOnAllInterfaces: boolean;
     /**
      * if you want to use your own express or fastify instance
      * @type {*|null}

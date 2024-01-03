@@ -68,7 +68,8 @@ module.exports = async (Client) => {
     });
 
     if(!isCustomInstance) {
-        app.listen({port: Client.port}, (err) => {
+        const host = Client.runOnAllInterfaces ? '0.0.0.0' : 'localhost';
+        app.listen({port: Client.port, host: host },  (err) => {
             Client.emit('debug', "[DEBUG] API Online on port " + Client.port);
 
             Client.readySince = Date.now();
