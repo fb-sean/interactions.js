@@ -74,12 +74,14 @@ module.exports = async (Client) => {
 
             Client.readySince = Date.now();
 
-            /**
-             * Emitted the ready event.
-             * @event Application#ready
-             * @param {Application} Client The Client
-             */
-            Client.emit('ready', Client);
+            setTimeout(() => {
+                /**
+                 * Emitted the ready event.
+                 * @event Application#ready
+                 * @param {Application} Client The Client
+                 */
+                Client.emit('ready', Client);
+            }, 0);
         });
     } else {
         Client.readySince = Date.now();
