@@ -144,16 +144,15 @@ declare class Interaction {
     /**
      * Reply to an Interaction
      * @param options The message payload (embeds, components, content, files, ephemeral)
+     * @param {string} options.content The content of the message
+     * @param {array} options.embeds The embeds of the message
+     * @param {array} options.components The components of the message
+     * @param {array} options.files The files of the message
+     * @param {boolean} options.ephemeral If the message should be ephemeral
      * @example
      * interaction.reply({ content: "Hello World" });
      */
-    reply({ embeds, components, content, files, ephemeral }: {
-        embeds?: any[];
-        components?: any[];
-        content?: any;
-        files?: any[];
-        ephemeral?: boolean;
-    }): any;
+    reply(options: any): any;
     /**
      * Reply to an Interaction with a premium message
      * @example
@@ -192,6 +191,7 @@ declare class Interaction {
      * @param {array} options.embeds The embeds of the message
      * @param {array} options.components The components of the message
      * @param {array} options.files The files of the message
+     * @param {boolean} options.ephemeral If the message should be ephemeral
      * @example
      * const response = await interaction.followUp({ content: "Hello World" });
      * console.log(response);

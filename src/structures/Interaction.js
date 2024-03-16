@@ -216,24 +216,46 @@ class Interaction {
     /**
      * Reply to an Interaction
      * @param options The message payload (embeds, components, content, files, ephemeral)
+     * @param {string} options.content The content of the message
+     * @param {array} options.embeds The embeds of the message
+     * @param {array} options.components The components of the message
+     * @param {array} options.files The files of the message
+     * @param {boolean} options.ephemeral If the message should be ephemeral
      * @example
      * interaction.reply({ content: "Hello World" });
      */
-    reply({embeds = [], components = [], content = null, files = [], ephemeral = false}) {
-        if (embeds?.length <= 0 && components?.length <= 0 && !files && !content) throw new Error("[Interactions.js => <Interaction>.reply] You need to provide a MessagePayload (Content or Embeds or Components or files)");
+    reply(options) {
+        if (
+            !options.hasOwnProperty('content') &&
+            !options.hasOwnProperty('embeds') &&
+            !options.hasOwnProperty('components') &&
+            !options.hasOwnProperty('files')
+        ) throw new Error("[Interactions.js => <Interaction>.reply] You need to provide a MessagePayload (Content or Embeds or Components or files)");
 
         this.client.emit('debug', "[DEBUG] Sending a reply to " + this.id);
+
+        let payload = {};
+        if (options.hasOwnProperty('content')) {
+            payload.content = options.content;
+        }
+        if (options.hasOwnProperty('embeds')) {
+            payload.embeds = options.embeds;
+        }
+        if (options.hasOwnProperty('components')) {
+            payload.components = options.components;
+        }
+        if (options.hasOwnProperty('files')) {
+            payload.files = options.files;
+        }
+
+        if (options.hasOwnProperty('ephemeral')) {
+            payload.flags = InteractionResponseFlags.EPHEMERAL;
+        }
 
         this._res.header('User-Agent', `DiscordBot (https://github.com/fb-sean/interactions.js, v${version})`);
         return this._res.send({
             type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-            data: {
-                content: content,
-                embeds: embeds,
-                components: components,
-                files: files,
-                flags: ephemeral ? InteractionResponseFlags.EPHEMERAL : null,
-            },
+            data: payload,
         });
     }
 
@@ -337,6 +359,7 @@ class Interaction {
      * @param {array} options.embeds The embeds of the message
      * @param {array} options.components The components of the message
      * @param {array} options.files The files of the message
+     * @param {boolean} options.ephemeral If the message should be ephemeral
      * @example
      * const response = await interaction.followUp({ content: "Hello World" });
      * console.log(response);
@@ -363,6 +386,10 @@ class Interaction {
         }
         if (options.hasOwnProperty('files')) {
             payload.files = options.files;
+        }
+
+        if (options.hasOwnProperty('ephemeral')) {
+            payload.flags = InteractionResponseFlags.EPHEMERAL;
         }
 
         const rest = Rest.getRest();
